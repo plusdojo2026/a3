@@ -7,21 +7,21 @@
 <body>
     <h6>クラスケア</h6>
     <h1>Class Care</h1>
-    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="">
 <main>
 <div>
 <!-- 左側サイドナビ -->
  <aside>
     <nav>
         <ul>
-            <li><a href="mypage.jsp">生徒</a></li>
-            <li><a href="stuScoreMenu.jsp">成績</a></li>
-            <li><a href="incidentMenu.jsp">報告</a></li>
+            <li><a href="">生徒</a></li>
+            <li><a href="">成績</a></li>
+            <li><a href="">報告</a></li>
                 <ul>
-                    <li><a href="incidentMenu.jsp">:事案</a></li>
-                    <li><a href="mTMenu.jsp">:心理テスト</a></li>
+                    <li><a href="">:事案</a></li>
+                    <li><a href="">:心理テスト</a></li>
                 </ul>
-            <li><a href="support.jsp">海外支援</a></li>
+            <li><a href="">海外支援</a></li>
         </ul>
     </nav>
 </aside>
