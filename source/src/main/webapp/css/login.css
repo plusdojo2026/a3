@@ -1,0 +1,142 @@
+@charset "UTF-8";
+/* ===== ログインフォーム全体 ===== */
+
+form {
+    width: 450px;
+    margin: 80px auto;
+    position: relative;
+}
+
+.login-container{
+    position: relative;
+
+    width: 700px;
+
+    margin: 50px auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bg-shape{
+    position: absolute;
+
+    width: 900px;
+
+    top: -120px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    opacity: 0.8;
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+.login-title{
+    width: 350px;
+    height: 120px;
+
+    margin: 0 auto 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 42px;
+    font-weight: bold;
+    color: white;
+
+    background-image: url("../img/login-bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* テーブル中央配置 */
+form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* 各行の余白 */
+form td {
+    padding: 10px 0;
+}
+
+/* ラベル */
+form label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #008c9e;
+    line-height: 1.8;
+}
+
+/* 入力欄 */
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    height: 55px;
+    padding: 0 15px;
+    font-size: 18px;
+
+    border: 2px solid #00a7b7;
+    border-radius: 8px;
+
+    box-sizing: border-box;
+}
+
+/* プレースホルダー */
+form input::placeholder {
+    color: #bdbdbd;
+}
+
+/* ボタン共通 */
+form input[type="submit"],
+form input[type="reset"]{
+    width: 180px;
+    height: 70px;
+
+    border: none;
+    cursor: pointer;
+
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-color: transparent;
+}
+
+
+/* ログインボタン */
+form input[type="submit"]{
+    background-image: url("../img/login-button.png");
+}
+
+/* リセットボタン */
+form input[type="reset"]{
+    background-image: url("../img/reset-button.png");
+}
+
+/* ホバー */
+form input[type="submit"]:hover,
+form input[type="reset"]:hover {
+    opacity: 0.8;
+}
+
+/* エラーメッセージ */
+#error_message {
+    display: block;
+
+    color: red;
+    font-size: 13px;
+
+    margin-top: 10px;
+}
