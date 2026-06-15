@@ -1,0 +1,86 @@
+.layout {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  gap: 100px;
+}
+
+aside {
+  width: 200px;
+  left: 0%;
+}
+
+#pageIntro p {
+  color: #aaa;
+  font-size: 13px;
+}
+
+#pageContent {
+
+  /*中心に置く*/
+  align-items: center;
+  justify-content: center;
+  padding: 32px 40px;
+
+  /*背景色*/
+  background-color: #FCCCE4;
+  border: 2px #4b4b4b;
+  /*円滑化*/
+  border-radius: 10px;
+  /*影効果*/
+  box-shadow: 4px 8px 15px 0px rgb(158 158 158 / 32%);
+  /*上への距離*/
+  margin-top: 40px;
+  /*最小長さ*/
+  min-height: 200px;
+  max-width: 760px;
+}
+
+
+
+form {
+  /*flexを起動*/
+  display: flex;
+  /*中心に置く*/
+  align-items: center;
+  /*間の大きさ*/
+  gap: 12px;
+  /*左への距離*/
+  width: 600px;
+  margin-left: 0;
+}
+
+label {
+
+  color: #26bcb4;
+  white-space: nowrap;
+
+}
+
+input[type="text"] {
+  /*flexを起動*/
+  flex: 1;
+  /*内部*/
+  padding: 8px 12px;
+  /*枠*/
+  border: 1px solid #26bcb4;
+  border-radius: 6px;
+
+}
+
+input[type="submit"] {
+  /*ボタンの大きさ*/
+  width: 80px;
+  height: 40px;
+  /*文字の色*/
+  color: white;
+  /*背景写真*/
+  background: url("../img/button.png") no-repeat center;
+  background-size: contain;
+  /*ボーダーライン*/
+  border: none;
+  outline: none;
+  /*ポインタ*/
+  cursor: pointer;
+
+}
