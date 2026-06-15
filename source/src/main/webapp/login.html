@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>ログイン｜Classcare</title>
+        
+        <link rel="stylesheet" href="css/login.css">
     </head>
     <body>
      <!--ここのアクションまだ入れてません-->
@@ -21,33 +23,27 @@
                 <button type="button">ログアウト</button>
             </nav>
     </header>
+    <!-- メインコンテンツ -->
+    <h2 class="login-title">ログイン</h2>
+    
 	<form action="">
 
         <!-- ログインボックス -->
-        <table>
-            <tr>
-             <td>
+    		<div>
                 <label>ユーザー名 / Username<br>
                     <input type="text" name="ID">
                 </label>
-            </td>
-            </tr>
-
-            <tr>
-            <td>
+            </div>
+            <div>
                 <label>パスワード / Password<br>
                     <input type="text" name="pw">
                 </label>
-            </td>
-            </tr>
-            <tr>
-            <td>
+            </div>
+          	<div>
                 <input type="submit" name="submit" value="ログイン">
                 <input type="reset" name="reset" value="リセット"> 
                 <span id="error_message"></span>
-            </td>
-            </tr>
-        </table>
+			</div>
         </form>
         <!-- ログインボックス終了 -->
         <!-- 一番最後に置いてください -->
