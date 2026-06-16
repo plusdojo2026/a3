@@ -8,7 +8,7 @@ public class Mental_scores {
     private int mtId;
     private int userId;
     
-    //ゲッタとセッタ
+    //ゲッタ、セッタ
 	public int getMtScoresId() {
 		return mtScoresId;
 	}

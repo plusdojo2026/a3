@@ -12,7 +12,7 @@ public class Chat {
 	private LocalDateTime created_at;
 	private int user_id;
 	
-	//ゲッタとセッタ
+	//ゲッタ、セッタ
 	public int getChat_id() {
 		return chat_id;
 	}
