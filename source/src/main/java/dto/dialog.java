@@ -1,11 +1,12 @@
 package dto;
 
-public class dialog {
+import java.io.Serializable;
+
+public class dialog implements Serializable {
 	private int dialogId;
  	private String date;
 	private String contain;
 	private Integer userID;
-	
 	
 	public dialog(int dialogId, String date, String contain, Integer userID) {
 		super();
