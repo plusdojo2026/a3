@@ -2,13 +2,18 @@ package dto;
 
 import java.io.Serializable;
 
+
+
 public class Subjects implements Serializable {
+
 	private int   subjectId;
 	private String   subjectName;
 	
 	
-	public Subjects(int subjectId, String subjectName) {
-		super();
+
+	public  Subjects(int subjectId, String subjectName) {
+
+	
 		this.subjectId = subjectId;
 		this.subjectName = subjectName;
 	}
@@ -27,5 +32,5 @@ public class Subjects implements Serializable {
 	 public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
-	
-}
+	}
+
