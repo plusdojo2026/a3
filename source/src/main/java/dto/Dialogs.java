@@ -3,24 +3,21 @@ package dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Dialog implements Serializable {
-	private int dialogId;
+
+
+
+public class Dialogs implements Serializable {
+
 	private LocalDateTime date;
 	private String contain;
 	private Integer userID;
 	
-	public Dialog(int dialogId, LocalDateTime date, String contain, Integer userID) {
+	
+	public Dialogs(LocalDateTime date, String contain, Integer userID) {
 		super();
-		this.dialogId = dialogId;
 		this.date = date;
 		this.contain = contain;
 		this.userID = userID;
-	}
-	public int getDialogId() {
-		return dialogId;
-	}
-	public void setDialogId(int dialogId) {
-		this.dialogId = dialogId;
 	}
 	public LocalDateTime getDate() {
 		return date;
@@ -40,6 +37,12 @@ public class Dialog implements Serializable {
 	public void setUserID(Integer userID) {
 		this.userID = userID;
 	}
-
-		
+	
+	
+	
 }
+
+
+
+	
+
