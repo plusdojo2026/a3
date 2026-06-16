@@ -15,7 +15,7 @@ USE `classcare_db`;
 -- ======================================
 CREATE TABLE `classcare_db`.`classes` (
   `class_id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NULL,
+  `user_id` INT NOT NULL,
   `class_name` VARCHAR(200) NOT NULL,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`),
   PRIMARY KEY (`class_id`)

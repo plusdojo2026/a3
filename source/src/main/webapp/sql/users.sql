@@ -1,20 +1,21 @@
-create database classcare_db;
+create database `classcare_db`;
 
-use classcare_db;
+use `classcare_db`;
 
-create table users(
-     user_id int auto_increment primary key,
-     state int not null,
-     name varchar(20) not null, birthday date not null,
-     age int,
-     gender varchar(10) not null,
-     tel varchar(20) not null,
-     mail varchar(50) not null,
-     parents_mail varchar(50) not null,
-     post_code varchar(10) not null,
-     address varchar(100) not null,
-     password varchar(30) not null,
-     preparation varchar(200),
-     image_url varchar(100) not null,
-     class_id varchar(30) not null
-    );
+CREATE TABLE `classcare_db`.`users` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `state` INT NOT NULL DEFAULT 1,
+  `name` VARCHAR(20) NOT NULL,
+  `birthday` DATE NOT NULL,
+  `age` INT NOT NULL,
+  `gender` VARCHAR(10) NOT NULL,
+  `tel` VARCHAR(20) NOT NULL,
+  `mail` VARCHAR(50) NOT NULL,
+  `parents_mail` VARCHAR(50) NOT NULL,
+  `post_code` VARCHAR(20) NOT NULL,
+  `address` VARCHAR(100) NOT NULL,
+  `password` VARCHAR(30) NOT NULL,
+  `preparation` VARCHAR(200) NULL,
+  `image_url` VARCHAR(50) NULL,
+  PRIMARY KEY (`user_id`)
+);
