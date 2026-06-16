@@ -4,25 +4,59 @@ import java.io.Serializable;
 
 public class Users implements Serializable {
 
-	private int user_id;			/* ID */
-	private int state;				/* 身分 */
-	private String name;			/* 名前 */
-	private String birthday;		/* 生年月日 */
-	private int age;				/* 年齢 */
-	private String gender;			/* 性別 */
-	private String tel;				/* 電話番号 */
-	private String mail;  			/* メールアドレス */
-	private String parents_mail;	/* （親）メールアドレス */
-	private String post_code;		/* 郵便番号 */
-	private String address;			/* 住所 */
-	private String password;  		/* パスワード */
-	private String preparation;		/* 備用 */
-	private String image_url;		/* 写真 */
+	private int user_id; /* ID */
+	private int state; /* 身分 */
+	private String name; /* 名前 */
+	private String birthday; /* 生年月日 */
+	private int age; /* 年齢 */
+	private String gender; /* 性別 */
+	private String tel; /* 電話番号 */
+	private String mail; /* メールアドレス */
+	private String parents_mail; /* （親）メールアドレス */
+	private String post_code; /* 郵便番号 */
+	private String address; /* 住所 */
+	private String password; /* パスワード */
+	private String preparation; /* 備用 */
+	private String image_url; /* 写真 */
 
-	public Users(int user_id, int state, String name, String birthday, int age, String gender,String tel, String mail,
-			String parents_mail, String post_code, String address, String password, String preparation, String image_url) {
+	/**
+	 * @param state
+	 * @param name
+	 * @param birthday
+	 * @param age
+	 * @param gender
+	 * @param tel
+	 * @param mail
+	 * @param parents_mail
+	 * @param post_code
+	 * @param address
+	 * @param password
+	 */
+	public Users(int state, String name, String birthday, int age, String gender, String tel, String mail,
+			String parents_mail, String post_code, String address, String password) {
+		this.state = state;
+		this.name = name;
+		this.birthday = birthday;
+		this.age = age;
+		this.gender = gender;
+		this.tel = tel;
+		this.mail = mail;
+		this.parents_mail = parents_mail;
+		this.post_code = post_code;
+		this.address = address;
+		this.password = password;
+	}
+
+	/**
+	 * 
+	 */
+	public Users() {
+	}
+
+	public Users(int state, String name, String birthday, int age, String gender, String tel, String mail,
+			String parents_mail, String post_code, String address, String password, String preparation,
+			String image_url) {
 		super();
-		this.user_id = user_id;
 		this.state = state;
 		this.name = name;
 		this.birthday = birthday;
@@ -149,6 +183,5 @@ public class Users implements Serializable {
 	public void setImage_url(String image_url) {
 		this.image_url = image_url;
 	}
-	
-}
 
+}

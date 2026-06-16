@@ -1,8 +1,8 @@
 package dto;
 
 public class Scores {
-	private int scores_id;
-	private String score;
+	private int scores_id;// 点数番号
+	private String score;// 点数
 
 	/**
 	 * @return scores_id
@@ -33,11 +33,9 @@ public class Scores {
 	}
 
 	/**
-	 * @param scores_id
 	 * @param score
 	 */
-	public Scores(int scores_id, String score) {
-		this.scores_id = scores_id;
+	public Scores(String score) {
 		this.score = score;
 	}
 

@@ -48,12 +48,11 @@ public class Classes {
 	}
 
 	/**
-	 * @param class_id
 	 * @param user_id
 	 * @param class_name
 	 */
-	public Classes(int class_id, int user_id, String class_name) {
-		this.class_id = class_id;
+	public Classes(int user_id, String class_name) {
+
 		this.user_id = user_id;
 		this.class_name = class_name;
 	}
