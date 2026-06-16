@@ -3,13 +3,13 @@ package dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class dialog implements Serializable {
+public class Dialog implements Serializable {
 	private int dialogId;
 	private LocalDateTime date;
 	private String contain;
 	private Integer userID;
 	
-	public dialog(int dialogId, LocalDateTime date, String contain, Integer userID) {
+	public Dialog(int dialogId, LocalDateTime date, String contain, Integer userID) {
 		super();
 		this.dialogId = dialogId;
 		this.date = date;
