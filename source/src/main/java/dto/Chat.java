@@ -76,4 +76,8 @@ public class Chat {
 		this.user_id = user_id;
 	}
 	
+	// 空のコンストラクタ
+	public Chat() {
+	}	
+	
 }

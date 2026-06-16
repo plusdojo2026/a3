@@ -57,4 +57,7 @@ public class Mental_scores {
 		this.userId = userId;
 	} 
 	
+	// 空のコンストラクタ
+	public Mental_scores() {
+	}	
 }
