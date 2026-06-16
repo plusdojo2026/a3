@@ -2,12 +2,12 @@ package dto;
 
 import java.io.Serializable;
 
-public class subject implements Serializable {
+public class Subjects implements Serializable {
 	private int   subjectId;
 	private String   subjectName;
 	
 	
-	public subject(int subjectId, String subjectName) {
+	public Subjects(int subjectId, String subjectName) {
 		super();
 		this.subjectId = subjectId;
 		this.subjectName = subjectName;
