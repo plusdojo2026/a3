@@ -1,7 +1,9 @@
 CREATE database classcare_db;
 
+-- classcare_dbを使用
 USE classcare_db;
 
+-- testsテーブル
 CREATE TABLE `classcare_db`.`tests` (
   `test_id` INT NOT NULL AUTO_INCREMENT,
   `scores_id` INT NULL,
