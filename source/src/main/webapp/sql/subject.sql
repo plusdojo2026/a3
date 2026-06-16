@@ -1,7 +1,7 @@
 
 USE `classcare_db`;
 
-CREATE TABLE scores (
+CREATE TABLE subject (
     `id` INT AUTO_INCREMENT PRIMARY KEY, -- データ番号
     `user_id` VARCHAR(10) NOT NULL,   -- 生徒番号
     `test_year_month` VARCHAR(7) NOT NULL, -- いつのテストか
