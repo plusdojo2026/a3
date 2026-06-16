@@ -8,7 +8,7 @@ public class Mental_scores {
     private int mtId;
     private int userId;
     
-    //ゲッタとセッタ
+    //ゲッタ、セッタ
 	public int getMtScoresId() {
 		return mtScoresId;
 	}
@@ -57,7 +57,4 @@ public class Mental_scores {
 		this.userId = userId;
 	} 
 	
-	// 空のコンストラクタ
-	public Mental_scores() {
-	}	
 }

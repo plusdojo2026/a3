@@ -12,7 +12,7 @@ public class Chat {
 	private LocalDateTime created_at;
 	private int user_id;
 	
-	//ゲッタとセッタ
+	//ゲッタ、セッタ
 	public int getChat_id() {
 		return chat_id;
 	}
@@ -75,9 +75,5 @@ public class Chat {
 		this.created_at = created_at;
 		this.user_id = user_id;
 	}
-	
-	// 空のコンストラクタ
-	public Chat() {
-	}	
 	
 }
