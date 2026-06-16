@@ -58,4 +58,7 @@ public class Trouble implements Serializable {
 		this.user_id = user_id;
 		this.situation = situation;
 	}
+	public Trouble() {
+		super();
+	}
 }

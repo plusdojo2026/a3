@@ -5,14 +5,14 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class Schedules implements Serializable {
-	private int schedule_id;			/* スケジュールID */
-	private Date date;					/* 日時 */
-	private String subject;				/* 科目 */
-	private Time start_time;			/* 開始時間 */
-	private Time finish_time;			/* 終了時間 */
-	private String type;				/* 種類 */
-	private String memo;				/* メモ */
-	private int user_id;				/* ユーザーID */
+	private int schedule_id;
+	private Date date;
+	private String subject;
+	private Time start_time;
+	private Time finish_time;
+	private String type;
+	private String memo;
+	private int user_id;
 	
 	
 	

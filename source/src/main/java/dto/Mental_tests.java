@@ -156,6 +156,9 @@ public class Mental_tests implements Serializable{
 		this.mt_test_date = mt_test_date;
 		this.user_id = user_id;
 	}
+	public Mental_tests() {
+		super();
+	}
 	
 	
 }

@@ -64,6 +64,12 @@ public class Tests implements Serializable{
 		this.subject_id = subject_id;
 		this.user_id = user_id;
 	}
+
+	public Tests() {
+		super();
+	}
+	
+	
 	
 	
 	
