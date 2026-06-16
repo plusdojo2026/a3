@@ -19,3 +19,10 @@ CREATE TABLE `classcare_db`.`users` (
   `image_url` VARCHAR(50) NULL,
   PRIMARY KEY (`user_id`)
 );
+
+
+
+INSERT INTO users
+(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url)
+VALUES
+(1, '山田太郎', '2013-05-15', 13, '男', '070-8888-8888', 'tarou@gmail', 'yamada@gmail', '11-0101', '東京都xxxxxxxxx1-1-1', '123321', '', '');
