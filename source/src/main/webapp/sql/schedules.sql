@@ -1,10 +1,10 @@
-create table schedules(
-   schedule_id int primary key,
-   date date,
-   subject varchar(10),
-   start_time time,
-   finish_time time,
-   type varchar(10),
-   memo varchar(50),
-   user_id int
+CREATE TABLE 'schedules'(
+   'schedule_id' INT PRIMARY KEY,
+   'date' DATE,
+   'subject' VARCHAR(10),
+   'start_time' TIME,
+   'finish_time' TIME,
+   'type' VARCHAR(10),
+   'memo' VARCHAR(50),
+   'user_id' INT
 );
