@@ -18,4 +18,4 @@ CREATE TABLE `classcare_db`.`tests` (
 
 -- サンプルデータ
 INSERT INTO `tests` (`scores_id`, `test_date`,  `subject_id`, `user_id`)
-VALUES(1, '2026-06-17', 1, 1);
+VALUES(1, '2026-06-17', 1, 1),(2, '2026-06-17', 2, 1),(3, '2026-06-17', 3, 1);
