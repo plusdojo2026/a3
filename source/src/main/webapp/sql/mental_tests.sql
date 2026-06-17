@@ -1,4 +1,4 @@
-CREATE DATABASE classcare_db;
+-- CREATE DATABASE classcare_db;
 
 -- classcare_dbを使用
 USE classcare_db;
