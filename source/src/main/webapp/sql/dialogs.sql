@@ -1,14 +1,6 @@
 
 USE `classcare_db`;
 
-CREATE TABLE dialogs (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- 日記の番号
-    `student_id` VARCHAR(10) NOT NULL,    -- 学籍番号など
-    `content` TEXT NOT NULL,              -- 日記の本文
-    `dialogs_year_month` VARCHAR(7) NOT NULL, -- いつの日記か
-);
-
-
 
 CREATE TABLE `dialogs` (
   `dialog_id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -20,3 +12,10 @@ CREATE TABLE `dialogs` (
   `user_id` INT,
   FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
 );
+
+INSERT INTO `dialogs` (`date`, `contain`, `user_id`) VALUES
+('2026-06-15', '面談を実施しました。', 1),
+('2026-06-16', '宿題の提出状況について話し合いました。', 2),
+('2026-06-17', '次の小テストの相談を受けました。', 3),
+('2026-06-17', '人間関係についての相談を受けました。', 4),
+('2026-06-17', '窓ガラスを割った件について指導しました。', 5);
