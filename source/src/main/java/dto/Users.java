@@ -1,13 +1,14 @@
 package dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Users implements Serializable {
 
 	private int user_id; /* ID */
 	private int state; /* 身分 */
 	private String name; /* 名前 */
-	private String birthday; /* 生年月日 */
+	private Date birthday; /* 生年月日 */
 	private int age; /* 年齢 */
 	private String gender; /* 性別 */
 	private String tel; /* 電話番号 */
@@ -32,7 +33,7 @@ public class Users implements Serializable {
 	 * @param address
 	 * @param password
 	 */
-	public Users(int state, String name, String birthday, int age, String gender, String tel, String mail,
+	public Users(int state, String name, Date birthday, int age, String gender, String tel, String mail,
 			String parents_mail, String post_code, String address, String password) {
 		this.state = state;
 		this.name = name;
@@ -53,7 +54,7 @@ public class Users implements Serializable {
 	public Users() {
 	}
 
-	public Users(int state, String name, String birthday, int age, String gender, String tel, String mail,
+	public Users(int state, String name, Date birthday, int age, String gender, String tel, String mail,
 			String parents_mail, String post_code, String address, String password, String preparation,
 			String image_url) {
 		super();
@@ -96,11 +97,11 @@ public class Users implements Serializable {
 		this.name = name;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
