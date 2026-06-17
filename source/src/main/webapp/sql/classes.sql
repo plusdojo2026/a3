@@ -1,7 +1,7 @@
 -- ======================================
 -- classcare_db を作成する
 -- ======================================
-CREATE DATABASE `classcare_db`;
+-- CREATE DATABASE `classcare_db`;
 
 -- classcare_db を使用する
 USE `classcare_db`;
