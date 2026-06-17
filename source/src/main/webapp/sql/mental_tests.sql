@@ -32,3 +32,14 @@ CREATE TABLE mental_tests(
     `user_id` INT,
    FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
 );
+
+-- サンプルデータ
+	INSERT INTO `mental_tests` (`mt_img_url`, `question`, `choiceA`, `choiceB`, `choiceC`, `choiceD`, 
+		`choiceA_descript`, `choiceB_descript`, `choiceC_descript`, `choiceD_descript`, 
+		`choiceA_score`, `choiceB_score`, `choiceC_score`, `choiceD_score`, 
+		`mt_test_date`, `user_id`)
+		VALUES ('sample.url', '質問', 
+			'A', 'B', 'C', 'D', 
+			'Ades', 'Bdes', 'Cdes', 'Ddes', 
+			100, 80, 60, 40, 
+			'2026-06-17', 1);
