@@ -9,3 +9,7 @@ CREATE TABLE `classcare_db`.`scores` (
   `score` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`scores_id`)
 );
+
+INSERT INTO `scores`(`score`) VALUES (100);
+INSERT INTO `scores`(`score`) VALUES (100);
+INSERT INTO `scores`(`score`) VALUES (99);

@@ -20,3 +20,7 @@ CREATE TABLE `classcare_db`.`classes` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`),
   PRIMARY KEY (`class_id`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
+
+
+INSERT INTO `classes`(`user_id`,`class_name`) VALUES(1,'一年一組');
+INSERT INTO `classes`(`user_id`,`class_name`) VALUES(2,'一年二組');
