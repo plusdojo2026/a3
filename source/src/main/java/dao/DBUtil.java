@@ -14,7 +14,7 @@ public class DBUtil {
 	// DB接続情報
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-	private static final String URL = "jdbc:mysql://localhost:3306/nameCard_db" + "?useUnicode=true"
+	private static final String URL = "jdbc:mysql://localhost:3306/classcare_db" + "?useUnicode=true"
 			+ "&characterEncoding=UTF-8" + "&serverTimezone=Asia/Tokyo";
 
 	private static final String USER = "root";
