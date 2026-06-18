@@ -58,6 +58,32 @@ public class SchedulesDao {
 	}
 	
 	/**
+	 * schedulesIdをもとにクラス情報を検索する。
+	 *
+	 * @param schedulesId 検索対象のクラスID
+	 * @return 該当するSchedules（見つからない場合はnull）
+	 */
+	public Schedules findById(int schedulesId) {
+
+		String sql = "SELECT * FROM  WHERE schedules schedule_id = ?";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, schedulesId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return mapToClassesDto(rs);
+				}
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException("FindById failed", e);
+		}
+
+		return null;
+	}
+	/**
 	 * 新規スケジュールを挿入する。
 	 *
 	 * @param schedules スケジュールを保持しているオブジェクト
