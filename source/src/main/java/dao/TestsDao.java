@@ -136,15 +136,16 @@ public class TestsDao {
 			if(tests == null) {
 				throw new IllegalArgumentException("tests must not be null");
 			}
-			String sql = "UPDATE tests SET test_id = ?, scores_id = ?, test_date = ?, subject_id = ?, user_id = ? WHERE test_id = ?";
+			String sql = "UPDATE tests SET scores_id = ?, test_date = ?, subject_id = ?, user_id = ? WHERE test_id = ?";
 			
 			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 				
-				ps.setInt(1, tests.getTest_id());
-				ps.setInt(2, tests.getScores_id());
-				ps.setDate(3, tests.getTest_date());
-				ps.setInt(4, tests.getSubject_id());
-				ps.setInt(5, tests.getUser_id());
+				//ps.setInt(1, tests.getTest_id());
+				ps.setInt(1, tests.getScores_id());
+				ps.setDate(2, tests.getTest_date());
+				ps.setInt(3, tests.getSubject_id());
+				ps.setInt(4, tests.getUser_id());
+				ps.setInt(5, testid);
 				
 				int result = ps.executeUpdate();
 				return result > 0;
