@@ -63,7 +63,7 @@ public class ForwardServlet extends HttpServlet {
 			return;
 		}
 
-		// ログアウトボタンの場合
+		// ログアウトボタンの場
 		if (page.equals("logout")) {
 			// セッションのものを削除
 			session.invalidate();
