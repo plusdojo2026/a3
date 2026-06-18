@@ -136,19 +136,8 @@ public class UsersDao {
     public boolean update(Users user, int userId) throws ClassNotFoundException {
         String sql =
             "UPDATE users SET "
-            + "state = ?, "
-            + "name = ?, "
-            + "birthday = ?, "
-            + "age = ?, "
-            + "gender = ?, "
-            + "tel = ?, "
-            + "mail = ?, "
-            + "parents_mail = ?, "
-            + "post_code = ?, "
-            + "address = ?, "
-            + "password = ?, "
-            + "preparation = ?, "
-            + "image_url = ? "
+            + "(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url) "
+        	+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
             + "WHERE user_id = ?";
 
         try (
