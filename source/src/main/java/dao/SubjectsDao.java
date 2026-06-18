@@ -37,6 +37,34 @@ public class SubjectsDao{
 		 return null;
 	}
 	
+	// ---------------------IDでサーチするメソッド---------------------------------
+	/**
+	 * 科目IDをもとに日記情報を検索する。
+	 *
+	 * @param subjectId 検索対象のユーザーID
+	 * @return 該当するSubjectsDto（見つからない場合はnull）
+	 */
+	public Subjects findById(int subject_Id) {
+
+	    String sql = "SELECT * FROM subjects WHERE subject_id = ?";
+
+	    try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setInt(1,subject_Id);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) {
+	                return mapToSubjectsDto(rs);
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        throw new RuntimeException("FindById failed", e);
+	    }
+
+	    return null; 
+	}
+	
 	//挿入メソッド
 	/**
 	 * 新規科目情報を挿入する。
