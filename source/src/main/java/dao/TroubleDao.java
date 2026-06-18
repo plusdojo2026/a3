@@ -19,7 +19,7 @@ public class TroubleDao {
 	 * @throws SQLException ResultSetの取得中にエラーが発生した場合
 	 */
 
-	private Trouble mapToTrouble(ResultSet rs) throws SQLException {
+	private Trouble mapToTroubleDto(ResultSet rs) throws SQLException {
 
 		Trouble trouble = new Trouble();
 		trouble.setTrouble_id(rs.getInt("trouble_id"));
@@ -53,7 +53,7 @@ public class TroubleDao {
 					// 次の結果があれば
 					while (rs.next()) {
 						// 今の結果をtroubleオブジェクトに保存
-						trouble.add(mapToTrouble(rs));
+						trouble.add(mapToTroubleDto(rs));
 					}
 
 				}
@@ -85,7 +85,7 @@ public class TroubleDao {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
-					return mapToTrouble(rs);
+					return mapToTroubleDto(rs);
 				}
 			}
 
