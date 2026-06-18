@@ -9,23 +9,22 @@ import java.util.List;
 
 import dto.Scores;
 
+/**
+ * ============================ScoresDao================================
+ * Scoresテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+ *
+ * 【主な公開メソッド】 - search(Scores scores) 検索
+ *
+ * - findById(int scoresid) scores_id（主キー）で1件取得する。
+ *
+ * - insert(Scores scores) Scores に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+ *
+ * - update(Scores scores, int scoresid) scores_idをキーに、指定された項目のみ更新する。
+ *
+ * - delete(int scoresid) Scoresidをキーに削除する。
+ * =========================================================
+ */
 public class ScoresDao {
-
-	/**
-	 * ============================ScoresDao================================
-	 * Scoresテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
-	 *
-	 * 【主な公開メソッド】 - search(Scores scores) 検索
-	 *
-	 * - findById(int scoresid) scores_id（主キー）で1件取得する。
-	 *
-	 * - insert(Scores scores) Scores に1件追加する（NULL/DEFAULT/外部キーを考慮）。
-	 *
-	 * - update(Scores scores, int scoresid) scores_idをキーに、指定された項目のみ更新する。
-	 *
-	 * - delete(int scoresid) Scoresidをキーに削除する。
-	 * =========================================================
-	 */
 
 	// ---------------------結果をオブジェクトに変換するメソッド---------------------------------
 	/**

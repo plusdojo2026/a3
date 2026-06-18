@@ -9,9 +9,31 @@ import java.util.List;
 
 import dto.Schedules;
 
+/**
+ * Dialogsテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+ *
+ * 【主な公開メソッド】 - search() 検索
+ *
+ * - findById(int mental_scoresId) mental_scoresId（主キー）で1件取得する。
+ *
+ * - insert(Mental_scores mentalscores) Mental_scores
+ * に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+ *
+ * - update(Mental_scores mentalscores, int mental_scoresId)
+ * mental_scoresIdをキーに、指定された項目のみ更新する。
+ *
+ * - delete(int mental_scoresId) mental_scoresIdをキーに削除する。
+ */
 public class SchedulesDao {
-	
-	private Schedules mapToClassesDto(ResultSet rs) throws SQLException {
+	// ---------------------結果をオブジェクトに変換するメソッド---------------------------------
+	/**
+	 * ResultSetの1レコード（1行）をMental_scoresオブジェクトに変換する。
+	 *
+	 * @param rs データベースから取得したResultSet
+	 * @return 1ユーザー分の情報を格納したMental_scores
+	 * @throws SQLException ResultSetの取得中にエラーが発生した場合
+	 */
+	private Schedules mapToscheSchedulesDto(ResultSet rs) throws SQLException {
 
 		Schedules schedules = new Schedules();
 		schedules.setSchedule_id(rs.getInt("schedule_id"));
@@ -25,7 +47,7 @@ public class SchedulesDao {
 
 		return schedules;
 	}
-	
+
 	/**
 	 *
 	 * @param なし
@@ -33,19 +55,18 @@ public class SchedulesDao {
 	 */
 
 	public List<Schedules> search() {
-		
+
 		String sql = "SELECT * FROM schedules";
-		
+
 		List<Schedules> schedules = new ArrayList<Schedules>();
-		
+
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			
 			try (ResultSet rs = ps.executeQuery()) {
-				
+
 				while (rs.next()) {
-					
-					schedules.add(mapToClassesDto(rs));
+
+					schedules.add(mapToscheSchedulesDto(rs));
 				}
 
 			}
@@ -53,10 +74,10 @@ public class SchedulesDao {
 		} catch (Exception e) {
 			throw new RuntimeException("Search failed", e);
 		}
-		
+
 		return schedules;
 	}
-	
+
 	/**
 	 * schedulesIdをもとにクラス情報を検索する。
 	 *
@@ -73,7 +94,7 @@ public class SchedulesDao {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
-					return mapToClassesDto(rs);
+					return mapToscheSchedulesDto(rs);
 				}
 			}
 
@@ -83,6 +104,7 @@ public class SchedulesDao {
 
 		return null;
 	}
+
 	/**
 	 * 新規スケジュールを挿入する。
 	 *
@@ -95,19 +117,18 @@ public class SchedulesDao {
 		if (schedules == null) {
 			throw new IllegalArgumentException("schedules must not be null");
 		}
-		String sql = "INSERT INTO schedules"
-				+ "(date, subject, start_time, finish_time, type, memo, user_id)" 
+		String sql = "INSERT INTO schedules" + "(date, subject, start_time, finish_time, type, memo, user_id)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setDate(1, schedules.getDate());
-	        ps.setString(2, schedules.getSubject());
-	        ps.setTime(3, schedules.getStart_time());
-	        ps.setTime(4, schedules.getFinish_time());
-	        ps.setString(5, schedules.getType());
-	        ps.setString(6, schedules.getMemo());
-	        ps.setInt(7, schedules.getUser_id());
+			ps.setString(2, schedules.getSubject());
+			ps.setTime(3, schedules.getStart_time());
+			ps.setTime(4, schedules.getFinish_time());
+			ps.setString(5, schedules.getType());
+			ps.setString(6, schedules.getMemo());
+			ps.setInt(7, schedules.getUser_id());
 
 			int result = ps.executeUpdate();
 			return result > 0;
@@ -117,42 +138,40 @@ public class SchedulesDao {
 		}
 	}
 
-/**
- * Schedule_idをもとにスケジュールを更新する。
- *
- * @param schedulesId 更新対象のID
- * @param schedules 更新情報を保持しているオブジェクト
- * @return 更新に成功した場合true、対象データが存在しない場合false
- */
+	/**
+	 * Schedule_idをもとにスケジュールを更新する。
+	 *
+	 * @param schedulesId 更新対象のID
+	 * @param schedules   更新情報を保持しているオブジェクト
+	 * @return 更新に成功した場合true、対象データが存在しない場合false
+	 */
 	public boolean update(Schedules schedules, int schedulesId) {
-	
+
 		if (schedules == null) {
 			throw new IllegalArgumentException("schedules must not be null");
 		}
-		String sql = "UPDATE schedules SET"
-					+ "date = ?, start_time = ?, finish_time = ?"
-					+ "type = ?, memo = ?,user_id) = ?"
-					+ "WHERE schedule_id = ?";
-	
+		String sql = "UPDATE schedules SET" + "date = ?, start_time = ?, finish_time = ?"
+				+ "type = ?, memo = ?,user_id) = ?" + "WHERE schedule_id = ?";
+
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-	
+
 			ps.setDate(1, schedules.getDate());
-	        ps.setString(2, schedules.getSubject());
-	        ps.setTime(3, schedules.getStart_time());
-	        ps.setTime(4, schedules.getFinish_time());
-	        ps.setString(5, schedules.getType());
-	        ps.setString(6, schedules.getMemo());
-	        ps.setInt(7, schedules.getUser_id());
-	        ps.setInt(8, schedulesId);
-	
+			ps.setString(2, schedules.getSubject());
+			ps.setTime(3, schedules.getStart_time());
+			ps.setTime(4, schedules.getFinish_time());
+			ps.setString(5, schedules.getType());
+			ps.setString(6, schedules.getMemo());
+			ps.setInt(7, schedules.getUser_id());
+			ps.setInt(8, schedulesId);
+
 			int result = ps.executeUpdate();
 			return result > 0;
-	
+
 		} catch (Exception e) {
 			throw new RuntimeException("Update failed", e);
 		}
 	}
-	
+
 	/**
 	 * schedulesIdをもとにスケジュールを削除する。
 	 *
@@ -175,4 +194,3 @@ public class SchedulesDao {
 		}
 	}
 }
-

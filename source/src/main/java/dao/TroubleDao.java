@@ -9,6 +9,21 @@ import java.util.List;
 
 import dto.Trouble;
 
+/**
+ * ============================ScoresDao================================
+ * Scoresテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+ *
+ * 【主な公開メソッド】 - search(Scores scores) 検索
+ *
+ * - findById(int scoresid) scores_id（主キー）で1件取得する。
+ *
+ * - insert(Scores scores) Scores に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+ *
+ * - update(Scores scores, int scoresid) scores_idをキーに、指定された項目のみ更新する。
+ *
+ * - delete(int scoresid) Scoresidをキーに削除する。
+ * =========================================================
+ */
 public class TroubleDao {
 
 	// ---------------------結果をオブジェクトに変換するメソッド---------------------------------
@@ -31,40 +46,39 @@ public class TroubleDao {
 
 		return trouble;
 	}
-	
+
 	// ---------------------サーチするメソッド---------------------------------
-		/**
-		 * 事案情報を全て検索する。
-		 *
-		 * @param なし
-		 * @return 事案のリスト一覧。見つからない場合は空のリスト
-		 */
+	/**
+	 * 事案情報を全て検索する。
+	 *
+	 * @param なし
+	 * @return 事案のリスト一覧。見つからない場合は空のリスト
+	 */
 
-		public List<Trouble> search() {
-			// SQL文を用意
-			String sql = "SELECT * FROM trouble";
-			// リストを準備
-			List<Trouble> trouble = new ArrayList<Trouble>();
-			// データベースと連携、SQL文を入れておく
-			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	public List<Trouble> search() {
+		// SQL文を用意
+		String sql = "SELECT * FROM trouble";
+		// リストを準備
+		List<Trouble> trouble = new ArrayList<Trouble>();
+		// データベースと連携、SQL文を入れておく
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-				// SQL文を実行、結果をResultSetに保存する
-				try (ResultSet rs = ps.executeQuery()) {
-					// 次の結果があれば
-					while (rs.next()) {
-						// 今の結果をtroubleオブジェクトに保存
-						trouble.add(mapToTroubleDto(rs));
-					}
-
+			// SQL文を実行、結果をResultSetに保存する
+			try (ResultSet rs = ps.executeQuery()) {
+				// 次の結果があれば
+				while (rs.next()) {
+					// 今の結果をtroubleオブジェクトに保存
+					trouble.add(mapToTroubleDto(rs));
 				}
 
-			} catch (Exception e) {
-				throw new RuntimeException("Search failed", e);
 			}
-			// リストを戻り値
-			return trouble;
-		}
 
+		} catch (Exception e) {
+			throw new RuntimeException("Search failed", e);
+		}
+		// リストを戻り値
+		return trouble;
+	}
 
 	// ---------------------IDでサーチするメソッド---------------------------------
 
