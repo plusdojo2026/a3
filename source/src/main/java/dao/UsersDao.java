@@ -10,7 +10,23 @@ import java.util.List;
 import dto.Users;
 
 public class UsersDao {
-	
+	/**
+	 * ============================UsersDao================================
+	 * Usersテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+	 *
+	 * 【主な公開メソッド】 - search(Users user) 検索
+	 *
+	 * - findById(int userId) user_id（主キー）で1件取得する。
+	 *
+	 * - insert(Users user) Users に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+	 *
+	 * - update(Users user, int userid) user_idをキーに、指定された項目のみ更新する。
+	 *
+	 * - delete(int userid) useridをキーに削除する。
+	 * =========================================================
+	 */
+
+	// ---------------------結果をオブジェクトに変換するメソッド---------------------------------
 	
     /**
      * ResultSetの1レコード（1行）をUserDtoオブジェクトに変換する。
