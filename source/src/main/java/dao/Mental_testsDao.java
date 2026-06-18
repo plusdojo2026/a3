@@ -174,27 +174,27 @@ public class Mental_testsDao {
 		
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			
-			ps.setInt(1, mt_tests.getMt_id());
-			ps.setString(2, mt_tests.getMt_img_url());
-			ps.setString(3, mt_tests.getQuestion());
+			ps.setString(1, mt_tests.getMt_img_url());
+			ps.setString(2, mt_tests.getQuestion());
 			
-			ps.setString(4, mt_tests.getChoiceA());
-			ps.setString(5, mt_tests.getChoiceB());
-			ps.setString(6, mt_tests.getChoiceC());
-			ps.setString(7, mt_tests.getChoiceD());
+			ps.setString(3, mt_tests.getChoiceA());
+			ps.setString(4, mt_tests.getChoiceB());
+			ps.setString(5, mt_tests.getChoiceC());
+			ps.setString(6, mt_tests.getChoiceD());
 			
-			ps.setString(8, mt_tests.getChoiceA_descript());
-			ps.setString(9, mt_tests.getChoiceB_descript());
-			ps.setString(10, mt_tests.getChoiceC_descript());
-			ps.setString(11, mt_tests.getChoiceD_descript());
+			ps.setString(7, mt_tests.getChoiceA_descript());
+			ps.setString(8, mt_tests.getChoiceB_descript());
+			ps.setString(9, mt_tests.getChoiceC_descript());
+			ps.setString(10, mt_tests.getChoiceD_descript());
 			
-			ps.setInt(12, mt_tests.getChoiceA_score());
-			ps.setInt(13, mt_tests.getChoiceB_score());
-			ps.setInt(14, mt_tests.getChoiceC_score());
-			ps.setInt(15, mt_tests.getChoiceD_score());
+			ps.setInt(11, mt_tests.getChoiceA_score());
+			ps.setInt(12, mt_tests.getChoiceB_score());
+			ps.setInt(13, mt_tests.getChoiceC_score());
+			ps.setInt(14, mt_tests.getChoiceD_score());
 			
-			ps.setDate(16, mt_tests.getMt_test_date());
-			ps.setInt(17, mt_tests.getUser_id());
+			ps.setDate(15, mt_tests.getMt_test_date());
+			ps.setInt(16, mt_tests.getUser_id());
+			ps.setInt(17, mt_testid);
 			
 			int result = ps.executeUpdate();
 			return result > 0;
