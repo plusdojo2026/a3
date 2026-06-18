@@ -65,6 +65,34 @@ public class TestsDao {
 		return tests;
 	}
 	
+	
+	// ---------------------IDでサーチするメソッド---------------------------------
+			/**
+			 * testidをもとにクラス情報を検索する。
+			 *
+			 * @param testId 検索対象のクラスID
+			 * @return 該当するTests（見つからない場合はnull）
+			 */
+		public Tests findById(int testid) {
+			
+			String sql = "SELECT * FROM tests WHERE test_id = ?";
+			
+			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+				
+				ps.setInt(1, testid);	
+				
+				try(ResultSet rs = ps.executeQuery()) {
+					if(rs.next()) {
+						return mapToTestsDto(rs);
+					}
+				}
+			} catch(Exception e) {
+				throw new RuntimeException("FindById failed", e);
+			}
+			
+			return null;
+		}
+	
 	// ---------------------挿入メソッド---------------------------------
 		/**
 		 * 新規クラス情報を挿入する。
@@ -81,11 +109,11 @@ public class TestsDao {
 		String sql = "INSERT INTO tests(scores_id, test_date, subject_id, user_id) VALUES(?, ?, ?, ?)";
 		
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setInt(1, tests.getTest_id());
-			ps.setInt(2, tests.getScores_id());
-			ps.setDate(3, tests.getTest_date());
-			ps.setInt(4, tests.getSubject_id());
-			ps.setInt(5, tests.getUser_id());
+			//ps.setInt(1, tests.getTest_id());
+			ps.setInt(1, tests.getScores_id());
+			ps.setDate(2, tests.getTest_date());
+			ps.setInt(3, tests.getSubject_id());
+			ps.setInt(4, tests.getUser_id());
 			
 			int result = ps.executeUpdate();
 			return result > 0;
@@ -97,7 +125,7 @@ public class TestsDao {
 	
 	//---------------------IDで更新するメソッド---------------------------------
 		/**
-		 * classIdをもとにクラス情報を更新する。
+		 * testIdをもとにクラス情報を更新する。
 		 *
 		 * @param testId 更新対象のクラスID
 		 * @param tests 更新情報を保持しているオブジェクト
