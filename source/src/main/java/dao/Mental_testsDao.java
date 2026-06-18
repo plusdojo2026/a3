@@ -14,8 +14,8 @@ public class Mental_testsDao {
 	/**
 	 *test_idをもとにテスト情報を検索する。
 	 *
-	 * @param testId 検索対象のクラスID
-	 * @return 該当するtests（見つからない場合はnull）
+	 * @param mental_testId 検索対象のクラスID
+	 * @return 該当するmental_tests（見つからない場合はnull）
 	 */
 	private Mental_tests mapToMental_testsDto(ResultSet rs) throws SQLException {
 		
@@ -75,11 +75,40 @@ public class Mental_testsDao {
 		//リストを戻り値
 		return mt_tests;
 	}
+	
+	// ---------------------IDでサーチするメソッド---------------------------------
+		/**
+		 * mt_idをもとにクラス情報を検索する。
+		 *
+		 * @param mt_testId 検索対象のクラスID
+		 * @return 該当するMental_tests（見つからない場合はnull）
+		 */
+	public Mental_tests findById(int mt_testid) {
+		
+		String sql = "SELECT * FROM mental_tests WHERE mt_id = ?";
+		
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			
+			ps.setInt(1, mt_testid);	
+			
+			try(ResultSet rs = ps.executeQuery()) {
+				if(rs.next()) {
+					return mapToMental_testsDto(rs);
+				}
+			}
+		} catch(Exception e) {
+			throw new RuntimeException("FindById failed", e);
+		}
+		
+		return null;
+	}
+	
+	
 	// ---------------------挿入メソッド---------------------------------
 			/**
 			 * 新規クラス情報を挿入する。
 			 *
-			 * @param tests 挿入するクラス情報を保持しているオブジェクト
+			 * @param Mental_tests 挿入するクラス情報を保持しているオブジェクト
 			 * @return 挿入に成功した場合true、失敗した場合false
 			 */
 	public boolean insert(Mental_tests mt_tests) {
@@ -125,10 +154,10 @@ public class Mental_testsDao {
 	
 	//---------------------IDで更新するメソッド---------------------------------
 			/**
-			 * classIdをもとにクラス情報を更新する。
+			 * mt_testIdをもとにクラス情報を更新する。
 			 *
-			 * @param testId 更新対象のクラスID
-			 * @param tests 更新情報を保持しているオブジェクト
+			 * @param mt_testId 更新対象のクラスID
+			 * @param mental_tests 更新情報を保持しているオブジェクト
 			 * @return 更新に成功した場合true、対象データが存在しない場合false
 			 */
 	public boolean update(Mental_tests mt_tests, int mt_testid) {
@@ -178,7 +207,7 @@ public class Mental_testsDao {
 			/**
 			 * testIdをもとにクラス情報を削除する。
 			 *
-			 * @param testId 削除対象のクラスID
+			 * @param mt_testId 削除対象のクラスID
 			 * @return 削除成功した場合true、失敗した場合false
 			 */
 	public boolean delete(Mental_tests mt_tests, int mt_testid) {

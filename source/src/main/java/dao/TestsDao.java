@@ -65,6 +65,34 @@ public class TestsDao {
 		return tests;
 	}
 	
+	
+	// ---------------------IDでサーチするメソッド---------------------------------
+			/**
+			 * testidをもとにクラス情報を検索する。
+			 *
+			 * @param testId 検索対象のクラスID
+			 * @return 該当するTests（見つからない場合はnull）
+			 */
+		public Tests findById(int testid) {
+			
+			String sql = "SELECT * FROM tests WHERE test_id = ?";
+			
+			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+				
+				ps.setInt(1, testid);	
+				
+				try(ResultSet rs = ps.executeQuery()) {
+					if(rs.next()) {
+						return mapToTestsDto(rs);
+					}
+				}
+			} catch(Exception e) {
+				throw new RuntimeException("FindById failed", e);
+			}
+			
+			return null;
+		}
+	
 	// ---------------------挿入メソッド---------------------------------
 		/**
 		 * 新規クラス情報を挿入する。
@@ -97,7 +125,7 @@ public class TestsDao {
 	
 	//---------------------IDで更新するメソッド---------------------------------
 		/**
-		 * classIdをもとにクラス情報を更新する。
+		 * testIdをもとにクラス情報を更新する。
 		 *
 		 * @param testId 更新対象のクラスID
 		 * @param tests 更新情報を保持しているオブジェクト
