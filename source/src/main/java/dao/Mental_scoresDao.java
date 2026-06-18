@@ -96,17 +96,16 @@ public class Mental_scoresDao {
 			throw new IllegalArgumentException("mentalscores must not be null");
 		}
 		String sql = "INSERT INTO mental_scores"
-				+ "(mt_scores_id, score, status, mt_scores_memo, mt_id, user_id)" 
-				+ "VALUES (?, ?, ?, ?, ?, ?)";
+				+ "(score, status, mt_scores_memo, mt_id, user_id)" 
+				+ "VALUES (?, ?, ?, ?, ?)";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			ps.setInt(1, mentalscores.getMtScoresId());
-	        ps.setString(2, mentalscores.getScore());
-	        ps.setString(3, mentalscores.getStatus());
-	        ps.setString(4, mentalscores.getMtScoresMemo());
-	        ps.setInt(5, mentalscores.getMtId());
-	        ps.setInt(6, mentalscores.getUserId());
+	        ps.setString(1, mentalscores.getScore());
+	        ps.setString(2, mentalscores.getStatus());
+	        ps.setString(3, mentalscores.getMtScoresMemo());
+	        ps.setInt(4, mentalscores.getMtId());
+	        ps.setInt(5, mentalscores.getUserId());
 
 			int result = ps.executeUpdate();
 			return result > 0;
