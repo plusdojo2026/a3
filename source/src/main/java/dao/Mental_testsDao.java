@@ -11,17 +11,17 @@ import dto.Mental_tests;
 
 /**
  * ============================DialogsDao================================
- * Dialogsテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+ * mental_testsテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
  *
- * 【主な公開メソッド】 - search(Dialogs dialogs) 検索
+ * 【主な公開メソッド】 - search(Mental_tests mt_tests) 検索
  *
- * - findById(int dialogsid) dialogs_id（主キー）で1件取得する。
+ * - findById(int mt_testid) mt_id（主キー）で1件取得する。
  *
- * - insert(Dialogs dialogs) Dialogs に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+ * - insert(Mental_tests mt_tests) Dialogs に1件追加する（NULL/DEFAULT/外部キーを考慮）。
  *
- * - update(Dialogs dialogs, int dialogsid) dialogs_idをキーに、指定された項目のみ更新する。
+ * - update(Mental_tests mt_tests, int mt_testid) mt_testidをキーに、指定された項目のみ更新する。
  *
- * - delete(int dialogs) dialogsidをキーに削除する。
+ * - delete(int Mental_tests) mt_testidをキーに削除する。
  * =========================================================
  */
 public class Mental_testsDao {
