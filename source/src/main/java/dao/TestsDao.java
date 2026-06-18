@@ -109,11 +109,11 @@ public class TestsDao {
 		String sql = "INSERT INTO tests(scores_id, test_date, subject_id, user_id) VALUES(?, ?, ?, ?)";
 		
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setInt(1, tests.getTest_id());
-			ps.setInt(2, tests.getScores_id());
-			ps.setDate(3, tests.getTest_date());
-			ps.setInt(4, tests.getSubject_id());
-			ps.setInt(5, tests.getUser_id());
+			//ps.setInt(1, tests.getTest_id());
+			ps.setInt(1, tests.getScores_id());
+			ps.setDate(2, tests.getTest_date());
+			ps.setInt(3, tests.getSubject_id());
+			ps.setInt(4, tests.getUser_id());
 			
 			int result = ps.executeUpdate();
 			return result > 0;
