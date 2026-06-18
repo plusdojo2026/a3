@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.Users;
 
-public class UsersDAO {
+public class UsersDao {
 	
 	
     /**
@@ -39,32 +41,52 @@ public class UsersDAO {
 	    return user;
 	}
 	
-	// user_idで1件検索する
-    public Users findById(int userId){
-        String sql = "SELECT * FROM users WHERE user_id = ?";
-
+	// ---------------------サーチするメソッド---------------------------------
+	
+	/**
+	 * ユーザー情報を全て検索する。
+	 *
+	 * @param なし
+	 * @return ユーザーデータのリスト。見つからない場合は空のリスト
+	 */
+	
+    public List<Users> search(){
+    	// SQL文を用意
+        String sql = "SELECT * FROM users";
+        // リストを準備
+        List<Users> users = new ArrayList<Users>();
+        // データベースと連携、SQL文を入れておく
         try (
             Connection conn = DBUtil.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)
         ) {
-            ps.setInt(1, userId);
-
+        	// SQL文を実行、結果をResultSetに保存する
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return mapToUsers(rs);
+            	// 次の結果があれば
+                while (rs.next()) {
+                	// 今の結果をusersオブジェクトに保存
+                    users.add( mapToUsers(rs));
                 }
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("findById failed", e);
+            throw new RuntimeException("Search failed", e);
         }
-
-        return null;
+        // リストを戻り値
+        return users;
     }
 
 	
 	
-	 // usersテーブルに1件追加する
+	// ---------------------挿入メソッド---------------------------------
+    
+    /**
+	 * 新規クラス情報を挿入する。
+	 *
+	 * @param user 挿入するクラス情報を保持しているオブジェクト
+	 * @return 挿入に成功した場合true、失敗した場合false
+	 */
+    
 	public boolean insert(Users user) throws ClassNotFoundException{
 	    String sql =
 	        "INSERT INTO users "
@@ -101,7 +123,16 @@ public class UsersDAO {
 	}
 
 	
-	// user_idを指定して更新する
+	//---------------------IDで更新するメソッド---------------------------------
+	
+	/**
+	 * userIdをもとにユーザー情報を更新する。
+	 *
+	 * @param userId 更新対象のクラスID
+	 * @param user 更新情報を保持しているオブジェクト
+	 * @return 更新に成功した場合true、対象データが存在しない場合false
+	 */
+	
     public boolean update(Users user, int userId) throws ClassNotFoundException {
         String sql =
             "UPDATE users SET "
@@ -148,7 +179,15 @@ public class UsersDAO {
     }
     
     
-    // user_idを指定して削除する
+	//---------------------IDで削除するメソッド---------------------------------
+    
+	/**
+	 * userIdをもとにクラス情報を削除する。
+	 *
+	 * @param userId 削除対象のクラスID
+	 * @return 削除成功した場合true、失敗した場合false
+	 */
+    
     public boolean delete (int userId) throws ClassNotFoundException {
     	String sql = "DELETE FROM users WHERE user_id = ?";
     	
@@ -169,7 +208,13 @@ public class UsersDAO {
     
     
 
-    //user_id まだは mail と password でログイン確認する
+	// ---------------------ログインするメソッド---------------------------------
+	/**
+	 * ユーザーデータからうuses_idとpasswordを読み取りログインする。
+	 *
+	 * @param なし
+	 * @return データのリスト。見つからない場合は空のリスト
+	 */
     public Users findByLoginIdAndPassword(int uses_id, String password) {
     	String sql = "SELECT * FROM users WHERE user_id = ? AND password = ?";
     	
@@ -194,6 +239,8 @@ public class UsersDAO {
 		return null;
     	
     }
+    
+    
 }
 
 
