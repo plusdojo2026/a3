@@ -2,6 +2,12 @@ package dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * chat用のjavabean,dto
+ * 
+ * @author 黄范航
+ *
+ */
 public class Chat {
 	private int chat_id;
 	private String user_id_speaker;

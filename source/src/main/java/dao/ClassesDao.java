@@ -9,23 +9,22 @@ import java.util.List;
 
 import dto.Classes;
 
+/**
+ * 
+ * Classesテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+ *
+ * 【主な公開メソッド】 - search(Classes classes) 検索
+ * 
+ * - findById(int classesid) class_id（主キー）で1件取得する。
+ *
+ * - insert(Classes classes) Classes に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+ *
+ * - update(Classes classes, int classesid) class_idをキーに、指定された項目のみ更新する。
+ *
+ * - delete(int classesid) classesidをキーに削除する。
+ * =========================================================
+ */
 public class ClassesDao {
-
-	/**
-	 * ============================ClassesDao================================
-	 * Classesテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
-	 *
-	 * 【主な公開メソッド】 - search(Classes classes) 検索
-	 *
-	 * - findById(int classesid) class_id（主キー）で1件取得する。
-	 *
-	 * - insert(Classes classes) Classes に1件追加する（NULL/DEFAULT/外部キーを考慮）。
-	 *
-	 * - update(Classes classes, int classesid) class_idをキーに、指定された項目のみ更新する。
-	 *
-	 * - delete(int classesid) classesidをキーに削除する。
-	 * =========================================================
-	 */
 
 	// ---------------------結果をオブジェクトに変換するメソッド---------------------------------
 	/**

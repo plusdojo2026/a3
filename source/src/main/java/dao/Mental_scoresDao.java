@@ -9,8 +9,34 @@ import java.util.List;
 
 import dto.Mental_scores;
 
+/**
+ * ============================Mental_scoresDao================================
+ * Dialogsテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+ *
+ * 【主な公開メソッド】 - search() 検索
+ *
+ * - findById(int mental_scoresId) mental_scoresId（主キー）で1件取得する。
+ *
+ * - insert(Mental_scores mentalscores) Mental_scores
+ * に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+ *
+ * - update(Mental_scores mentalscores, int mental_scoresId)
+ * mental_scoresIdをキーに、指定された項目のみ更新する。
+ *
+ * - delete(int mental_scoresId) mental_scoresIdをキーに削除する。
+ * =========================================================
+ */
 public class Mental_scoresDao {
-	private Mental_scores mapToClassesDto(ResultSet rs) throws SQLException {
+
+	// ---------------------結果をオブジェクトに変換するメソッド---------------------------------
+	/**
+	 * ResultSetの1レコード（1行）をMental_scoresオブジェクトに変換する。
+	 *
+	 * @param rs データベースから取得したResultSet
+	 * @return 1ユーザー分の情報を格納したMental_scores
+	 * @throws SQLException ResultSetの取得中にエラーが発生した場合
+	 */
+	private Mental_scores mapToMental_scoresDto(ResultSet rs) throws SQLException {
 
 		Mental_scores mentalscores = new Mental_scores();
 		mentalscores.setMtScoresId(rs.getInt("mt_scores_id"));
@@ -22,42 +48,33 @@ public class Mental_scoresDao {
 
 		return mentalscores;
 	}
-	
+
 	/**
 	 * mental_scores テーブルの全件を取得する。
 	 *
 	 * @return 取得した全ての Mental_scores のリスト
 	 */
 	public List<Mental_scores> search() {
-		
-	    String sql = "SELECT * FROM mental_scores";
 
-	    List<Mental_scores> mentalscores = new ArrayList<>();
+		String sql = "SELECT * FROM mental_scores";
 
-	    try (Connection conn = DBUtil.getConnection();
-	         PreparedStatement ps = conn.prepareStatement(sql);
-	    	 ResultSet rs = ps.executeQuery()) {
+		List<Mental_scores> mentalscores = new ArrayList<>();
 
-	        while (rs.next()) {
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
 
-	            Mental_scores mental_scores = new Mental_scores();
-	            mental_scores.setMtScoresId(rs.getInt("mt_scores_id"));
-	            mental_scores.setScore(rs.getString("score"));
-	            mental_scores.setStatus(rs.getString("status"));
-	            mental_scores.setMtScoresMemo(rs.getString("mt_scores_memo"));
-	            mental_scores.setMtId(rs.getInt("mt_id"));
-	            mental_scores.setUserId(rs.getInt("user_id"));
+			while (rs.next()) {
+				mentalscores.add(mapToMental_scoresDto(rs));
+			}
 
-	            mentalscores.add(mental_scores);
-	        }
-	
-	    }catch (Exception e) {
-	    	 throw new RuntimeException("Search failed", e);
-	    }
-	
-	    return mentalscores;
+		} catch (Exception e) {
+			throw new RuntimeException("Search failed", e);
 		}
-	
+
+		return mentalscores;
+	}
+
 	/**
 	 * mental_scoresIdをもとに情報を検索する。
 	 *
@@ -66,7 +83,7 @@ public class Mental_scoresDao {
 	 */
 	public Mental_scores findById(int mental_scoresId) {
 
-		String sql = "SELECT * FROM  WHERE mental_scores mt_scores_id = ?";
+		String sql = "SELECT * FROM mental_scores WHERE mt_scores_id = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -74,7 +91,7 @@ public class Mental_scoresDao {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
-					return mapToClassesDto(rs);
+					return mapToMental_scoresDto(rs);
 				}
 			}
 
@@ -84,6 +101,7 @@ public class Mental_scoresDao {
 
 		return null;
 	}
+
 	/**
 	 * 新規スケジュールを挿入する。
 	 *
@@ -95,17 +113,16 @@ public class Mental_scoresDao {
 		if (mentalscores == null) {
 			throw new IllegalArgumentException("mentalscores must not be null");
 		}
-		String sql = "INSERT INTO mental_scores"
-				+ "(score, status, mt_scores_memo, mt_id, user_id)" 
+		String sql = "INSERT INTO mental_scores" + "(score, status, mt_scores_memo, mt_id, user_id)"
 				+ "VALUES (?, ?, ?, ?, ?)";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-	        ps.setString(1, mentalscores.getScore());
-	        ps.setString(2, mentalscores.getStatus());
-	        ps.setString(3, mentalscores.getMtScoresMemo());
-	        ps.setInt(4, mentalscores.getMtId());
-	        ps.setInt(5, mentalscores.getUserId());
+			ps.setString(1, mentalscores.getScore());
+			ps.setString(2, mentalscores.getStatus());
+			ps.setString(3, mentalscores.getMtScoresMemo());
+			ps.setInt(4, mentalscores.getMtId());
+			ps.setInt(5, mentalscores.getUserId());
 
 			int result = ps.executeUpdate();
 			return result > 0;
@@ -114,60 +131,58 @@ public class Mental_scoresDao {
 			throw new RuntimeException("Insert failed", e);
 		}
 	}
-	
+
 	/**
-	 * Schedule_idをもとに更新する。
+	 * mental_scoresIdをもとに更新する。
 	 *
-	 * @param schedulesId 更新対象のID
-	 * @param schedules 更新情報を保持しているオブジェクト
+	 * @param mental_scoresId 更新対象のID
+	 * @param mentalscores    更新情報を保持しているオブジェクト
 	 * @return 更新に成功した場合true、対象データが存在しない場合false
 	 */
-		public boolean update(Mental_scores mentalscores, int mental_scoresId) {
-		
-			if (mentalscores == null) {
-				throw new IllegalArgumentException("mentalscores must not be null");
-			}
-			String sql = "UPDATE mental_scores SET"
-						+ "score = ?, status = ?"
-						+ "mt_scores_memo = ?, mt_id = ?,user_id) = ?"
-						+ "WHERE mt_scores_id = ?";
-		
-			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-		
-				ps.setString(1, mentalscores.getScore());
-		        ps.setString(2, mentalscores.getStatus());
-		        ps.setString(3, mentalscores.getMtScoresMemo());
-		        ps.setInt(4, mentalscores.getMtId());
-		        ps.setInt(5, mentalscores.getUserId());
-		        ps.setInt(6, mental_scoresId);
-		
-				int result = ps.executeUpdate();
-				return result > 0;
-		
-			} catch (Exception e) {
-				throw new RuntimeException("Update failed", e);
-			}
+	public boolean update(Mental_scores mentalscores, int mental_scoresId) {
+
+		if (mentalscores == null) {
+			throw new IllegalArgumentException("mentalscores must not be null");
 		}
-		/**
-		 * mental_scoresIdをもとに削除する。
-		 *
-		 * @param mental_scoresId 削除対象のID
-		 * @return 削除成功した場合true、失敗した場合false
-		 */
-		public boolean delete(int mental_scoresId) {
+		String sql = "UPDATE mental_scores SET" + "score = ?, status = ?" + "mt_scores_memo = ?, mt_id = ?,user_id = ?"
+				+ "WHERE mt_scores_id = ?";
 
-			String sql = "DELETE FROM mental_scores WHERE mt_scores_id = ?";
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, mentalscores.getScore());
+			ps.setString(2, mentalscores.getStatus());
+			ps.setString(3, mentalscores.getMtScoresMemo());
+			ps.setInt(4, mentalscores.getMtId());
+			ps.setInt(5, mentalscores.getUserId());
+			ps.setInt(6, mental_scoresId);
 
-				ps.setInt(1, mental_scoresId);
+			int result = ps.executeUpdate();
+			return result > 0;
 
-				int result = ps.executeUpdate();
-				return result > 0;
+		} catch (Exception e) {
+			throw new RuntimeException("Update failed", e);
+		}
+	}
 
-			} catch (Exception e) {
-				throw new RuntimeException("Delete failed", e);
-			}
-		}	
+	/**
+	 * mental_scoresIdをもとに削除する。
+	 *
+	 * @param mental_scoresId 削除対象のID
+	 * @return 削除成功した場合true、失敗した場合false
+	 */
+	public boolean delete(int mental_scoresId) {
+
+		String sql = "DELETE FROM mental_scores WHERE mt_scores_id = ?";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, mental_scoresId);
+
+			int result = ps.executeUpdate();
+			return result > 0;
+
+		} catch (Exception e) {
+			throw new RuntimeException("Delete failed", e);
+		}
+	}
 }
-
