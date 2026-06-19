@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class ForwardServlet
  * 
  * 遷移しようとする場合 urlを /Forward?page=(jspの名前)を設定すれば別のページに移動できる
+ * 
+ * @author 黄范航
  */
 @WebServlet("/Forward")
 public class ForwardServlet extends HttpServlet {
@@ -61,7 +63,7 @@ public class ForwardServlet extends HttpServlet {
 			return;
 		}
 
-		// ログアウトボタンの場合
+		// ログアウトボタンの場
 		if (page.equals("logout")) {
 			// セッションのものを削除
 			session.invalidate();
@@ -83,4 +85,3 @@ public class ForwardServlet extends HttpServlet {
 	}
 
 }
-
