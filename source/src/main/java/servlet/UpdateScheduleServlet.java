@@ -3,9 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,16 +16,16 @@ import dto.Schedules;
 import dto.Users;
 
 /**
- * Servlet implementation class addScheduleServlet
+ * Servlet implementation class UpdateScheduleServlet
  */
-@WebServlet("/AddScheduleServlet")
-public class AddScheduleServlet extends HttpServlet {
+@WebServlet("/UpdateScheduleServlet")
+public class UpdateScheduleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddScheduleServlet() {
+	public UpdateScheduleServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,15 +48,12 @@ public class AddScheduleServlet extends HttpServlet {
 			return;
 		}
 
+		Schedules schedule = new Schedules();
 		SchedulesDao schedulesDao = new SchedulesDao();
-		List<Schedules> schedules = schedulesDao.search();
-
-		if (schedules != null && !schedules.isEmpty()) {
-			request.setAttribute("schedules", schedules);
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-		dispatcher.forward(request, response);
-
+		int schedule_id = Integer.parseInt(request.getParameter("schedule_id"));
+		schedule = schedulesDao.findById(schedule_id);
+		request.setAttribute("schedule", schedule);
+		request.getRequestDispatcher("/WEB-INF/jsp/updateSchedule.jsp").forward(request, response);
 	}
 
 	/**
@@ -67,10 +62,9 @@ public class AddScheduleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		// loginしているか検査
 		HttpSession session = request.getSession();
-		// ウェブサイトの格式をutf-8を設定
-		request.setCharacterEncoding("UTF-8");
 
 		// もしセッションスコープの中にuser情報がないと
 		if (session.getAttribute("user") == null) {
@@ -78,9 +72,13 @@ public class AddScheduleServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		// Dao、Dtoをインスタンス化
-		SchedulesDao schedulesDao = new SchedulesDao();
+
 		Schedules schedule = new Schedules();
+		SchedulesDao schedulesDao = new SchedulesDao();
+
+		int schedule_id = Integer.parseInt(request.getParameter("schedule_id"));
+		schedule.setSchedule_id(schedule_id);
+
 		// 日付を文字列に保存
 		String dateStr = request.getParameter("Date");
 		// 日付を転換
@@ -127,13 +125,14 @@ public class AddScheduleServlet extends HttpServlet {
 
 		schedule.setUser_id(((Users) session.getAttribute("user")).getUser_id());
 
-		if (schedulesDao.insert(schedule)) {
+		if (schedulesDao.update(schedule, schedule_id)) {
 			request.setAttribute("message", "成功");
 		} else {
 			request.setAttribute("message", "失敗");
 		}
 		;
 		doGet(request, response);
+
 	}
 
 }
