@@ -13,8 +13,12 @@ import dto.Mental_tests;
  * ============================DialogsDao================================
  * mental_testsテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
  *
- * 【主な公開メソッド】 - search(Mental_tests mt_tests) 検索
+ * 【主な公開メソッド】
+ * 
+ * - search(Mental_tests mt_tests) 検索
  *
+ * - search(int user_id)user_idでデータを検索
+ * 
  * - findById(int mt_testid) mt_id（主キー）で1件取得する。
  *
  * - insert(Mental_tests mt_tests) Dialogs に1件追加する（NULL/DEFAULT/外部キーを考慮）。
@@ -89,6 +93,34 @@ public class Mental_testsDao {
 		}
 		// リストを戻り値
 		return mt_tests;
+	}
+
+	/**
+	 * useridをもとに情報を検索する。
+	 *
+	 * @param user_id 検索対象のID
+	 * @return 取得した全ての mental_tests のリスト
+	 */
+	public List<Mental_tests> search(int user_id) {
+
+		String sql = "SELECT * FROM mental_tests WHERE user_id = ?";
+		List<Mental_tests> mental_tests = new ArrayList<>();
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, user_id);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					mental_tests.add(mapToMental_testsDto(rs));
+				}
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException("FindById failed", e);
+		}
+
+		return mental_tests;
 	}
 
 	// ---------------------IDでサーチするメソッド---------------------------------
