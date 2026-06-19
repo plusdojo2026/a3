@@ -2,7 +2,6 @@ package dao;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,29 +55,23 @@ public class ChatEndpoint {
 					// チャット履歴を取得して送信するで
 					String user_id_speaker = (String) session.getUserProperties().get("user_id_speaker");
 					String user_id_listener = (String) session.getUserProperties().get("user_id_listener");
+					String sql = "SELECT user_id_speaker, user_id_listener, talk, created_at FROM chat WHERE (user_id_speaker = ? AND user_id_listener = ?) OR (user_id_speaker = ? AND user_id_listener = ?) ORDER BY created_at ASC";
 
-					try {
-						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/classcare_db?"
-								+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-								"root", "password");
-						String sql = "SELECT user_id_speaker, user_id_listener, talk, created_at FROM chat WHERE (user_id_speaker = ? AND user_id_listener = ?) OR (user_id_speaker = ? AND user_id_listener = ?) ORDER BY created_at ASC";
-						PreparedStatement pStmt = conn.prepareStatement(sql);
+					try (Connection conn = DBUtil.getConnection();
+							PreparedStatement pStmt = conn.prepareStatement(sql);) {
+
 						pStmt.setString(1, user_id_speaker);
 						pStmt.setString(2, user_id_listener);
 						pStmt.setString(3, user_id_listener);
 						pStmt.setString(4, user_id_speaker);
-						ResultSet rs = pStmt.executeQuery();
-
-						while (rs.next()) {
-							String msg = rs.getString("created_at") + " " + rs.getString("user_id_speaker") + " "
-									+ rs.getString("user_id_listener") + " " + rs.getString("talk");
-							session.getBasicRemote().sendText(msg);
+						try (ResultSet rs = pStmt.executeQuery()) {
+							while (rs.next()) {
+								String msg = rs.getString("created_at") + " " + rs.getString("user_id_speaker") + " "
+										+ rs.getString("user_id_listener") + " " + rs.getString("talk");
+								session.getBasicRemote().sendText(msg);
+							}
 						}
-
-						rs.close();
-						pStmt.close();
-						conn.close();
-					} catch (SQLException | IOException e) {
+					} catch (SQLException | IOException | ClassNotFoundException e) {
 						logger.log(Level.SEVERE, "Error in onOpen", e);
 						e.printStackTrace();
 					}
@@ -104,6 +97,28 @@ public class ChatEndpoint {
 				}
 				String talk = talkBuilder.toString().trim();
 
+				// データベースにメッセージを保存する
+				ChatDao dao = new ChatDao();
+
+				// ログインユーザーID取得
+				String loginIdStr = (String) session.getUserProperties().get("login_user_id");
+
+				int userid = 0;
+
+				try {
+					if (loginIdStr != null && !loginIdStr.isEmpty()) {
+						userid = Integer.parseInt(loginIdStr);
+					}
+				} catch (NumberFormatException e) {
+					logger.log(Level.WARNING, "Invalid login_user_id: {0}", loginIdStr);
+				}
+				// なりすまし防止（封鎖システム）
+				if (userid != 0 && !String.valueOf(userid).equals(user_id_speaker)) {
+					logger.log(Level.WARNING, "不正操作：login_user_id={0}, speaker={1}",
+							new Object[] { userid, user_id_speaker });
+					return;
+				}
+
 				// 非公開メッセージ
 				synchronized (clients) {
 					for (Session client : clients) {
@@ -120,23 +135,7 @@ public class ChatEndpoint {
 						}
 					}
 				}
-
-				// データベースにメッセージを保存する
-				ChatDao dao = new ChatDao();
-
-				// ログインユーザーID取得
-				String loginIdStr = (String) session.getUserProperties().get("login_user_id");
-
-				int userid = 0;
-
-				try {
-					if (loginIdStr != null && !loginIdStr.isEmpty()) {
-						userid = Integer.parseInt(loginIdStr);
-					}
-				} catch (NumberFormatException e) {
-					logger.log(Level.WARNING, "Invalid login_user_id: {0}", loginIdStr);
-				}
-
+				// チャット文を保存
 				int result = dao.insert(user_id_speaker, user_id_listener, talk, null, 0, createdAt, userid);
 
 				if (result > 0) {
