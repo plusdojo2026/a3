@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +48,7 @@ public class AddMTResultServlet extends HttpServlet {
 		// もしセッションスコープの中にuser情報がないと
 		if (session.getAttribute("user") == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 
@@ -69,10 +70,11 @@ public class AddMTResultServlet extends HttpServlet {
 			// ホームページに戻る
 			response.sendRedirect(request.getContextPath() + "/Forward?page=index");
 		} else {
-			// エラーメッセージを表示する
-			request.setAttribute("message", "点数更新失敗。もう一回テストをしてください。");
+
 			// テストページへ行く
-			response.sendRedirect("/SelectMTServlet");
+			request.setAttribute("message", "点数更新失敗。もう一回テストをしてください。");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectMTServlet");
+			dispatcher.forward(request, response);
 		}
 
 	}
