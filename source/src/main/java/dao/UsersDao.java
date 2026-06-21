@@ -244,7 +244,13 @@ public class UsersDao {
 		return null;
     	
     }
-    
+
+	public Users findById(int user_id) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	
     
 }
 
