@@ -62,9 +62,9 @@ public class DeleteClaseesServlet extends HttpServlet {
 		//削除実行
 		try {
 			if(uDao.delete(userId)) {
-				request.setAttribute("msg", "削除完了");
+				request.setAttribute("message", "削除完了");
 			} else {
-				request.setAttribute("msg", "削除失敗");
+				request.setAttribute("message", "削除失敗");
 			}
 			
 		} catch(ClassNotFoundException e) {

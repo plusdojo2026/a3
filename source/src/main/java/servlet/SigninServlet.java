@@ -73,9 +73,9 @@ public class SigninServlet extends HttpServlet {
 			//登録処理
 			UsersDao uDao = new UsersDao();
 			if(uDao.insert(new Users(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url))) { //登録成功
-				request.setAttribute("", "");
+				request.setAttribute("message", "登録成功");
 			} else {	//登録失敗
-				request.setAttribute("", "");
+				request.setAttribute("message", "登録失敗");
 			}
 		} catch (ClassNotFoundException e) {
 		    throw new ServletException(e);
