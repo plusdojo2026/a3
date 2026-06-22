@@ -38,7 +38,7 @@ public class DeleteClaseesServlet extends HttpServlet {
 				request.setCharacterEncoding("UTF-8");
 				
 				//もしセッションスコープの中にuser情報がないなら
-				if(session.getAttribute("user_id") == null) {
+				if(session.getAttribute("user") == null) {
 					//ログインページに戻る
 					response.sendRedirect("/LoginServlet");
 					return;
@@ -55,7 +55,7 @@ public class DeleteClaseesServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		
-		int userId = Integer.parseInt(request.getParameter("user_id"));
+		int userId = Integer.parseInt(request.getParameter("user"));
 		//削除
 		UsersDao uDao = new UsersDao();
 		

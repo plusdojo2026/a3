@@ -39,7 +39,7 @@ public class InsertClassesServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//もしセッションスコープの中にuser情報がないなら
-		if(session.getAttribute("user_id") == null) {
+		if(session.getAttribute("user") == null) {
 			//ログインページに戻る
 			response.sendRedirect("/LoginServlet");
 			return;

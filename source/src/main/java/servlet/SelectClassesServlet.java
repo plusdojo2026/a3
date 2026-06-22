@@ -43,7 +43,7 @@ public class SelectClassesServlet extends HttpServlet {
 		//もしセッションスコープの中にuser情報がないと
 		if(session.getAttribute("user") == null) {
 			//ログインページに戻る
-			response.sendRedirect("/Login.page");
+			response.sendRedirect("/LoginServlet");
 			return;
 		}
 
@@ -52,7 +52,7 @@ public class SelectClassesServlet extends HttpServlet {
 		String className = request.getParameter("className");
 		
 		//最初のアクセス
-		if(className == null || className == ("")) {
+		if(className == null || className.isEmpty()) {
 			className = "1年1組";	//実用を考えるならここはDaoに登録された最初のクラスを入力できるような処理を追加する
 		}
 		

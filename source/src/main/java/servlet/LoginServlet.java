@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 		// リクエストするパラメータ一覧
 		
 		request.setCharacterEncoding("UTF-8");
-		int id = Integer.parseInt(request.getParameter("user_id"));	//user_id
+		int id = Integer.parseInt(request.getParameter("user"));	//user_id
 		String pw = request.getParameter("pw");
 		
 		//ログイン処理
@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 			
 		//セッションスコープにIDを格納
 		HttpSession session = request.getSession();
-		session.setAttribute("user_id", (id));
+		session.setAttribute("user", (id));
 		//メニューサーブレットにリダイレクト
 		response.sendRedirect("/a3/IndexServlet");
 		} else {	//ログイン失敗
