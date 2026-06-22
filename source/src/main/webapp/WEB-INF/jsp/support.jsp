@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>海外支援</title>
+  <link rel="stylesheet" href="css/support.css">
+</head>
+
+<body>
+
+  <!-- ヘッダーエリア、bodyの下に置いてください -->
+  <header>
+    <!-- ここからテンプレート -->
+    <div>
+      <!-- ロゴ写真 -->
+      <span><img></span>
+
+    </div>
+    <nav>
+      <button type="button">ログイン</button>
+      <button type="button">サインイン</button>
+    </nav>
+    <nav style="display: none;">
+      <button type="button">ようこそxxxさん</button>
+      <button type="button">ログアウト</button>
+    </nav>
+    <!-- テンプレート終了 -->
+  </header>
+
+  <div class="layout">
+    <!-- 左側サイドナビ -->
+    <aside>
+      <nav>
+        <ul>
+          <li>
+            <a href="#">生徒</a>
+            <ul>
+              <li><a href="#"> 生徒管理</a></li>
+              <li><a href="#"> 点数管理</a></li>
+              <li><a href="#"> 日記</a></li>
+            </ul>
+          </li>
+          <li><a href="#">成績</a>
+            <ul>
+              <li><a href="#">得点</a></li>
+              <li><a href="#">心理テスト</a></li>
+            </ul>
+          </li>
+          <li><a href="">報告</a>
+            <ul>
+              <li><a href="#">事案</a></li>
+              <li><a href="#">心理テスト</a></li>
+            </ul>
+          </li>
+          <li><a href="#">海外支援</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!--メインコンテンツ-->
+    <main>
+      <!--ページのタイトル-->
+      <div id="pageTitle">
+        <h2>外国人支援​</h2>
+        <!--ページの紹介文-->
+        <div id="pageIntro">
+          <p>外部の資料URLを登録して、必要な情報へすぐアクセスできます。​</p>
+        </div>
+      </div>
+      <!--主体内容-->
+      <div id="pageContent">
+        <form method="post">
+          <label>URL</label><br>
+          <input type="text" name="supportURL" id="supportURL">
+          <input type="submit" value="保存">
+        </form>
+      </div>
+
+  </div>
+  <!-- 一番最後に置いてください -->
+  <footer>
+    <p>虎視眈々(株)</p>
+  </footer>
+</body>
+
+</html>

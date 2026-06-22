@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dto.Users;
 
@@ -244,15 +246,74 @@ public class UsersDao {
 		return null;
     	
     }
+    
+	// ---------------------IDでサーチするメソッド---------------------------------
+	/**
+	 * userIdをもとにクラス情報を検索する。
+	 *
+	 * @param userId 検索対象のクラスID
+	 * @return 該当するUsers（見つからない場合はnull）
+	 */
+	public Users findById(int userId) {
 
-	public Users findById(int user_id) {
-		// TODO 自動生成されたメソッド・スタブ
+		String sql = "SELECT * FROM users WHERE user_id = ?";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, userId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return mapToUsers(rs);
+				}
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException("FindById failed", e);
+		}
+
 		return null;
 	}
-
-	
     
-}
 
 
+
+/**
+ * classNameをもとに情報を検索する。
+ *
+ * @param className クラス名
+ * @return 取得した全ての ページ用 のリスト
+ */
+	public List<Map<String, Object>> search(String className) {
+		//usersとclassesのDBを用いてクラスと名前を表示する
 	
+		String sql = "SELECT c.`class_name` AS `class_name` , u.`name` AS `user_name` "
+				+ "FROM `users` u " 
+				+ "LEFT JOIN `classes` c ON u.`user_id` = c.`user_id` "
+				+ "WHERE c.`class_name` = ? "
+				+ "ORDER BY c.`class_name`, u.`name`";
+	
+		//リストを用意
+		List<Map<String, Object>> eachClasses = new ArrayList<>();
+	
+		try(Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			//クラス名を入れてSQL文を作成
+			ps.setString(1, className);
+			//検索
+			try(ResultSet rs = ps.executeQuery()) {
+				//結果があれば
+				while(rs.next()) {
+				//Mapで保存する
+					Map<String, Object> row = new HashMap<>();
+					row.put("className", rs.getString("class_name"));
+					row.put("userName", rs.getString("user_name"));
+					eachClasses.add(row);
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Find failed", e);
+		}
+	
+		return eachClasses;
+		}
+}

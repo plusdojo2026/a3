@@ -1,0 +1,77 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Care - 生徒管理</title>
+</head>
+
+<body>
+
+  <div>
+    <!-- ロゴ写真 -->
+    <span><img></span>
+
+  </div>
+  <nav>
+    <button type="button">ログイン</button>
+    <button type="button">サインイン</button>
+  </nav>
+  <nav style="display: none;">
+    <button type="button">ようこそxxxさん</button>
+    <button type="button">ログアウト</button>
+  </nav>
+  </header>
+
+
+  <!-- 左側サイ  ドナビ -->
+  <aside>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">生徒</a>
+          <ul>
+            <li><a href="#"> 生徒管理</a></li>
+            <li><a href="#"> 点数管理</a></li>
+            <li><a href="#"> 日記</a></li>
+          </ul>
+        </li>
+        <li><a href="">成績</a></li>
+        <ul>
+          <li><a href="#">得点</a></li>
+          <li><a href="#">心理テスト</a></li>
+        </ul>
+        <li><a href="">報告</a></li>
+        <ul>
+          <li><a href="#">事案</a></li>
+          <li><a href="#">心理テスト</a></li>
+        </ul>
+        <li><a href="#">海外支援</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- 右側メイン表示 -->
+  <main>
+    <div>
+      <h2>数学 2021年1回目 / 成績総合</h2>
+    </div>
+
+    <div>
+      <p>山田太郎</p>
+      <p>1年1組</p>
+      <p>100</p>
+    </div>
+  </main>
+</body>
+
+<!-- 棒グラフ -->
+<div>棒グラフ用</div>
+
+<!-- 一番最後に置いてください -->
+<footer>
+  <p>虎視眈々(株)</p>
+</footer>
