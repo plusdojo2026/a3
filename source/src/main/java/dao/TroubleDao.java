@@ -43,6 +43,7 @@ public class TroubleDao {
 		trouble.setMembers(rs.getString("members"));
 		trouble.setUser_id(rs.getInt("user_id"));
 		trouble.setSituation(rs.getString("situation"));
+		trouble.setSituation(rs.getDate("tr_date"));
 
 		return trouble;
 	}
@@ -57,7 +58,16 @@ public class TroubleDao {
 
 	public List<Trouble> search() {
 		// SQL文を用意
-		String sql = "SELECT * FROM trouble";
+		String sql = "SELECT"
+				+ "d.tr_date AS tr_date,"
+				+ "t.title AS title,"
+				+ "u.user_id AS user_id, "
+				+ "s.situation AS situation"
+				+ "FROM trouble e"
+				+ "JOIN users u"
+				+ "ON e.user_id = u.user_id"
+				+ "WHERE trouble_id = ?"
+				+ "ORDER BY s.situation, d.tr_date, u.user_id";
 		// リストを準備
 		List<Trouble> trouble = new ArrayList<Trouble>();
 		// データベースと連携、SQL文を入れておく
@@ -91,7 +101,7 @@ public class TroubleDao {
 
 	public Trouble findById(int troubleId) {
 
-		String sql = "SELECT * FROM Trouble WHERE trouble_id = ?";
+		String sql = "SELECT * FROM trouble";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -123,8 +133,8 @@ public class TroubleDao {
 		if (trouble == null) {
 			throw new IllegalArgumentException("touble must not be null");
 		}
-		String sql = "INSERT INTO trouble(trouble_id, title, contents, members, user_id, situation) "
-				+ "VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO trouble(trouble_id, title, contents, members, user_id, situation, tr_date) "
+				+ "VALUES(?,?,?,?,?,?,?)";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -134,6 +144,7 @@ public class TroubleDao {
 			ps.setString(4, trouble.getMembers());
 			ps.setInt(5, trouble.getUser_id());
 			ps.setString(6, trouble.getSituation());
+			ps.setDate(7, tr_date.getTr_date());
 
 			int result = ps.executeUpdate();
 			return result > 0;
@@ -156,7 +167,7 @@ public class TroubleDao {
 		if (trouble == null) {
 			throw new IllegalArgumentException("trouble must not be null");
 		}
-		String sql = "UPDATE trouble SET title = ?, contents = ?, members = ?, user_id = ?, situation = ?, "
+		String sql = "UPDATE trouble SET title = ?, contents = ?, members = ?, user_id = ?, situation = ?, tr_date = ?"
 				+ "WHERE trouble_id = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -167,6 +178,7 @@ public class TroubleDao {
 			ps.setString(4, trouble.getMembers());
 			ps.setInt(5, trouble.getUser_id());
 			ps.setString(6, trouble.getSituation());
+			ps.setDate(7, tr_date.getTr_date());
 
 			int result = ps.executeUpdate();
 			return result > 0;
