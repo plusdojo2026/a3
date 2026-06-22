@@ -58,9 +58,11 @@
 
     <!-- 科目欄 -->
     <div>
+    <form method ="GET" action="${pageContext.request.contextPath}/SelectScoresServlet">
       <button type="button">数学</button>
       <button type="button">国語</button>
       <button type="button">英語</button>
+      </form>>
     </div>
     <!--回数-->
     <div>

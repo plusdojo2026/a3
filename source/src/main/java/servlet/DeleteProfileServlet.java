@@ -44,17 +44,15 @@ public class DeleteProfileServlet extends HttpServlet {
 		}
 
 		UsersDao usersDao = new UsersDao();
-
-		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		//保存しているユーザーIDを取り出す
+		int user_id =((Users) session.getAttribute("user")).getUser_id();
 
 		// DBから取得
 		Users user = usersDao.findById(user_id);
 
-		// ログインユーザー取得
-		int loginUserId = ((Users) session.getAttribute("user")).getUser_id();
-
+		
 		// 所有者チェック
-		if (user == null || user.getUser_id() != loginUserId) {
+		if (user == null || user.getUser_id() != user_id) {
 			response.sendRedirect(request.getContextPath() + "/error.jsp");
 			return;
 		}
@@ -70,7 +68,7 @@ public class DeleteProfileServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect(request.getContextPath() + "/IndexServlet");
+		response.sendRedirect(request.getContextPath() + "/TestMenuServlet");
 
 	}
 
