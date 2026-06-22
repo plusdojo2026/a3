@@ -43,7 +43,7 @@ public class TroubleDao {
 		trouble.setMembers(rs.getString("members"));
 		trouble.setUser_id(rs.getInt("user_id"));
 		trouble.setSituation(rs.getString("situation"));
-		trouble.setSituation(rs.getDate("tr_date"));
+		trouble.setTr_date(rs.getDate("tr_date"));
 
 		return trouble;
 	}
@@ -125,10 +125,11 @@ public class TroubleDao {
 	 * 新規事案情報を挿入する。
 	 *
 	 * @param trouble 挿入する事案情報を保持しているオブジェクト
+	 * @param tr_date 
 	 * @return 挿入に成功した場合true、失敗した場合false
 	 */
 
-	public boolean insert(Trouble trouble) {
+	public boolean insert(Trouble trouble, Trouble tr_date) {
 
 		if (trouble == null) {
 			throw new IllegalArgumentException("touble must not be null");
@@ -160,9 +161,10 @@ public class TroubleDao {
 	 *
 	 * @param troubleId 更新対象の事案ID
 	 * @param trouble   更新情報を保持しているオブジェクト
+	 * @param tr_date 
 	 * @return 更新に成功した場合true、対象データが存在しない場合false
 	 */
-	public boolean update(Trouble trouble, int troubleId) {
+	public boolean update(Trouble trouble, int troubleId, Trouble tr_date) {
 
 		if (trouble == null) {
 			throw new IllegalArgumentException("trouble must not be null");

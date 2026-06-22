@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Trouble implements Serializable {
 	private int trouble_id; // 事案番号
@@ -9,6 +10,7 @@ public class Trouble implements Serializable {
 	private String members; // 関係者
 	private int user_id; // 提出者
 	private String situation; // 状態
+	private Date tr_date; // 日付
 
 	// get,set
 	public int getTrouble_id() {
@@ -59,15 +61,24 @@ public class Trouble implements Serializable {
 	public void setSituation(String situation) {
 		this.situation = situation;
 	}
+	
+	public Date getTr_date() {
+		return tr_date;
+	}
+
+	public void setTr_date(Date tr_date) {
+		this.tr_date = tr_date;
+	}
 
 	// コンストラクタ
-	public Trouble(String title, String contents, String members, int user_id, String situation) {
+	public Trouble(String title, String contents, String members, int user_id, String situation, Date tr_date) {
 		super();
 		this.title = title;
 		this.contents = contents;
 		this.members = members;
 		this.user_id = user_id;
 		this.situation = situation;
+		this.tr_date = tr_date;
 	}
 
 	public Trouble() {
@@ -77,7 +88,7 @@ public class Trouble implements Serializable {
 	@Override
 	public String toString() {
 		return "Trouble [trouble_id=" + trouble_id + ", title=" + title + ", contents=" + contents + ", members="
-				+ members + ", user_id=" + user_id + ", situation=" + situation + "]";
+				+ members + ", user_id=" + user_id + ", situation=" + situation + ",tr_date=" + tr_date + "]";
 	}
 
 }
