@@ -105,6 +105,34 @@ public class DialogsDao {
 		return null;
 	}
 
+	public List<Dialogs> search(int user_id) {
+		// SQL文を用意
+		String sql = "SELECT * FROM dialogs　WHERE user_id = ?";
+		// リストを準備
+		List<Dialogs> dialogs = new ArrayList<Dialogs>();
+		// データベースと連携、SQL文を入れておく
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+//			user_id をセットする
+			ps.setInt(1, user_id);
+			
+			// SQL文を実行、結果をResultSetに保存する
+			try (ResultSet rs = ps.executeQuery()) {
+				// 次の結果があれば
+				while (rs.next()) {
+					// 今の結果をclassesオブジェクトに保存
+					dialogs.add(mapToDialogsDto(rs));
+				}
+
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException("Search failed", e);
+		}
+		// リストを戻り値
+		return dialogs;
+	}
+
 // -------------------------挿入メソッド---------------------------------
 	/**
 	 * Dialogs に1件追加する. -
