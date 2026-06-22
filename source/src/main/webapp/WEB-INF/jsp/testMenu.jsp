@@ -62,7 +62,7 @@
       <small>新規作成で件数が増えるため、日付選択は下部へ配置</small>
     </p>
 
-    <form>
+    <form method ="GET" action ="${pageContext.request.contextPath}/SelectTestsServlet">
       <!-- 科目の選択 -->
       <input type="checkbox" name="" id="">
       <button>数学</button>

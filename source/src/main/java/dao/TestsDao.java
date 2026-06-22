@@ -102,6 +102,33 @@ public class TestsDao {
 		return null;
 	}
 
+	// ---------------------userIDでサーチするメソッド---------------------------------
+		/**
+		 * useridをもとにクラス情報を検索する。
+		 *
+		 * @param userId 検索対象のuserID
+		 * @return 該当するTests（見つからない場合はnull）
+		 */
+		public List<Tests> findByUserId(int userid) {
+               List<Tests> testlist =new ArrayList();
+			String sql = "SELECT * FROM test WHERE user_id = ?";
+
+			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+				ps.setInt(1, userid);
+
+				try (ResultSet rs = ps.executeQuery()) {
+					while (rs.next()) {testlist.add(mapToTestsDto(rs));
+						
+					}return testlist;
+				}
+			} catch (Exception e) {
+				throw new RuntimeException("FindById failed", e);
+			}
+
+			
+		}
+
 	// ---------------------挿入メソッド---------------------------------
 	/**
 	 * 新規クラス情報を挿入する。

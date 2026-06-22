@@ -65,7 +65,7 @@
     </div>
 
     <div>
-      <form>
+      <form method ="GET" action="${pageContext.request.contextPath}/SelectSubjectsServlet">
         <nav>
           <ul>
             <li><a href="">数学</a></li>
