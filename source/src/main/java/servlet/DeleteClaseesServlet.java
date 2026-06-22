@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,65 +17,62 @@ import dao.UsersDao;
 @WebServlet("/DeleteClaseesServlet")
 public class DeleteClaseesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteClaseesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DeleteClaseesServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//loginしているか検査
-				HttpSession session = request.getSession();
-				//ウェブサイトの格式をutf-8
-				request.setCharacterEncoding("UTF-8");
-				
-				//もしセッションスコープの中にuser情報がないなら
-				if(session.getAttribute("user") == null) {
-					//ログインページに戻る
-					response.sendRedirect("/LoginServlet");
-					return;
-				}
-	}			
+		// loginしているか検査
+		HttpSession session = request.getSession();
+		// ウェブサイトの格式をutf-8
+		request.setCharacterEncoding("UTF-8");
 
-
-	
+		// もしセッションスコープの中にuser情報がないなら
+		if (session.getAttribute("user") == null) {
+			// ログインページに戻る
+			response.sendRedirect("/LoginServlet");
+			return;
+		}
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		
-		int userId = Integer.parseInt(request.getParameter("user"));
-		//削除
+
+		int userId = Integer.parseInt(request.getParameter("user_id"));
+		// 削除
 		UsersDao uDao = new UsersDao();
-		
-		//削除実行
+
+		// 削除実行
+		HttpSession session = request.getSession();
 		try {
-			if(uDao.delete(userId)) {
-				request.setAttribute("message", "削除完了");
+			if (uDao.delete(userId)) {
+				session.setAttribute("message", "削除完了");
 			} else {
-				request.setAttribute("message", "削除失敗");
+				session.setAttribute("message", "削除失敗");
 			}
-			
-		} catch(ClassNotFoundException e) {
+
+		} catch (ClassNotFoundException e) {
 			throw new ServletException(e);
 		}
-		
-		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/classes.jsp");
-		dispatcher.forward(request, response);
-		
+
+		response.sendRedirect("/SelectClassesServlet");
 	}
 
 }
-
-

@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,68 +20,97 @@ import dto.Users;
 @WebServlet("/SigninServlet")
 public class SigninServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SigninServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//loginしているか検査
-		HttpSession session = request.getSession();
-		//文字コードutf-8に設定
-		request.setCharacterEncoding("UTF-8");
-		
-		//もしセッションスコープの中にuser情報がないと
-		if(session.getAttribute("user") == null) {
-			//ログインページに戻る
-			response.sendRedirect("/LoginServlet");
-			return;
-		}
+	public SigninServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// ログインページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/signin.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//リクエストするパラメータ一覧
+		HttpSession session = request.getSession();
+		// リクエストするパラメータ一覧
 		try {
+			// 格式設定
 			request.setCharacterEncoding("UTF-8");
-			int state = Integer.parseInt(request.getParameter("state"));
+			// 教師なので0番を設定
+			int state = 0;
+			// ウェブサイトの「名前」をゲット
 			String name = request.getParameter("name");
-			Date birthday = Date.valueOf(request.getParameter("birthday"));
-			int age = Integer.parseInt(request.getParameter("age"));
+			// 生年月日
+			String birthdayStr = request.getParameter("birthday");
+			Date birthday = null;
+			if (birthdayStr != null && !birthdayStr.isEmpty()) {
+				birthday = Date.valueOf(birthdayStr);
+			}
+
+			// 年齢
+			int age = 0;
+			try {
+				age = Integer.parseInt(request.getParameter("age"));
+			} catch (NumberFormatException e) {
+				age = 0;
+			}
+			// 性別
 			String gender = request.getParameter("gender");
+			// 電話番号
 			String tel = request.getParameter("tel");
+			// メールアドレス
 			String mail = request.getParameter("mail");
-			String parents_mail = request.getParameter("parents_mail");
+			// 親のメール
+			// String parents_mail = request.getParameter("parents_mail");
+			// 郵便番号
 			String post_code = request.getParameter("post_code");
-			String address =request.getParameter("address");
+			// 住所
+			String address = request.getParameter("address");
+			// パスワード
 			String password = request.getParameter("password");
+			// メモ
 			String preparation = request.getParameter("preparation");
+			// 個人写真
 			String image_url = request.getParameter("image_url");
-			
-			//登録処理
+
+			// 登録処理
 			UsersDao uDao = new UsersDao();
-			if(uDao.insert(new Users(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url))) { //登録成功
+			Users user = new Users(state, name, birthday, age, gender, tel, mail, "aaa@aaa.com", post_code, address,
+					password, preparation, image_url);
+			if (uDao.insert(user)) {
+				// 登録成功
+				user = uDao.search(user);
+				// user情報をもう一回読み取り、sessionに保存
+				session.setAttribute("user", user);
+				// エラーメッセージを表示する
 				request.setAttribute("message", "登録成功");
-			} else {	//登録失敗
+			} else { // 登録失敗
+				// エラーメッセージを表示する
 				request.setAttribute("message", "登録失敗");
 			}
 		} catch (ClassNotFoundException e) {
-		    throw new ServletException(e);
+			throw new ServletException(e);
 		}
-		doGet(request, response);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+		dispatcher.forward(request, response);
+
 	}
 
 }

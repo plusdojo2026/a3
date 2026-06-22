@@ -73,8 +73,8 @@ public class UpdateScheduleServlet extends HttpServlet {
 			return;
 		}
 
-		Schedules schedule = new Schedules();
-		SchedulesDao schedulesDao = new SchedulesDao();
+		Schedules schedule = new Schedules();// DTO
+		SchedulesDao schedulesDao = new SchedulesDao();// DAO
 
 		int schedule_id = Integer.parseInt(request.getParameter("schedule_id"));
 		schedule.setSchedule_id(schedule_id);
@@ -131,6 +131,7 @@ public class UpdateScheduleServlet extends HttpServlet {
 			request.setAttribute("message", "失敗");
 		}
 		;
+
 		doGet(request, response);
 
 	}

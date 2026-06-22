@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UsersDao;
+import dao.ClassesDao;
+import dto.Classes;
 import dto.Users;
 
 /**
@@ -19,67 +19,54 @@ import dto.Users;
 @WebServlet("/InsertClasses")
 public class InsertClassesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InsertClassesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public InsertClassesServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//loginしているか検査
+		// loginしているか検査
 		HttpSession session = request.getSession();
-		//ウェブサイトの格式をutf-8
+		// ウェブサイトの格式をutf-8
 		request.setCharacterEncoding("UTF-8");
-		
-		//もしセッションスコープの中にuser情報がないなら
-		if(session.getAttribute("user") == null) {
-			//ログインページに戻る
+
+		// もしセッションスコープの中にuser情報がないなら
+		if (session.getAttribute("user") == null) {
+			// ログインページに戻る
 			response.sendRedirect("/LoginServlet");
 			return;
 		}
-	}
+		// ウェブサイトの入力を読み取る
+		String addClass = request.getParameter("addClassInput");
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			request.setCharacterEncoding("UTF-8");
-			int state = Integer.parseInt(request.getParameter("state"));
-			String name = request.getParameter("name");
-			Date birthday = Date.valueOf(request.getParameter("birthday"));
-			int age = Integer.parseInt(request.getParameter("age"));
-			String gender = request.getParameter("gender");
-			String tel = request.getParameter("tel");
-			String mail = request.getParameter("mail");
-			String parents_mail = request.getParameter("parents_mail");
-			String post_code = request.getParameter("post_code");
-			String address =request.getParameter("address");
-			String password = request.getParameter("password");
-			String preparation = request.getParameter("preparation");
-			String image_url = request.getParameter("image_url");
-			
-			//登録処理
-			UsersDao uDao = new UsersDao();
-			if(uDao.insert(new Users(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url))) { //登録成功
-				request.setAttribute("message", "追加成功");
-			} else {	//登録失敗
-				request.setAttribute("message", "追加失敗");
-			}
-		} catch (ClassNotFoundException e) {
-		    throw new ServletException(e);
+		if (addClass == null || addClass.isEmpty()) {
+			session.setAttribute("message", "クラス名を入力してください。");
+			response.sendRedirect("/SelectClassesServlet");
+			return;
 		}
-		doGet(request, response);
+
+		ClassesDao classesDao = new ClassesDao();
+		Classes classes = new Classes();
+		classes.setClass_name(addClass);
+		classes.setUser_id(((Users) session.getAttribute("user")).getUser_id());
+		if (classesDao.insert(classes)) {
+			session.setAttribute("message", "挿入成功！");
+
+		} else {
+			session.setAttribute("message", "挿入失敗！");
+
+		}
+		response.sendRedirect("/SelectClassesServlet");
+
 	}
-
 }
-
-
