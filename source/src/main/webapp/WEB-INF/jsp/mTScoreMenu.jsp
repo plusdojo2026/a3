@@ -1,0 +1,138 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>海外支援</title>
+</head>
+
+<body>
+
+  <!-- ヘッダーエリア、bodyの下に置いてください -->
+  <header>
+    <div>
+      <span><img></span>
+
+    </div>
+    <nav>
+      <button type="button">ログイン</button>
+      <button type="button">サインイン</button>
+    </nav>
+    <nav style="display: none;">
+      <button type="button">ようこそxxxさん</button>
+      <button type="button">ログアウト</button>
+    </nav>
+  </header>
+
+
+
+  <!-- 左側サイドナビ -->
+  <aside>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">生徒</a>
+          <ul>
+            <li><a href="#"> 生徒管理</a></li>
+            <li><a href="#"> 点数管理</a></li>
+            <li><a href="#"> 日記</a></li>
+          </ul>
+        </li>
+        <li><a href="#">成績</a></li>
+        <ul>
+          <li><a href="#">得点</a></li>
+          <li><a href="#">心理テスト</a></li>
+        </ul>
+        <li><a href="">報告</a></li>
+        <ul>
+          <li><a href="#">事案</a></li>
+          <li><a href="#">心理テスト</a></li>
+        </ul>
+        <li><a href="#">海外支援</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+
+
+    <!-- メインコンテンツエリア -->
+    <div>
+      <h2>2026/06/08　心理テスト結果​</h2>
+    </div>
+
+    <div>
+      <!-- 一人目の生徒 -->
+      <div>
+        <div>
+          <p>山田太郎​</p>
+        </div>
+        <div>
+          <p>100​</p>
+        </div>
+        <div>
+          <p>1年1組​</p>
+        </div>
+        <div>
+          <button type="button">チャット</button>
+        </div>
+      </div>
+      <!-- 二人目の生徒 -->
+      <div>
+        <div>
+          <p>山田次郎​</p>
+        </div>
+        <div>
+          <p>0​</p>
+        </div>
+        <div>
+          <p>1年1組​</p>
+        </div>
+        <div>
+          <button type="button">チャット</button>
+        </div>
+        <div><img src="" alt="いじめ警戒"></div>
+      </div>
+      <!-- 三人目の生徒 -->
+      <div>
+        <div>
+          <p>山田太郎​</p>
+        </div>
+        <div>
+          <p>100​</p>
+        </div>
+        <div>
+          <p>1年1組​</p>
+        </div>
+        <div>
+          <button type="button">チャット</button>
+        </div>
+      </div>
+
+      <!-- 四人目の生徒 -->
+      <div>
+        <div>
+          <p>山田三郎​</p>
+        </div>
+        <div>
+          <p>---</p>
+        </div>
+        <div>
+          <p>1年1組​</p>
+        </div>
+        <div>
+          <button type="button">チャット</button>
+        </div>
+        <div><img src="" alt="いじめ警戒"></div>
+      </div>
+    </div>
+  </main>
+  <!-- 一番最後に置いてください -->
+  <footer>
+    <p>虎視眈々(株)</p>
+  </footer>
+</body>
+
+</html>

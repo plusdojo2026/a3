@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Class Care</title>
+    </head>
+
+    <body>
+        <!-- 右上ログイン・サインイン（高畑版） 
+        <header>
+            <nav>
+                <ul>
+                    <li><a href=>ログイン</a></li>
+                    <li><a href=>サインイン</a></li>
+                </ul>
+            </nav>
+        </header> -->
+        
+    <header>
+        <!-- ここからテンプレート -->
+        <div>
+        <!-- ロゴ写真 -->
+        <span><img></span>
+
+        </div>
+            <nav>
+                <button type="button">ログイン</button>
+                <button type="button">サインイン</button>
+            </nav>
+            <nav style="display: none;">
+                <button type="button">ようこそxxxさん</button>
+                <button type="button">ログアウト</button>
+            </nav>
+        <!-- テンプレート終了 -->
+    </header>
+    
+    <footer>
+        <p>虎視眈々(株)</p>
+    </footer>
+    </body>
+</html>

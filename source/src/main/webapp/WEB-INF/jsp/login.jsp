@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ログイン｜Classcare</title>
+        
+        <link rel="stylesheet" href="css/login.css">
+    </head>
+    <body>
+     <!--ここのアクションまだ入れてません-->
+    <header>
+        <div>
+        <!-- ロゴ写真 -->
+        <span><img></span>
+
+        </div>
+            <nav>
+                <button type="button">ログイン</button>
+                <button type="button">サインイン</button>
+            </nav>
+            <nav style="display: none;">
+                <button type="button">ようこそxxxさん</button>
+                <button type="button">ログアウト</button>
+            </nav>
+    </header>
+    <!-- メインコンテンツ -->
+    <h2 class="login-title">ログイン</h2>
+    
+	<form action="">
+
+        <!-- ログインボックス -->
+    		<div>
+                <label>ユーザー名 / Username<br>
+                    <input type="text" name="ID">
+                </label>
+            </div>
+            <div>
+                <label>パスワード / Password<br>
+                    <input type="text" name="pw">
+                </label>
+            </div>
+          	<div>
+                <input type="submit" name="submit" value="ログイン">
+                <input type="reset" name="reset" value="リセット"> 
+                <span id="error_message"></span>
+			</div>
+        </form>
+        <!-- ログインボックス終了 -->
+        <!-- 一番最後に置いてください -->
+        <footer>
+            <p>虎視眈々(株)</p>
+        </footer> 
+    </body>
+</html>
