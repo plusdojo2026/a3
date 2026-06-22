@@ -49,18 +49,20 @@ public class LoginServlet extends HttpServlet {
 		
 		//ログイン処理
 		UsersDao uDao = new UsersDao();
-		if(uDao.findByLoginIdAndPassword(new Users(id, pw))) {
-		
+		Users user = uDao.findByLoginIdAndPassword(id , pw);
+		if(user != null) {
+			
 		//セッションスコープにIDを格納
 		HttpSession session = request.getSession();
-		session.setAttribute("user_id", new Users(id));
+		session.setAttribute("user_id", (id));
 		//メニューサーブレットにリダイレクト
 		response.sendRedirect("/a3/IndexServlet");
-		} else {
+		} else {	//ログイン失敗
 			//リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			request.setAttribute("result", new Users());
+			request.setAttribute("result", new Users());	//ここあってるか？
 			//result.jspにリダイレクト
-			RequestDispatcher dipatcher = request.getRequestDispatcher("/WEB-INF/jsp/");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
