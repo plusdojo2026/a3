@@ -72,7 +72,7 @@
       </div>
       <!--主体内容-->
       <div id="pageContent">
-        <form method="post">
+        <form method="GET" action="${pageContext.request.contextPath}/GlobalServlet">
           <label>URL</label><br>
           <input type="text" name="supportURL" id="supportURL">
           <input type="submit" value="保存">
