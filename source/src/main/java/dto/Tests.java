@@ -96,7 +96,8 @@ public class Tests implements Serializable {
 	 * @param subject_id
 	 * @param user_id
 	 */
-	public Tests(int scores_id, Date test_date, int subject_id, int user_id) {
+	public Tests(int test_id,int scores_id, Date test_date, int subject_id, int user_id) {
+		this.test_id = test_id;
 		this.scores_id = scores_id;
 		this.test_date = test_date;
 		this.subject_id = subject_id;

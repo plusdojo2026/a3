@@ -11,17 +11,17 @@ import dto.Trouble;
 
 /**
  * ============================ScoresDao================================
- * Scoresテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
+ * Troubleテーブルに対する CRUD（検索/取得/追加/更新/削除）を提供するDAO.
  *
- * 【主な公開メソッド】 - search(Scores scores) 検索
+ * 【主な公開メソッド】 - search(Trouble trouble) 検索
  *
- * - findById(int scoresid) scores_id（主キー）で1件取得する。
+ * - findById(int troubleid) trouble_id（主キー）で1件取得する。
  *
- * - insert(Scores scores) Scores に1件追加する（NULL/DEFAULT/外部キーを考慮）。
+ * - insert(Trouble trouble) Trouble に1件追加する（NULL/DEFAULT/外部キーを考慮）。
  *
- * - update(Scores scores, int scoresid) scores_idをキーに、指定された項目のみ更新する。
+ * - update(Trouble trouble, int troubleid) trouble_idをキーに、指定された項目のみ更新する。
  *
- * - delete(int scoresid) Scoresidをキーに削除する。
+ * - delete(int troubleid) trouble_idをキーに削除する。
  * =========================================================
  */
 public class TroubleDao {
