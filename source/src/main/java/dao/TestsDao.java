@@ -102,6 +102,38 @@ public class TestsDao {
 		return null;
 	}
 
+	// ---------------------SubjectIDでサーチするメソッド---------------------------------
+	/**
+	 * SubjectIDをもとにクラス情報を検索する。
+	 *
+	 * @param SubjectID 検索対象のクラスID
+	 * @return 該当するTests（見つからない場合はnull）
+	 */
+	public List<Tests> searchBySubjectId(int subject_id, int user_id) {
+
+	    String sql = "SELECT * FROM tests WHERE subject_id = ? AND user_id = ?";
+
+	    List<Tests> tests = new ArrayList<Tests>();
+
+	    try (
+	        Connection conn = DBUtil.getConnection();
+	        PreparedStatement ps = conn.prepareStatement(sql)
+	    ) {
+	        ps.setInt(1, subject_id);
+	        ps.setInt(2, user_id);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                tests.add(mapToTestsDto(rs));
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        throw new RuntimeException("SearchBySubjectId failed", e);
+	    }
+
+	    return tests;
+	}
 	// ---------------------userIDでサーチするメソッド---------------------------------
 		/**
 		 * useridをもとにクラス情報を検索する。
