@@ -1,13 +1,22 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import dao.SubjectsDao;
+import dao.TestsDao;
+import dto.Subjects;
+import dto.Tests;
+import dto.Users;
 
 /**
  * Servlet implementation class StuScoreServlet
@@ -49,47 +58,50 @@ public class StuScoreMenuServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// List<Tests> t=(List<Tests>) request.getAttribute("testlist");
-		// List<Subjects> s=(List<Subjects>) request.getAttribute("subjectlist");
-		// List<Scores> sc=(List<Scores>) request.getAttribute("scorelist");
-		// loginしているか検査
-		HttpSession session = request.getSession();
-		// ウェブサイトの格式をutf-8を設定
+		// 文字コードを設定する
 		request.setCharacterEncoding("UTF-8");
-// もしセッションスコープの中にuser情報がないと
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
-			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
+		// ユーザーをsessionからとる、idを保存する
+		Users loginUser = (Users) session.getAttribute("user");
+		int user_id = loginUser.getUser_id();
 
-		// page変数を読み取る
-		String page = request.getParameter("page");
+		// daoを用意する
+		SubjectsDao subjectsDao = new SubjectsDao();
+		TestsDao testsdao = new TestsDao();
 
-		// pageの中に何もないと
-		if (page == null || page.isEmpty()) {
-			// エラーメッセージを表示する
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return;
+		// 空リストを用意する
+		List<Tests> testList = new ArrayList<Tests>();
+		List<Subjects> subjectList = new ArrayList<Subjects>();
+
+		// 先生の場合
+		if (loginUser.getState() == 0) {
+			// すべてのテストデータをリストに保存
+			testList = testsdao.search();
+		} else {
+			// 学生の場合、自分のidのテストだけをとる
+			testList = testsdao.findByUserId(user_id);
 		}
-		// 不法操作をする場合
-		if (page.contains("..")) {
-			// エラーメッセージを表示する
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
-			return;
+		// forでループする
+		for (Tests tests : testList) {
+			// 各テストの科目idを取り出す
+			int subject_id = tests.getSubject_id();
+			// データを検索
+			Subjects subjects = subjectsDao.findByID(subject_id);
+			// リストに保存
+			subjectList.add(subjects);
 		}
 
-		// ログアウトボタンの場
-		if (page.equals("logout")) {
-			// セッションのものを削除
-			session.invalidate();
-			// ホームページに戻る
-			response.sendRedirect("LoginServlet");
-			return;
-		}
+		// jspに入れる値
+		request.setAttribute("testList", testList);
+		request.setAttribute("subjectList", subjectList);
 
-		request.getRequestDispatcher("/WEB-INF/jsp/StuScoreMenu.jsp").forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/stuScoreMenu.jsp");
+		dispatcher.forward(request, response);
+
 	}
-
 }

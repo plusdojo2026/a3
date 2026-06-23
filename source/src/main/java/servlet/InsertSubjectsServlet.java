@@ -50,7 +50,7 @@ public class InsertSubjectsServlet extends HttpServlet {
 			request.setAttribute("message", "科目の追加に失敗しました。");
 		}
 		// 結果をページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/SubjectsMenu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectSubjectServlet");
 		dispatcher.forward(request, response);
 	}
 }

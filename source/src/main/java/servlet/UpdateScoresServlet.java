@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,13 +13,14 @@ import dto.Scores;
 
 /**
  * Servlet implemention class UpdateScoresServlet
+ * 
+ * 一回の点数を更新するサーブレット、今は使っているページがない
  */
 
 @WebServlet("/UpdateScoresServlet")
 
 public class UpdateScoresServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 
 	// 更新時の画面表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,8 +36,9 @@ public class UpdateScoresServlet extends HttpServlet {
 		request.setAttribute("scores", scores);
 
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Scores.jsp");
-		dispatcher.forward(request, response);
+		// RequestDispatcher dispatcher =
+		// request.getRequestDispatcher("/WEB-INF/jsp/Scores.jsp");
+		// dispatcher.forward(request, response);
 	}
 
 	// 更新の処理
@@ -60,7 +61,8 @@ public class UpdateScoresServlet extends HttpServlet {
 		request.setAttribute("message", result ? "点数を更新しました。" : "点数の更新に失敗しました。");
 
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Scores.jsp");
-		dispatcher.forward(request, response);
+		// RequestDispatcher dispatcher =
+		// request.getRequestDispatcher("/WEB-INF/jsp/Scores.jsp");
+		// dispatcher.forward(request, response);
 	}
 }

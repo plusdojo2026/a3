@@ -55,7 +55,7 @@ public class DeleteSubjectsServlet extends HttpServlet {
 		}
 
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/SubjectsMenu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectSubjectServlet");
 		dispatcher.forward(request, response);
 
 	}

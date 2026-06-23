@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import dao.Mental_scoresDao;
 import dto.Mental_scores;
-import dto.Users;
 
 /**
  * Servlet implementation class AddMTResultServlet
@@ -52,25 +51,13 @@ public class AddMTResultServlet extends HttpServlet {
 			return;
 		}
 
-		// ユーザーの合計得点を得る(JavaScriptで計算、結果をrequestに保存)
-		String score = request.getParameter("mTscore");
-		// javascriptから学生の状態を貰う
-		String status = request.getParameter("status");
-		// 初期状態のメモを設定
-		String mtScoresMemo = "";
-		// 前のページのidを貰う
-		int mtID = Integer.parseInt(request.getParameter("mtID"));
-		// sessionのidを使う
-		int userId = ((Users) session.getAttribute("user")).getUser_id();
-
 		Mental_scoresDao mtDao = new Mental_scoresDao();
-		Mental_scores mt = new Mental_scores(score, status, mtScoresMemo, mtID, userId);
+		Mental_scores mt = (Mental_scores) request.getAttribute("mtScores");
 		// 成功の場合
 		if (mtDao.insert(mt)) {
 			// ホームページに戻る
 			response.sendRedirect(request.getContextPath() + "/Forward?page=index");
 		} else {
-
 			// テストページへ行く
 			request.setAttribute("message", "点数更新失敗。もう一回テストをしてください。");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectMTServlet");

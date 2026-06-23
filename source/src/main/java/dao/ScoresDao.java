@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,23 +150,33 @@ public class ScoresDao {
 	 * @return 挿入に成功した場合true、失敗した場合false
 	 */
 
-	public boolean insert(Scores scores) {
+	public int insert(Scores scores) {
 
 		if (scores == null) {
 			throw new IllegalArgumentException("Scores must not be null");
 		}
+
 		String sql = "INSERT INTO scores(score) VALUES(?)";
 
-		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
 			ps.setString(1, scores.getScore());
 
 			int result = ps.executeUpdate();
-			return result > 0;
+
+			if (result > 0) {
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()) {
+					return rs.getInt(1);
+				}
+			}
 
 		} catch (Exception e) {
 			throw new RuntimeException("Insert failed", e);
 		}
+
+		return -1; // 插入失败
 	}
 
 //---------------------IDで更新するメソッド---------------------------------

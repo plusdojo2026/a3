@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -24,63 +25,68 @@ import dto.Users;
  */
 @WebServlet("/SelectSubjectServlet")
 public class SelectSubjectServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SelectSubjectServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @param user_id 
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SelectSubjectServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param user_id
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 文字コードを設定する
+		request.setCharacterEncoding("UTF-8");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		
-		// 文字コードを設定する
-		request.setCharacterEncoding("UTF-8");
-
+		// ユーザーをsessionからとる、idを保存する
 		Users loginUser = (Users) session.getAttribute("user");
-        int user_id = loginUser.getUser_id();
-        
-		// データの表示行う
+		int user_id = loginUser.getUser_id();
+
+		// daoを用意する
 		SubjectsDao subjectsDao = new SubjectsDao();
-		
-		//科目一覧の取得する
-		List<Subjects> subjectList = subjectsDao.search();
-		
-		//jspに入れる値
-		request.setAttribute("subjectList", subjectList);
-		
-		//科目を選択されたら、その科目の日付が取得する
-		String subjectIdStr = request.getParameter(subject_Id);
-		
-		if ( subjectIdStr != null && !subjectIdStr.isEmpty()) {
-			int subject_id = Integer.parseInt(subjectIdStr);
-			
-			TestsDao testsdao = new TestsDao();
-			List<Tests> TestsList = TestsList.searchBySubjectId(subject_id, user_id);
-			
-			request.setAttribute("testList", testList);
-		    request.setAttribute("selectedSubjectId", subject_id);
+		TestsDao testsdao = new TestsDao();
+
+		// 空リストを用意する
+		List<Tests> testList = new ArrayList<Tests>();
+		List<Subjects> subjectList = new ArrayList<Subjects>();
+
+		// 先生の場合
+		if (loginUser.getState() == 0) {
+			// すべてのテストデータをリストに保存
+			testList = testsdao.search();
+		} else {
+			// 学生の場合、自分のidのテストだけをとる
+			testList = testsdao.findByUserId(user_id);
 		}
-		
-		RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/WEB-INF/jsp/SubjectsMenu.jsp");
+		// forでループする
+		for (Tests tests : testList) {
+			// 各テストの科目idを取り出す
+			int subject_id = tests.getSubject_id();
+			// データを検索
+			Subjects subjects = subjectsDao.findByID(subject_id);
+			// リストに保存
+			subjectList.add(subjects);
+		}
+
+		// jspに入れる値
+		request.setAttribute("testList", testList);
+		request.setAttribute("subjectList", subjectList);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/SubjectsMenu.jsp");
 		dispatcher.forward(request, response);
-		
 	}
+
 }
-	

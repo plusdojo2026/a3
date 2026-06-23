@@ -75,6 +75,40 @@ public class TestsDao {
 		return tests;
 	}
 
+	// ---------------------サーチするメソッド---------------------------------
+	/**
+	 * テスト情報を日付と科目idで検索する。
+	 *
+	 * @param Tests
+	 * @return テストデータのリスト。見つからない場合は空のリスト
+	 */
+
+	public List<Tests> search(Tests test) {
+		// SQL文を用意
+		String sql = "SELECT * FROM tests WHERE subject_id = ? and test_date = ?";
+		// リストを準備
+		List<Tests> tests = new ArrayList<Tests>();
+		// データベースと連携、SQL文を入れておく
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, test.getSubject_id());
+			ps.setDate(2, test.getTest_date());
+			// SQL文を実行、結果をResultSetに保存する
+			try (ResultSet rs = ps.executeQuery()) {
+				// 次の結果があれば
+				while (rs.next()) {
+					// 今の結果をtestsオブジェクトに保存
+					tests.add(mapToTestsDto(rs));
+				}
+
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException("Search failed", e);
+		}
+		// リストを戻り値
+		return tests;
+	}
+
 	// ---------------------IDでサーチするメソッド---------------------------------
 	/**
 	 * testidをもとにクラス情報を検索する。
@@ -111,55 +145,54 @@ public class TestsDao {
 	 */
 	public List<Tests> searchBySubjectId(int subject_id, int user_id) {
 
-	    String sql = "SELECT * FROM tests WHERE subject_id = ? AND user_id = ?";
+		String sql = "SELECT * FROM tests WHERE subject_id = ? AND user_id = ?";
 
-	    List<Tests> tests = new ArrayList<Tests>();
+		List<Tests> tests = new ArrayList<Tests>();
 
-	    try (
-	        Connection conn = DBUtil.getConnection();
-	        PreparedStatement ps = conn.prepareStatement(sql)
-	    ) {
-	        ps.setInt(1, subject_id);
-	        ps.setInt(2, user_id);
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, subject_id);
+			ps.setInt(2, user_id);
 
-	        try (ResultSet rs = ps.executeQuery()) {
-	            while (rs.next()) {
-	                tests.add(mapToTestsDto(rs));
-	            }
-	        }
-
-	    } catch (Exception e) {
-	        throw new RuntimeException("SearchBySubjectId failed", e);
-	    }
-
-	    return tests;
-	}
-	// ---------------------userIDでサーチするメソッド---------------------------------
-		/**
-		 * useridをもとにクラス情報を検索する。
-		 *
-		 * @param userId 検索対象のuserID
-		 * @return 該当するTests（見つからない場合はnull）
-		 */
-		public List<Tests> findByUserId(int userid) {
-               List<Tests> testlist =new ArrayList();
-			String sql = "SELECT * FROM test WHERE user_id = ?";
-
-			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
-				ps.setInt(1, userid);
-
-				try (ResultSet rs = ps.executeQuery()) {
-					while (rs.next()) {testlist.add(mapToTestsDto(rs));
-						
-					}return testlist;
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					tests.add(mapToTestsDto(rs));
 				}
-			} catch (Exception e) {
-				throw new RuntimeException("FindById failed", e);
 			}
 
-			
+		} catch (Exception e) {
+			throw new RuntimeException("SearchBySubjectId failed", e);
 		}
+
+		return tests;
+	}
+
+	// ---------------------userIDでサーチするメソッド---------------------------------
+	/**
+	 * useridをもとにクラス情報を検索する。
+	 *
+	 * @param userId 検索対象のuserID
+	 * @return 該当するTests（見つからない場合はnull）
+	 */
+	public List<Tests> findByUserId(int userid) {
+		List<Tests> testlist = new ArrayList<Tests>();
+		String sql = "SELECT * FROM test WHERE user_id = ?";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, userid);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					testlist.add(mapToTestsDto(rs));
+
+				}
+				return testlist;
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("FindById failed", e);
+		}
+
+	}
 
 	// ---------------------挿入メソッド---------------------------------
 	/**
@@ -204,16 +237,13 @@ public class TestsDao {
 		if (tests == null) {
 			throw new IllegalArgumentException("tests must not be null");
 		}
-		String sql = "UPDATE tests SET scores_id = ?, test_date = ?, subject_id = ?, user_id = ? WHERE test_id = ?";
+		String sql = "UPDATE tests SET test_date = ?, subject_id = ? WHERE test_id = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			// ps.setInt(1, tests.getTest_id());
-			ps.setInt(1, tests.getScores_id());
-			ps.setDate(2, tests.getTest_date());
-			ps.setInt(3, tests.getSubject_id());
-			ps.setInt(4, tests.getUser_id());
-			ps.setInt(5, testid);
+			ps.setDate(1, tests.getTest_date());
+			ps.setInt(2, tests.getSubject_id());
+			ps.setInt(3, testid);
 
 			int result = ps.executeUpdate();
 			return result > 0;
