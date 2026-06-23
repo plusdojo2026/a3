@@ -21,51 +21,46 @@ import dto.Dialogs;
  */
 @WebServlet("/SelectDiaryServlet")
 public class SelectDiaryServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SelectDiaryServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @param user_id 
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SelectDiaryServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param user_id
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 文字コードを設定する
+		request.setCharacterEncoding("UTF-8");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		
-		// 文字コードを設定する
-		request.setCharacterEncoding("UTF-8");
-		
+
 		int dialog_id = Integer.parseInt(request.getParameter("dialog_id"));
-		
+
 		// データの表示行う
 		DialogsDao dialogsDao = new DialogsDao();
-		
-		Dialogs dialog = dialogsDao.findById(dialog_id);
-		
-		//jspに入れる値
-		request.setAttribute("dialog", dialog);
-		
-		RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/WEB-INF/jsp/diary.jsp");
-		dispatcher.forward(request, response);
-		
-	}
-	
-	
 
+		Dialogs dialog = dialogsDao.findById(dialog_id);
+
+		// jspに入れる値
+		request.setAttribute("dialog", dialog);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/diary.jsp");
+		dispatcher.forward(request, response);
+
+	}
 
 }
