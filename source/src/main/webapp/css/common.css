@@ -1,35 +1,67 @@
-main {
-    margin-left: 220px; /* asideの幅に合わせる */
-    padding: 30px;
+body {
+    margin: 0;
+    background-color: #f5f7f7;
+    font-family: "Yu Gothic", sans-serif;
 }
 
-.content-box {
-    width: 800px;
-    margin: 0 auto;
-}
+/* ヘッダー */
+header {
+    height: 80px;
+    background-color: #f8fbfb;
+    border-bottom: 2px solid #d8ecec;
 
-.form-box {
-    background: #fdf6f9;
-    border: 1px solid #f2d8e0;
-    border-radius: 15px;
-
-    padding: 40px;
-}
-
-.row {
     display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 30px;
 }
 
-input {
+/* サイドメニュー */
+aside {
     width: 180px;
-    height: 35px;
-    border: 1px solid #44c3d1;
-    border-radius: 5px;
+    min-height: calc(100vh - 130px);
+
+    float: left;
+
+    background-color: #eef9f8;
+
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.btn-area {
-    text-align: right;
-    margin-top: 50px;
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside li {
+    margin-bottom: 15px;
+}
+
+aside a {
+    text-decoration: none;
+    color: #2e8b95;
+}
+
+/* メインエリア */
+main {
+    margin-left: 200px;
+    padding: 30px;
+    min-height: calc(100vh - 130px);
+}
+
+
+
+/* フッター */
+footer {
+    clear: both;
+
+    height: 50px;
+
+    background-color: #f8fbfb;
+    border-top: 2px solid #d8ecec;
+
+    text-align: center;
+    line-height: 50px;
 }

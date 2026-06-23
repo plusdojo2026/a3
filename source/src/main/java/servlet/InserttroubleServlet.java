@@ -1,10 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,6 @@ import dto.Trouble;
 @WebServlet("/InserttroubleServlet")
 public class InserttroubleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServletRequest request;
 
 	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,26 +37,19 @@ public class InserttroubleServlet extends HttpServlet {
 		String members = request.getParameter("members");
 		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		String situation = request.getParameter("situation");
-		
+		Date tr_date = Date.valueOf(request.getParameter("tr_date"));
 
-		// オブジェクトを作成
-		Trouble trouble = new Trouble(
-			    title,
-			    contents,
-			    members,
-			    user_id,
-			    situation
-			);
 		
 		//登録処理
 		TroubleDao tDao = new TroubleDao();
 
-		if (tDao.insert(new Trouble(
-		        title,
-		        contents,
-		        members,
-		        user_id,
-		        situation))) {
+        if (tDao.insert(new Trouble(
+                title,
+                contents,
+                members,
+                user_id,
+                situation,
+                tr_date))) {
 
 		    request.setAttribute("message", "事案を追加しました。");
 
