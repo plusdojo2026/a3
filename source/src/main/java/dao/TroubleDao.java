@@ -129,30 +129,32 @@ public class TroubleDao {
 	 * @return 挿入に成功した場合true、失敗した場合false
 	 */
 
-	public boolean insert(Trouble trouble, Trouble tr_date) {
+	public boolean insert(Trouble trouble) {
 
-		if (trouble == null) {
-			throw new IllegalArgumentException("touble must not be null");
-		}
-		String sql = "INSERT INTO trouble(trouble_id, title, contents, members, user_id, situation, tr_date) "
-				+ "VALUES(?,?,?,?,?,?,?)";
+	    if (trouble == null) {
+	        throw new IllegalArgumentException("trouble must not be null");
+	    }
 
-		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	    String sql =
+	        "INSERT INTO trouble(title, contents, members, user_id, situation, tr_date) "
+	      + "VALUES(?,?,?,?,?,?)";
 
-			ps.setInt(1, trouble.getTrouble_id());
-			ps.setString(2, trouble.getTitle());
-			ps.setString(3, trouble.getContents());
-			ps.setString(4, trouble.getMembers());
-			ps.setInt(5, trouble.getUser_id());
-			ps.setString(6, trouble.getSituation());
-			ps.setDate(7, tr_date.getTr_date());
+	    try (Connection conn = DBUtil.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			int result = ps.executeUpdate();
-			return result > 0;
+	        ps.setString(1, trouble.getTitle());
+	        ps.setString(2, trouble.getContents());
+	        ps.setString(3, trouble.getMembers());
+	        ps.setInt(4, trouble.getUser_id());
+	        ps.setString(5, trouble.getSituation());
+	        ps.setDate(6, trouble.getTr_date());
 
-		} catch (Exception e) {
-			throw new RuntimeException("Insert failed", e);
-		}
+	        int result = ps.executeUpdate();
+	        return result > 0;
+
+	    } catch (Exception e) {
+	        throw new RuntimeException("Insert failed", e);
+	    }
 	}
 
 	// ---------------------IDで更新するメソッド---------------------------------
@@ -174,13 +176,12 @@ public class TroubleDao {
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			ps.setInt(1, trouble.getTrouble_id());
-			ps.setString(2, trouble.getTitle());
-			ps.setString(3, trouble.getContents());
-			ps.setString(4, trouble.getMembers());
-			ps.setInt(5, trouble.getUser_id());
-			ps.setString(6, trouble.getSituation());
-			ps.setDate(7, tr_date.getTr_date());
+			ps.setString(1, trouble.getTitle());
+	        ps.setString(2, trouble.getContents());
+	        ps.setString(3, trouble.getMembers());
+	        ps.setInt(4, trouble.getUser_id());
+	        ps.setString(5, trouble.getSituation());
+	        ps.setDate(6, trouble.getTr_date());
 
 			int result = ps.executeUpdate();
 			return result > 0;
