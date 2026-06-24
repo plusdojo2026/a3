@@ -1,4 +1,4 @@
-create database `classcare_db`;
+create database `a3`;
 
 use `classcare_db`;
 
