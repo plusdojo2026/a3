@@ -140,7 +140,21 @@ public class Mental_scoresDao {
 					Map<String, Object> row = new HashMap<>();
 					row.put("userName", rs.getString("user_name"));
 					row.put("className", rs.getString("class_name"));
-					row.put("score", rs.getInt("score"));
+
+					String scoreStr = rs.getString("score");
+
+					Integer score = null;
+					if (scoreStr != null) {
+						try {
+							score = Integer.parseInt(scoreStr);
+						} catch (NumberFormatException e) {
+							// 数値じゃない（---- や 空文字など）
+							score = 0;
+						}
+					}
+
+					row.put("score", score);
+
 					row.put("testDate", rs.getDate("test_date"));
 					mentalscores.add(row);
 				}
