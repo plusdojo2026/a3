@@ -26,8 +26,14 @@
 
         </div>
             <nav>
-                <button type="button">ログイン</button>
-                <button type="button">サインイン</button>
+                <form action = "${pageContext.request.contextPath}/LoginServlet" method = "get">
+                	<button type="submit">ログイン</button>
+                </form>
+                
+                <form action = "${pageContext.request.contextPath}/SigninServlet" method = "get">
+                <button type="submit">サインイン</button>
+                </form>
+                
             </nav>
             <nav style="display: none;">
                 <button type="button">ようこそxxxさん</button>

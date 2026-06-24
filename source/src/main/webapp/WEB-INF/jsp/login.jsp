@@ -18,9 +18,12 @@
         </div>
             <nav>
                 <button type="button">ログイン</button>
-                <button type="button">サインイン</button>
+              
             </nav>
             <nav style="display: none;">
+            
+            <!-- c:ifでアカウント判断 -->
+            
                 <button type="button">ようこそxxxさん</button>
                 <button type="button">ログアウト</button>
             </nav>
@@ -28,17 +31,17 @@
     <!-- メインコンテンツ -->
     <h2 class="login-title">ログイン</h2>
     
-	<form action="">
+	<form action = "${pageContext.request.contextPath}/LoginServlet" method = "post">
 
         <!-- ログインボックス -->
     		<div>
                 <label>ユーザー名 / Username<br>
-                    <input type="text" name="ID">
+                    <input type="text" name="user_id">
                 </label>
             </div>
             <div>
                 <label>パスワード / Password<br>
-                    <input type="text" name="pw">
+                    <input type="text" name="password">
                 </label>
             </div>
           	<div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -18,13 +19,19 @@
 
     </div>
     <nav>
-      <button type="button">ログイン</button>
-      <button type="button">サインイン</button>
+    	<form action = "${pageContext.request.contextPath}/LoginServlet">
+      		<button type="submit">ログイン</button>
+      	</form>
     </nav>
-    <nav style="display: none;">
-      <button type="button">ようこそxxxさん</button>
-      <button type="button">ログアウト</button>
+   <c:if test="${not empty sessionScope.user}">
+   	<nav>
+      <button type="button">ようこそ${sessionScope.user.name}さん</button>
+      
+      <form action = "${pageContext.request.contextPath}/LoginServlet">
+      	<button type="submit">ログアウト</button>
+      </form>
     </nav>
+    </c:if>
     <!-- テンプレート終了 -->
   </header>
 
@@ -36,9 +43,9 @@
     <nav>
       <ul>
         <li>
-          <a href="#">生徒</a>
+          <a href="${pageContext.request.contextPath}/SelectClassesServlet">生徒</a>
           <ul>
-            <li><a href="#"> 生徒管理</a></li>
+            <li><a href="${pageContext.request.contextPath}/SelectClassesServlet"> 生徒管理</a></li>
             <li><a href="#"> 点数管理</a></li>
             <li><a href="#"> 日記</a></li>
           </ul>

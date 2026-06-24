@@ -143,7 +143,7 @@ public class TestsDao {
 		 */
 		public List<Tests> findByUserId(int userid) {
                List<Tests> testlist =new ArrayList();
-			String sql = "SELECT * FROM test WHERE user_id = ?";
+			String sql = "SELECT * FROM tests WHERE user_id = ?";
 
 			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
