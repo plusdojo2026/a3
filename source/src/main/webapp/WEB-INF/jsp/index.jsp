@@ -8,7 +8,6 @@
   <meta charset="UTF-8">
   <title>ホーム｜Classcare</title>
 </head>
-<meta charset="UTF-8">
 
 <body>
   <header>
@@ -72,7 +71,7 @@
     <!-- スケジュール-->
     <div>
       <!--スケジュール用フォーム-->
-      <form action="">
+      <form action="${pageContext.request.contextPath}/">
         <!-- スケジュール開始 -->
         <div>
           <label>スケジュール</label><br>
