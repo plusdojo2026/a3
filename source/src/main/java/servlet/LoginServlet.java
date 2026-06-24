@@ -59,8 +59,13 @@ public class LoginServlet extends HttpServlet {
 			// セッションスコープにIDを格納
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
-			// メニューサーブレットにリダイレクト
-			response.sendRedirect("/IndexServlet");
+			//教師ならindexへ
+			if(user.getState() == 0) {
+				// メニューサーブレットにリダイレクト
+				response.sendRedirect(request.getContextPath() + "/IndexServlet");
+				//生徒ならmypageへ
+			} else if(user.getState() == 1) {
+			response.sendRedirect(request.getContextPath() + "/SelectMypageServlet");
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
 			request.setAttribute("message", "ログイン失敗");
@@ -68,5 +73,7 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 		}
 	}
+	}
+		
 
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -33,7 +35,7 @@
         <li>
           <a href="#">生徒</a>
           <ul>
-            <li><a href="#"> 生徒管理</a></li>
+            <li><a href="${pageContext.request.contextPath}/SelectClassesServlet"> 生徒管理</a></li>
             <li><a href="#"> 点数管理</a></li>
             <li><a href="#"> 日記</a></li>
           </ul>
@@ -58,12 +60,12 @@
 
   <main>
     <!-- 検索バー -->
-    <div>
-      <form>
-        <input type="search" placeholder="検索（学籍番号・名前）">
+     <div>
+      <form action = "${pageContext.request.contextPath}/SelectClassesServlet" method="get">>
+        <input type="search" name = "学籍番号検索" placeholder="検索（学籍番号・名前）">
       </form>
     </div>
-    <h2>👥 1年1組</h2>
+     <%-- <h2>👥 1年1組</h2>
 
     <!-- 生徒リスト -->
     <ul>
@@ -100,8 +102,34 @@
         <button type="button">削除</button>
       </li>
     </ul>
+    --%>
+    
+  	<div>
+  		<c:forEach var = "row" items = "${classesList}">
+  		
+  		<div>
+  		<button type = "button" onclick = "showClass('${row.class_name}')">${row.class_name}</button>
+  		</div>
+  		<div>
+  			<!--  -->
+  			<div>${row.user_id}</div>
+  			<div>${row.class_name}</div>
+  			<div>${row.user_name}</div>
+  			
+  			<form action = "${pageContext.request.contextPath}/SelectMypageServlet" method = "get">
+  				<input type = "hidden" name = "user_id" value = "${row.user_id}">
+  				<button type = "submit">詳細</button>
+  			</form>
+  			
+  			<form action = "${pageContext.request.contextPath}/DeleteClassesServlet" method = "post">
+  				<input type = "hidden" name = "user_id" value = "${row.user_id}">
+  				<button type = "submit">削除</button>
+  			</form>
+  		</div>
+  		</c:forEach>
+  	</div>
+  	
   </main>
-  </div>
 
   <!-- フッター -->
   <footer>

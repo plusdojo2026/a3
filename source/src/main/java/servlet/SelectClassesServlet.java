@@ -61,7 +61,7 @@ public class SelectClassesServlet extends HttpServlet {
 
 		// 最初のアクセス
 		if (className == null || className.isEmpty()) {
-			className = "1年1組"; // 実用を考えるならここはDaoに登録された最初のクラスを入力できるような処理を追加する
+			className = "一年一組"; // 実用を考えるならここはDaoに登録された最初のクラスを入力できるような処理を追加する
 		}
 
 		// usersとclassesをつなげたリストを持ってくる

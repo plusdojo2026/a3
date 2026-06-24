@@ -24,35 +24,41 @@
                 <button type="button">ログアウト</button>
             </nav>
     </header>
-		<form action="">
+		<form action = "${pageContext.request.contextPath}/SigninServlet" method = "post">
         <!-- サインインボックス -->
-       <div>
-            <label>ユーザー名 / Username </label><br>
-            <input type="text" name="ID">
-        </div>
-        <div>
-            <label>パスワード / Password</label><br>
-            <input type="text" name="pw">
-        </div>
+        
         <div>
             <label>名前 / Name</label><br>
             <input type="text" name="name">
         </div>
-        <div>
-            <label>生年月日/Birthday</label><br>
-            <input type="date" name="birthday">
+       <div>
+            <label>性別 / Gender </label><br>
+            <input type="radio" name="gender" value = "男" required>男
+            <input type="radio" name="gender" value = "女" required>女
+            <input type="radio" name="gender" value = "その他" required>その他
         </div>
+        <div>
+        	<label>誕生日 / bithday</label><br>
+        	<input type="date" name="birthday">
+        </div>
+        <div>
+            <label>パスワード / Password</label><br>
+            <input type="text" name="password">
+        </div>
+        
         <div>
             <label>メールアドレス / Mail</label><br>
             <input type="text" name="mail">
         </div>
+        
         <div>
             <label>電話番号 / Tel</label><br>
             <input type="text" name="tel">
         </div>
+        
         <div>
             <label>郵便番号 / Zipcode</label><br>
-            <input type="text" name="zipcode">
+            <input type="text" name="post_code">
         </div>
         <div>
             <label>住所 / Adress</label><br>
@@ -68,9 +74,9 @@
                 <span id="error_message"></span>
             </td>
             </tr>
-            </form>
+           
         </table>
-        
+        </form>
 
         <!-- 一番最後に置いてください -->
     <footer>
