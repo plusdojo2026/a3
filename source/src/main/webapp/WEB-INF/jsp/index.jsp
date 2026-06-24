@@ -17,15 +17,20 @@
       <span><img></span>
 
     </div>
+    <c:if test="${empty sessionScope.user}">
     <nav>
     	<form action = "${pageContext.request.contextPath}/LoginServlet">
       		<button type="submit">ログイン</button>
       	</form>
     </nav>
+    </c:if>
    <c:if test="${not empty sessionScope.user}">
    	<nav>
       <button type="button">ようこそ${sessionScope.user.name}さん</button>
       
+      <form action = "${pageContext.request.contextPath}/SigninServlet">
+      	<button type = "submit">サインイン（新規作成）</button>
+      </form>
       <form action = "${pageContext.request.contextPath}/LoginServlet">
       	<button type="submit">ログアウト</button>
       </form>
@@ -71,7 +76,7 @@
     <!-- スケジュール-->
     <div>
       <!--スケジュール用フォーム-->
-      <form action="${pageContext.request.contextPath}/">
+      <form action="${pageContext.request.contextPath}/IndexServlet">
         <!-- スケジュール開始 -->
         <div>
           <label>スケジュール</label><br>
