@@ -51,11 +51,11 @@
       <li><a href="UpdateStuScoreServlet">成績</a></li>
       <ul>
         <li><a href="SelectStuScoreServlet?score_id=${user.user_id}">得点</a></li>
-        <li><a href="SelectMTServlet">心理テスト</a></li>
+        <li><a href="MTResultServlet">心理テスト</a></li>
       </ul>
-      <li><a href="SelectIncidentServlet">報告</a></li>
+      <li><a href="">報告</a></li>
       <ul>
-        <li><a href="SelectIncidentServlet">事案</a></li>
+        <li><a href="InsertTroubleServlet">事案</a></li>
         <li><a href="SelectMTServlet">心理テスト</a></li>
       </ul>
       <li><a href="jsp/Support.jsp">海外支援</a></li>
