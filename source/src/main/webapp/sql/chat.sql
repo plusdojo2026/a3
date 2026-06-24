@@ -1,6 +1,6 @@
--- CREATE database `classcare_db`;
+-- CREATE database `a3`;
 
-USE `classcare_db`;
+USE `a3`;
 
 CREATE TABLE `chat` (
   `chat_id` INT AUTO_INCREMENT PRIMARY KEY,

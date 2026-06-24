@@ -1,10 +1,10 @@
 -- ======================================
--- classcare_db を作成する
+-- a3 を作成する
 -- ======================================
--- CREATE DATABASE `classcare_db`;
+-- CREATE DATABASE `a3`;
 
--- classcare_db を使用する
-USE `classcare_db`;
+-- a3 を使用する
+USE `a3`;
 
 -- ======================================
 -- classesテーブル構造
@@ -13,7 +13,7 @@ USE `classcare_db`;
 -- ├─ user_id         : ユーザーID(外部キー,users)
 -- └─ class_name              : クラス名
 -- ======================================
-CREATE TABLE `classcare_db`.`classes` (
+CREATE TABLE `a3`.`classes` (
   `class_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `class_name` VARCHAR(200) NOT NULL,

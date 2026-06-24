@@ -1,7 +1,7 @@
--- CREATE DATABASE classcare_db;
+-- CREATE DATABASE a3;
 
--- classcare_dbを使用
-USE classcare_db;
+-- a3を使用
+USE a3;
 
 -- メンタルテストテーブル
 CREATE TABLE mental_tests(

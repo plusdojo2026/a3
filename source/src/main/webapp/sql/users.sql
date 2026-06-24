@@ -1,8 +1,8 @@
 create database `a3`;
 
-use `classcare_db`;
+use `a3`;
 
-CREATE TABLE `classcare_db`.`users` (
+CREATE TABLE `a3`.`users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `state` INT NOT NULL DEFAULT 1,
   `name` VARCHAR(20) NOT NULL,

@@ -1,6 +1,6 @@
--- CREATE database `classcare_db`;
+-- CREATE database `a3`;
 
-USE `classcare_db`;
+USE `a3`;
 
 CREATE TABLE `mental_scores` (
   `mt_scores_id` INT AUTO_INCREMENT PRIMARY KEY,

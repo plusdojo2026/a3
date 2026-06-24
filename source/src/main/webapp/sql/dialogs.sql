@@ -1,5 +1,5 @@
 
-USE `classcare_db`;
+USE `a3`;
 
 
 CREATE TABLE `dialogs` (

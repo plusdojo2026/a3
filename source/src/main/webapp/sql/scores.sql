@@ -4,7 +4,7 @@
 -- ├─ scores_id        : クラスID(主キー)
 -- └─ score              : 点数
 -- ======================================
-CREATE TABLE `classcare_db`.`scores` (
+CREATE TABLE `a3`.`scores` (
   `scores_id` INT NOT NULL AUTO_INCREMENT,
   `score` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`scores_id`)

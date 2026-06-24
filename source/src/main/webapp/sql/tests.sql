@@ -1,19 +1,19 @@
-CREATE database classcare_db;
+CREATE database a3;
 
--- classcare_dbを使用
-USE classcare_db;
+-- a3を使用
+USE a3;
 
 -- testsテーブル
-CREATE TABLE `classcare_db`.`tests` (
+CREATE TABLE `a3`.`tests` (
   `test_id` INT AUTO_INCREMENT,
   `scores_id` INT,
   `test_date` DATE,
   `subject_id` INT,
   `user_id` INT,
   PRIMARY KEY (`test_id`),
-  CONSTRAINT `fk_tests_user` FOREIGN KEY (`user_id`) REFERENCES `classcare_db`.`users` (`user_id`),
-  CONSTRAINT `fk_tests_score` FOREIGN KEY (`scores_id`) REFERENCES `classcare_db`.`scores` (`scores_id`),
-  CONSTRAINT `fk_tests_subject` FOREIGN KEY (`subject_id`) REFERENCES `classcare_db`.`subjects` (`subject_id`)
+  CONSTRAINT `fk_tests_user` FOREIGN KEY (`user_id`) REFERENCES `a3`.`users` (`user_id`),
+  CONSTRAINT `fk_tests_score` FOREIGN KEY (`scores_id`) REFERENCES `a3`.`scores` (`scores_id`),
+  CONSTRAINT `fk_tests_subject` FOREIGN KEY (`subject_id`) REFERENCES `a3`.`subjects` (`subject_id`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 -- サンプルデータ
