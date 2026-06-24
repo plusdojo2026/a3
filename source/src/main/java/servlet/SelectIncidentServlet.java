@@ -19,61 +19,111 @@ import dto.Trouble;
 @WebServlet("/SelectIncidentServlet")
 public class SelectIncidentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SelectIncidentServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SelectIncidentServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//loginしているか検査
+		// loginしているか検査
 		HttpSession session = request.getSession();
-		//ウェブサイトの格式をutf-8を設定
+		// ウェブサイトの格式をutf-8を設定
 		request.setCharacterEncoding("UTF-8");
-		
-		//もしセッションスコープの中にuser情報がないと
-		if(session.getAttribute("user") == null) {
-			//ログインページに戻る
+
+		// もしセッションスコープの中にuser情報がないと
+		if (session.getAttribute("user") == null) {
+			// ログインページに戻る
 			response.sendRedirect("/LoginServlet");
 			return;
 		}
-		
+
 		String troubleIdStr = request.getParameter("trouble_id");
-		
-		//troubleIdが取得できていない場合
-		if(troubleIdStr == null) {
-			response.sendRedirect("/a3/SelectIncidentMenuServlet");
+
+		// troubleIdが取得できていない場合
+		if (troubleIdStr == null) {
+			response.sendRedirect("/SelectIncidentMenuServlet");
 			return;
 		}
-		
+
 		int troubleId = Integer.parseInt(troubleIdStr);
-		
-		//Dao呼び出し
+
+		// Dao呼び出し
 		TroubleDao trDao = new TroubleDao();
+
 		Trouble trouble = trDao.findById(troubleId);
-		
-		//Jspへ
+		trouble.setSituation("対応中");
+		boolean result = trDao.update(trouble, troubleId);
+
+		if (result) {
+			request.setAttribute("message", "更新成功");
+		} else {
+			request.setAttribute("message", "更新失敗");
+		}
+		// Jspへ
 		request.setAttribute("trouble", trouble);
-		
-		RequestDispatcher dispatcher =
-				request.getRequestDispatcher("/WEB-INF/jsp/incident.jsp");
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/incident.jsp");
 		dispatcher.forward(request, response);
-		
-}
+
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		// loginしているか検査
+		HttpSession session = request.getSession();
+		// ウェブサイトの格式をutf-8を設定
+		request.setCharacterEncoding("UTF-8");
+
+		// もしセッションスコープの中にuser情報がないと
+		if (session.getAttribute("user") == null) {
+			// ログインページに戻る
+			response.sendRedirect("/LoginServlet");
+			return;
+		}
+
+		String troubleIdStr = request.getParameter("trouble_id");
+
+		// troubleIdが取得できていない場合
+		if (troubleIdStr == null) {
+			response.sendRedirect("/SelectIncidentMenuServlet");
+			return;
+		}
+
+		int troubleId = Integer.parseInt(troubleIdStr);
+
+		// Dao呼び出し
+		TroubleDao trDao = new TroubleDao();
+
+		Trouble trouble = trDao.findById(troubleId);
+		trouble.setSituation("確認済み");
+		boolean result = trDao.update(trouble, troubleId);
+
+		if (result) {
+			request.setAttribute("message", "更新成功");
+		} else {
+			request.setAttribute("message", "更新失敗");
+		}
+		// Jspへ
+		request.setAttribute("trouble", trouble);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectIncidentMenuServlet");
+		dispatcher.forward(request, response);
 	}
 
 }

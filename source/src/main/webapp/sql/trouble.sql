@@ -9,7 +9,7 @@ CREATE TABLE `trouble` (
   `contents` VARCHAR(600) NOT NULL,
   `members` VARCHAR(100) NOT NULL,
   `user_id` INT,
-  `situation` VARCHAR(100) NOT NULL,
+  `situation` VARCHAR(100) NOT NULL DEFAULT '対応中',
   FOREIGN KEY(`user_id`) REFERENCES `users`(`user_id`)
 );
 INSERT INTO trouble 

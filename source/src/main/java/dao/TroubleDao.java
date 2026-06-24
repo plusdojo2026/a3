@@ -58,16 +58,7 @@ public class TroubleDao {
 
 	public List<Trouble> search() {
 		// SQL文を用意
-		String sql = "SELECT"
-				+ "d.tr_date AS tr_date,"
-				+ "t.title AS title,"
-				+ "u.user_id AS user_id, "
-				+ "s.situation AS situation"
-				+ "FROM trouble e"
-				+ "JOIN users u"
-				+ "ON e.user_id = u.user_id"
-				+ "WHERE trouble_id = ?"
-				+ "ORDER BY s.situation, d.tr_date, u.user_id";
+		String sql = "select * from trouble";
 		// リストを準備
 		List<Trouble> trouble = new ArrayList<Trouble>();
 		// データベースと連携、SQL文を入れておく
@@ -125,36 +116,34 @@ public class TroubleDao {
 	 * 新規事案情報を挿入する。
 	 *
 	 * @param trouble 挿入する事案情報を保持しているオブジェクト
-	 * @param tr_date 
+	 * @param tr_date
 	 * @return 挿入に成功した場合true、失敗した場合false
 	 */
 
 	public boolean insert(Trouble trouble) {
 
-	    if (trouble == null) {
-	        throw new IllegalArgumentException("trouble must not be null");
-	    }
+		if (trouble == null) {
+			throw new IllegalArgumentException("trouble must not be null");
+		}
 
-	    String sql =
-	        "INSERT INTO trouble(title, contents, members, user_id, situation, tr_date) "
-	      + "VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO trouble(title, contents, members, user_id, situation, tr_date) "
+				+ "VALUES(?,?,?,?,?,?)";
 
-	    try (Connection conn = DBUtil.getConnection();
-	         PreparedStatement ps = conn.prepareStatement(sql)) {
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-	        ps.setString(1, trouble.getTitle());
-	        ps.setString(2, trouble.getContents());
-	        ps.setString(3, trouble.getMembers());
-	        ps.setInt(4, trouble.getUser_id());
-	        ps.setString(5, trouble.getSituation());
-	        ps.setDate(6, trouble.getTr_date());
+			ps.setString(1, trouble.getTitle());
+			ps.setString(2, trouble.getContents());
+			ps.setString(3, trouble.getMembers());
+			ps.setInt(4, trouble.getUser_id());
+			ps.setString(5, trouble.getSituation());
+			ps.setDate(6, trouble.getTr_date());
 
-	        int result = ps.executeUpdate();
-	        return result > 0;
+			int result = ps.executeUpdate();
+			return result > 0;
 
-	    } catch (Exception e) {
-	        throw new RuntimeException("Insert failed", e);
-	    }
+		} catch (Exception e) {
+			throw new RuntimeException("Insert failed", e);
+		}
 	}
 
 	// ---------------------IDで更新するメソッド---------------------------------
@@ -163,10 +152,10 @@ public class TroubleDao {
 	 *
 	 * @param troubleId 更新対象の事案ID
 	 * @param trouble   更新情報を保持しているオブジェクト
-	 * @param tr_date 
+	 * @param tr_date
 	 * @return 更新に成功した場合true、対象データが存在しない場合false
 	 */
-	public boolean update(Trouble trouble, int troubleId, Trouble tr_date) {
+	public boolean update(Trouble trouble, int troubleId) {
 
 		if (trouble == null) {
 			throw new IllegalArgumentException("trouble must not be null");
@@ -177,12 +166,12 @@ public class TroubleDao {
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setString(1, trouble.getTitle());
-	        ps.setString(2, trouble.getContents());
-	        ps.setString(3, trouble.getMembers());
-	        ps.setInt(4, trouble.getUser_id());
-	        ps.setString(5, trouble.getSituation());
-	        ps.setDate(6, trouble.getTr_date());
-
+			ps.setString(2, trouble.getContents());
+			ps.setString(3, trouble.getMembers());
+			ps.setInt(4, trouble.getUser_id());
+			ps.setString(5, trouble.getSituation());
+			ps.setDate(6, trouble.getTr_date());
+			ps.setInt(7, troubleId);
 			int result = ps.executeUpdate();
 			return result > 0;
 
