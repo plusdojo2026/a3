@@ -36,7 +36,7 @@
         <!-- ログインボックス -->
     		<div>
                 <label>ユーザー名 / Username<br>
-                    <input type="text" name="user_id">
+                    <input type="text" name="username">
                 </label>
             </div>
             <div>

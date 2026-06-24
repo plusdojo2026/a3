@@ -49,12 +49,12 @@ public class LoginServlet extends HttpServlet {
 		// 格式をutf-8に設定
 		request.setCharacterEncoding("UTF-8");
 
-		int id = Integer.parseInt(request.getParameter("user_id")); // user_id
+		String username = request.getParameter("username"); // user_id
 		String pw = request.getParameter("password");// password
 
 		// ログイン処理
 		UsersDao uDao = new UsersDao();
-		Users user = uDao.findByLoginIdAndPassword(id, pw);
+		Users user = uDao.findByLoginNameAndPassword(username, pw);
 		if (user != null) {
 			// セッションスコープにIDを格納
 			HttpSession session = request.getSession();

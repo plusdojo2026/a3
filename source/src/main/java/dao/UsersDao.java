@@ -236,11 +236,11 @@ public class UsersDao {
 	 * @param なし
 	 * @return データのリスト。見つからない場合は空のリスト
 	 */
-	public Users findByLoginIdAndPassword(int uses_id, String password) {
-		String sql = "SELECT * FROM users WHERE user_id = ? AND password = ?";
+	public Users findByLoginNameAndPassword(String username, String password) {
+		String sql = "SELECT * FROM users WHERE name = ? AND password = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setInt(1, uses_id);
+			ps.setString(1, username);
 			ps.setString(2, password);
 
 			try (ResultSet rs = ps.executeQuery()) {

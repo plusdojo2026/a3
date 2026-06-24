@@ -31,7 +31,7 @@ public class LoadHistoryServlet extends HttpServlet {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/classcare_db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Tokyo",
+					"jdbc:mysql://localhost:3306/a3?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Tokyo",
 					"root", "password");
 
 			String sql = "SELECT * FROM chat WHERE (user_id_speaker=? AND user_id_listener=?) OR (user_id_speaker=? AND user_id_listener=?) ORDER BY created_at ASC";
