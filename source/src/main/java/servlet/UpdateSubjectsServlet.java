@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.SubjectsDao;
+import dto.Subjects;
 
 /**
  * Servlet inpmemention class UpdateSubjectsServlet
@@ -19,28 +20,6 @@ import dao.SubjectsDao;
 @WebServlet("/UpdateSubjectsServlet")
 public class UpdateSubjectsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	// 内部クラスとしてSubjectsを定義
-	public static class Subjects {
-		private String subjectName;
-		private int subjectId;
-
-		public String getSubjectName() {
-			return subjectName;
-		}
-
-		public void setSubjectName(String subjectName) {
-			this.subjectName = subjectName;
-		}
-
-		public int getSubjectId() {
-			return subjectId;
-		}
-
-		public void setSubjectId(int subjectId) {
-			this.subjectId = subjectId;
-		}
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -54,17 +33,17 @@ public class UpdateSubjectsServlet extends HttpServlet {
 		}
 
 		// パラメーターの取得
-		String subjectName = request.getParameter("subjects_name");
+		String selectedSubject = request.getParameter("selectedSubject");
 		int subjecrId = Integer.parseInt(request.getParameter("subjectId"));
 
 		// Subjectsオブジェクトを作成
 		Subjects subjects = new Subjects();
-		subjects.setSubjectName(subjectName);
+		subjects.setSubjectName(selectedSubject);
 		subjects.setSubjectId(subjecrId);
 
 		// Daoの呼び出し
 		SubjectsDao dao = new SubjectsDao();
-		boolean result = dao.update(null, subjecrId); // daoにupdateメソッド
+		boolean result = dao.update(subjects, subjecrId); // daoにupdateメソッド
 
 		// 戻り値
 		if (result) {
@@ -74,7 +53,7 @@ public class UpdateSubjectsServlet extends HttpServlet {
 		}
 
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/SubjectsMenu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectSubjectServlet");
 		dispatcher.forward(request, response);
 	}
 }

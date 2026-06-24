@@ -16,6 +16,12 @@ import dto.Dialogs;
 import dto.Users;
 
 @WebServlet("/AddDialogsServlet")
+
+/**
+ * 日記を追加・diaryEditとつながるサーブレット、成功したらSelectDialogsServletに戻る
+ * 
+ * 
+ */
 public class AddDialogsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

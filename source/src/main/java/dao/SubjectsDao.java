@@ -98,6 +98,30 @@ public class SubjectsDao {
 		return null;
 	}
 
+	/**
+	 * 点数情報を全て検索する。
+	 *
+	 * @return 科目データのid。見つからない場合は-1
+	 */
+
+	public int findByName(String subjectName) {
+		String sql = "SELECT * FROM subjects WHERE subject_name = ?";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, subjectName);
+			try (ResultSet rs = ps.executeQuery()) {
+				// もし結果が1件あったら
+				if (rs.next()) {
+					return mapToSubjectsDto(rs).getSubjectId();
+
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Search failed");
+		}
+		return -1;
+	}
+
 	// 挿入メソッド
 	/**
 	 * 新規科目情報を挿入する。
