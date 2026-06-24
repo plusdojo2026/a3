@@ -84,7 +84,7 @@ public class TestsDao {
 	 */
 
 	public List<Tests> search(Tests test) {
-		// SQL文を用意
+		// SQL文を用意する
 		String sql = "SELECT * FROM tests WHERE subject_id = ? and test_date = ?";
 		// リストを準備
 		List<Tests> tests = new ArrayList<Tests>();
