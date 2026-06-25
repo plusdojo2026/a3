@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ import dto.Users;
 /**
  * Servlet implementation class InsertClasses
  */
-@WebServlet("/InsertClasses")
+@WebServlet("/InsertClassesServlet")
 public class InsertClassesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,7 +52,7 @@ public class InsertClassesServlet extends HttpServlet {
 
 		if (addClass == null || addClass.isEmpty()) {
 			session.setAttribute("message", "クラス名を入力してください。");
-			response.sendRedirect("/SelectClassesServlet");
+			response.sendRedirect("SelectClassesServlet");
 			return;
 		}
 
@@ -66,7 +67,9 @@ public class InsertClassesServlet extends HttpServlet {
 			session.setAttribute("message", "挿入失敗！");
 
 		}
-		response.sendRedirect("/SelectClassesServlet");
-
+		
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/classes.jsp");
+        	dispatcher.forward(request, response);
+        	return;
 	}
 }
