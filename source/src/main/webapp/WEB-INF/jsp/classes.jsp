@@ -7,6 +7,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/classes.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Care - 生徒管理</title>
@@ -78,11 +79,13 @@
 
   <main>
     <!-- 検索バー -->
-     <div>
-      <form action = "${pageContext.request.contextPath}/SelectClassesServlet" method="get">>
-        <input type="search" name = "学籍番号検索" placeholder="検索（学籍番号・名前）">
+     <!--  <div>
+      <form action = "${pageContext.request.contextPath}/SelectClassesServlet" method="get">
+        <input type="search" name="keyword" placeholder="検索（学籍番号・名前）" value="${keyword}">
+    <input type="hidden" name="className" value="${className}">
+    <button type="submit">検索</button>
       </form>
-    </div>
+    </div>-->
      <%-- <h2>👥 1年1組</h2>
 
     <!-- 生徒リスト -->
@@ -122,6 +125,7 @@
     </ul>
     --%>
     <div>
+    <!-- クラス新規作成ボタン -->
     <a href = "${pageContext.request.contextPath}/InsertClassesServlet">新規</a>
     </div>
   	<div>
@@ -131,7 +135,7 @@
   		<button type = "button" onclick = "showClass('${row.class_name}')">${row.class_name}</button>
   		</div>
   		<div>
-  			<!--  -->
+  			<!-- 学生情報 -->
   			<div>${row.user_id}</div>
   			<div>${row.class_name}</div>
   			<div>${row.user_name}</div>
@@ -146,6 +150,7 @@
   				<button type = "submit">削除</button>
   			</form>
   			
+  			<!-- 新規ユーザー登録 -->
   			<a href = "${pageContext.request.contextPath}/AddUserServlet">新規</a>
   		</div>
   		</c:forEach>

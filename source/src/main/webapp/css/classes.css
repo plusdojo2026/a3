@@ -57,7 +57,7 @@ header > div:first-child {
 }
 
 header > div:first-child::before {
-    content: "クラスケア\AClass Care";
+    content: "クラスケアClass Care";
     white-space: pre;
     display: block;
     line-height: 1.05;
@@ -320,27 +320,8 @@ main > div:last-child form button {
     opacity: 0.82;
 }
 
-/* 新規ボタン風 */
-.student-list::before {
-    content: "新規";
-    position: absolute;
-    top: -42px;
-    right: 38px;
-    width: 76px;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: bold;
-    background-image:
-        radial-gradient(ellipse at 20% 45%, var(--mint) 0 42%, transparent 43%),
-        radial-gradient(ellipse at 65% 50%, var(--mint) 0 52%, transparent 53%),
-        linear-gradient(90deg, var(--mint), var(--mint));
-    border-radius: 20px 28px 18px 22px;
-}
 
-/* 画像がなくても筆タッチっぽく見えるボタン */
+/* ボタン */
 main > div:last-child form:nth-of-type(1) button {
     background-image:
         radial-gradient(ellipse at 20% 45%, var(--mint) 0 42%, transparent 43%),
@@ -361,25 +342,6 @@ main > div:last-child form button:hover {
     opacity: 0.82;
 }
 
-/* 新規ボタン風の装飾。JSPに新規ボタンがない場合でも右上に表示 */
-main > div:last-child::before {
-    content: "新規";
-    position: absolute;
-    top: -42px;
-    right: 38px;
-    width: 76px;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: bold;
-    background-image:
-        radial-gradient(ellipse at 20% 45%, var(--mint) 0 42%, transparent 43%),
-        radial-gradient(ellipse at 65% 50%, var(--mint) 0 52%, transparent 53%),
-        linear-gradient(90deg, var(--mint), var(--mint));
-    border-radius: 20px 28px 18px 22px;
-}
 
 /* フッター */
 footer {
