@@ -50,7 +50,7 @@ public class SelectMypageServlet extends HttpServlet {
 		Users users = (Users) session.getAttribute("user");
 		if (users == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
 		}
 
