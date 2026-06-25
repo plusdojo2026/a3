@@ -7,6 +7,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/classes.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Care - 生徒管理</title>
 </head>
@@ -46,31 +47,31 @@
 
 
   <!-- 左側サイドナビ -->
-  <aside>
-    <nav>
+<aside>
+  <nav>
+    <ul>
+      <li>
+        <a href="InsertClassesServlet">生徒</a>
+        <ul>
+          <li><a href="/a3/SelectClassesServlet"> 生徒管理</a></li>
+          <li><a href="/a3/SelectClassesServlet"> 点数管理</a></li>
+          <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}"> 日記</a></li>
+        </ul>
+      </li>
+      <li><a href="SelectScoresServlet">成績</a></li>
       <ul>
-        <li>
-          <a href="#">生徒</a>
-          <ul>
-            <li><a href="${pageContext.request.contextPath}/SelectClassesServlet"> 生徒管理</a></li>
-            <li><a href="#"> 点数管理</a></li>
-            <li><a href="#"> 日記</a></li>
-          </ul>
-        </li>
-        <li><a href="#">成績</a></li>
-        <ul>
-          <li><a href="#">得点</a></li>
-          <li><a href="#">心理テスト</a></li>
-        </ul>
-        <li><a href="">報告</a></li>
-        <ul>
-          <li><a href="#">事案</a></li>
-          <li><a href="#">心理テスト</a></li>
-        </ul>
-        <li><a href="#">海外支援</a></li>
+        <li><a href="SelectScoresServlet?score_id=${user.user_id}">得点</a></li>
+        <li><a href="MTResultServlet">心理テスト</a></li>
       </ul>
-    </nav>
-  </aside>
+      <li><a href="">報告</a></li>
+      <ul>
+        <li><a href="InsertTroubleServlet">事案</a></li>
+        <li><a href="SelectMTServlet">心理テスト</a></li>
+      </ul>
+      <li><a href="jsp/Support.jsp">海外支援</a></li>
+    </ul>
+  </nav>
+</aside>
 
 
   <!-- メインコンテンツエリア -->
@@ -120,7 +121,9 @@
       </li>
     </ul>
     --%>
-    
+    <div>
+    <a href = "${pageContext.request.contextPath}/InsertClassesServlet">新規</a>
+    </div>
   	<div>
   		<c:forEach var = "row" items = "${classesList}">
   		
@@ -142,6 +145,8 @@
   				<input type = "hidden" name = "user_id" value = "${row.user_id}">
   				<button type = "submit">削除</button>
   			</form>
+  			
+  			<a href = "${pageContext.request.contextPath}/AddUserServlet">新規</a>
   		</div>
   		</c:forEach>
   	</div>

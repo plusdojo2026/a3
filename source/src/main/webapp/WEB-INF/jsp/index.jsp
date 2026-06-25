@@ -7,6 +7,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    
     <title>ホーム｜Classcare</title>
 
     <!-- flatpickr CSS -->
@@ -89,6 +90,8 @@
             margin-top: 16px;
         }
     </style>
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
 
 <body>
@@ -131,33 +134,30 @@
 
     <!-- 左側サイドナビ -->
     <aside>
-        <nav>
-            <ul>
-                <li>
-                    <a href="${pageContext.request.contextPath}/SelectClassesServlet">生徒</a>
-                    <ul>
-                        <li><a href="${pageContext.request.contextPath}/SelectClassesServlet">生徒管理</a></li>
-                        <li><a href="#">点数管理</a></li>
-                        <li><a href="#">日記</a></li>
-                    </ul>
-                </li>
-
-                <li><a href="#">成績</a></li>
-                <ul>
-                    <li><a href="#">得点</a></li>
-                    <li><a href="#">心理テスト</a></li>
-                </ul>
-
-                <li><a href="">報告</a></li>
-                <ul>
-                    <li><a href="#">事案</a></li>
-                    <li><a href="#">心理テスト</a></li>
-                </ul>
-
-                <li><a href="#">海外支援</a></li>
-            </ul>
-        </nav>
-    </aside>
+  <nav>
+    <ul>
+      <li>
+        <a href="InsertClassesServlet">生徒</a>
+        <ul>
+          <li><a href="/a3/SelectClassesServlet"> 生徒管理</a></li>
+          <li><a href="/a3/SelectClassesServlet"> 点数管理</a></li>
+          <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}"> 日記</a></li>
+        </ul>
+      </li>
+      <li><a href="/a3/AddTestsServlet">成績</a></li>
+      <ul>
+        <li><a href="/a3/AddTestsServlet">得点</a></li>
+        <li><a href="MTResultServlet">心理テスト</a></li>
+      </ul>
+      <li><a href="">報告</a></li>
+      <ul>
+        <li><a href="InsertTroubleServlet">事案</a></li>
+        <li><a href="SelectMTServlet">心理テスト</a></li>
+      </ul>
+      <li><a href="jsp/Support.jsp">海外支援</a></li>
+    </ul>
+  </nav>
+</aside>
 
     <main>
         <h2>ホーム / 週間スケジュール設定</h2>

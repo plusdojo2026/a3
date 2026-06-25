@@ -1,56 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="UTF-8">
-  <title>Class Care</title>
+  <title>心理テスト｜Classcare</title>
 </head>
+<meta charset="UTF-8">
 
 <body>
-<<<<<<< Updated upstream
-    <h6>クラスケア</h6>
-    <h1>Class Care</h1>
-    <link rel="stylesheet" href="">
-<main>
-<div>
-<!-- 左側サイドナビ -->
- <aside>
-    <nav>
-        <ul>
-            <li><a href="">生徒</a></li>
-            <li><a href="">成績</a></li>
-            <li><a href="">報告</a></li>
-                <ul>
-                    <li><a href="">:事案</a></li>
-                    <li><a href="">:心理テスト</a></li>
-                </ul>
-            <li><a href="">海外支援</a></li>
-        </ul>
-=======
   <header>
+    <!-- ここからテンプレート -->
     <div>
+      <!-- ロゴ写真 -->
       <span><img></span>
 
     </div>
     <nav>
-      <button type="button">ログイン</button>
-      <button type="button">サインイン</button>
->>>>>>> Stashed changes
+    	<form action = "${pageContext.request.contextPath}/LoginServlet">
+      		<button type="submit">ログイン</button>
+      	</form>
     </nav>
-    <nav style="display: none;">
-      <button type="button">ようこそxxxさん</button>
-      <button type="button">ログアウト</button>
+   <c:if test="${not empty sessionScope.user}">
+   	<nav>
+      <button type="button">ようこそ${sessionScope.user.name}さん</button>
+      
+      <form action = "${pageContext.request.contextPath}/LoginServlet">
+      	<button type="submit">ログアウト</button>
+      </form>
     </nav>
+    </c:if>
+    <!-- テンプレート終了 -->
   </header>
-
   <!-- 左側サイドナビ -->
   <aside>
     <nav>
       <ul>
         <li>
-          <a href="#">生徒</a>
+          <a href="${pageContext.request.contextPath}/SelectClassesServlet">生徒</a>
           <ul>
-            <li><a href="#"> 生徒管理</a></li>
+            <li><a href="${pageContext.request.contextPath}/SelectClassesServlet"> 生徒管理</a></li>
             <li><a href="#"> 点数管理</a></li>
             <li><a href="#"> 日記</a></li>
           </ul>
@@ -70,35 +61,56 @@
     </nav>
   </aside>
 
-  <main>
-    <h2>2026/06/08　心理テスト​</h2>
+<main>
+    <h2>${mental_tests.mt_test_date} 心理テスト</h2>
     <p>1/5</p>
-    <div>
-      <p>会社からの帰り道に、小さな段ボールが落ちていました。中を見てみると小さな子猫が捨てられています。その子猫はどんな様子だったのでしょうか。深く考えずに直感で選んでみてください。</p>
-    </div>
-    <div>
-      <div>
-        <p>A.</p>
-      </div>
-      <div>
-        <p>B.</p>
-      </div>
-      <div>
-        <<p>C.</p>
-      </div>
-      <div>
-        <p>D.</p>
-      </div>
-    </div>
-    <div>
-      <img src="" alt="写真">
-    </div>
-    <div>
-      <input type="submit" value="戻る">
-      <input type="submit" value="次へ">
-      <input type="submit" value="提出">
-    </div>
-  </main>
+
+    <form action="SelectMypageServlet" method="post">
+
+        <div>
+            <p>${mental_tests.question}</p>
+        </div>
+
+        <div>
+            <label>
+                <input type="radio" name="answer" value="A">
+                A.${mental_tests.choiceA_descript}
+            </label><br>
+
+            <label>
+                <input type="radio" name="answer" value="B">
+                B.${mental_tests.choiceB_descript}
+            </label><br>
+
+            <label>
+                <input type="radio" name="answer" value="C">
+                C.${mental_tests.choiceC_descript}
+            </label><br>
+
+            <label>
+                <input type="radio" name="answer" value="D">
+                D.${mental_tests.choiceD_descript}
+            </label>
+        </div>
+
+        <div>
+            <img src="${mental_tests.mt_img_url}" alt="写真">
+        </div>
+
+        <div>
+            <button type="button" onclick="history.back()">戻る</button>
+
+            <button type="submit" name="action" value="next">
+                次へ
+            </button>
+
+            <button type="submit" name="action" value="submit">
+                提出
+            </button>
+        </div>
+
+    </form>
+</main>
   <footer>
     <p>虎視眈々(株)</p>
   </footer>

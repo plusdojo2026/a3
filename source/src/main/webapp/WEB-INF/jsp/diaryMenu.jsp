@@ -1,28 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>日記一覧</title>
+  <title>日記一覧｜Classcare</title>
+  <link rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
+  <link rel="stylesheet"href="${pageContext.request.contextPath}/css/diary.css">
 </head>
 
 <body>
   <header>
+    <!-- ここからテンプレート -->
     <div>
+      <!-- ロゴ写真 -->
       <span><img></span>
 
     </div>
+    <!-- 
     <nav>
-      <button type="button">ログイン</button>
-      <button type="button">サインイン</button>
+    	<form action = "${pageContext.request.contextPath}/LoginServlet">
+      		<button type="submit">ログイン</button>
+      	</form>
     </nav>
-    <nav style="display: none;">
-      <button type="button">ようこそxxxさん</button>
-      <button type="button">ログアウト</button>
+     -->
+   <c:if test="${not empty sessionScope.user}">
+   	<nav>
+      <button type="button">ようこそ${sessionScope.user.name}さん</button>
+      
+      <form action = "${pageContext.request.contextPath}/LoginServlet">
+      	<button type="submit">ログアウト</button>
+      </form>
     </nav>
+    </c:if>
+    <!-- テンプレート終了 -->
   </header>
 
 
@@ -55,24 +67,47 @@
   </aside>
 
 
-
-  <!-- 個人情報 -->
-  <img src="./img/画像1.png" alt="" width="100px" height="125px">
-  <h2>xxxx xxxx</h2>
-  <h2>xx xx</h2>
-
-  <!--日記一覧-->
-  <h2>日記一覧</h2>
-
-  <form>
-    <input type="checkbox" name="" id=""><button>2021年1回目</button>​</input><br>
-    <input type="checkbox" name="" id=""><button>2021年2回目</button>​</input><br>
-    <input type="checkbox" name="" id=""><button>2021年3回目</button>​</input>
-
-
-    <a href="">新規作成</a>
-    <a href="">削除</a>
-  </form>
+  <main>
+	
+	   <!-- 生徒情報を表示 -->
+	  <section>
+	    <img src="${pageContext.request.contextPath}/img/画像1.png" alt="生徒画像" width="100" height="125">
+	    <h2>${user.name}</h2>
+	    <p>生徒ID：${user.user_id}</p>
+	  </section>
+	
+	  <!--日記一覧-->
+	  <div>
+	  	<h2>日記一覧</h2>
+	  </div>
+	  
+	  <!-- 削除処理 -->
+	  <form action ="${pageContext.request.contextPath}/DeleteDialogsServlet" method="post">
+	
+		<!-- 日記一覧を表示　-->
+		<c:if test = "${not empty dialogList}">
+			<c:forEach var = "dailog" items = "${dialogList}">
+		
+				<div>
+					<!-- 削除したい日記を選択 -->
+					<input type ="checkbox" name ="dialog_id" value ="${dialog.dialog_id}">
+					<input type="date" name="date" required>
+					<a href = "${pageContext.request.contextPath}/SelectDiaryServlet?dialog_id=${dialog.dialog_id}">
+						${dialog.dialog_id}"の日記
+					</a>
+					
+				</div>
+			</c:forEach>
+			
+			  <!-- 選択した日記を削除 -->
+			  <button type ="submit">削除</button>
+		</c:if>
+		
+		<!-- 新規作成画面へ移動 -->
+	    <a href="${pageContext.request.contextPath}/AddDialogsServlet">新規作成</a>
+	  </form>
+  </main>
+  
   <!-- フッター -->
   <footer>
     <p>虎視眈々(株)</p>
