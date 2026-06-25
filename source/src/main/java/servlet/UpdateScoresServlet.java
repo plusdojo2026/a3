@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ScoresDao;
+import dao.TestsDao;
 import dto.Scores;
+
 
 /**
  * Servlet implemention class UpdateScoresServlet
@@ -27,7 +29,12 @@ public class UpdateScoresServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		int scoresId = Integer.parseInt(request.getParameter("scores_id"));
+		int testId = Integer.parseInt(request.getParameter("test_id"));  // 
+
+		TestsDao testsDao = new TestsDao();                              // 
+		int scoresId = testsDao.findById(testId).getScores_id();         // 
+
+
 
 		ScoresDao dao = new ScoresDao();
 

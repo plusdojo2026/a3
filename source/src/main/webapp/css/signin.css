@@ -1,0 +1,219 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    background-color: #eefafa;
+    color: #3d3a1f;
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
+}
+
+/*  ヘッダー */
+header {
+    width: 94%;
+    margin: 18px auto 0;
+    padding: 20px 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    background-color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 140, 158, 0.15);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1;
+    color: #3d3a1f;
+}
+
+header nav {
+    display: flex;
+    gap: 35px;
+    border-bottom: 3px solid #00a7b7;
+    padding-bottom: 8px;
+}
+
+header nav button {
+    width: 110px;
+    height: 42px;
+
+    border: none;
+    border-radius: 7px;
+
+    background-color: #e9fbfb;
+    color: #3d3a1f;
+
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+header nav button:hover {
+    opacity: 0.8;
+}
+
+/*  サインインフォーム */
+.signin-form {
+    position: relative;
+
+    width: 880px;
+    min-height: 520px;
+
+    margin: 20px auto 0;
+    padding: 10px 40px 40px;
+
+    background:
+        linear-gradient(105deg, rgba(211, 244, 242, 0.65) 10%, rgba(211, 244, 242, 0.65) 63%, transparent 63%),
+        linear-gradient(40deg, transparent 55%, rgba(250, 219, 234, 0.7) 55%);
+}
+
+/*  タイトル  */
+.signin-title {
+    width: 330px;
+    height: 100px;
+
+    margin: 0 auto 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+
+    background-image: url("../img/login-bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/*  入力欄  */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.35fr;
+    column-gap: 36px;
+    row-gap: 18px;
+
+    align-items: start;
+}
+
+.form-item {
+    min-width: 0;
+}
+
+.form-item.wide {
+    grid-column: span 1;
+}
+
+/*  ラベル  */
+.form-item label {
+    color: #008c9e;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*  入力欄  */
+.form-item input[type="text"],
+.form-item input[type="password"],
+.form-item input[type="date"] {
+    width: 100%;
+    height: 48px;
+
+    margin-top: 6px;
+    padding: 0 14px;
+
+    font-size: 16px;
+
+    border: 2px solid #00a7b7;
+    border-radius: 8px;
+
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.form-item input::placeholder {
+    color: #bdbdbd;
+}
+
+/*  性別  */
+.gender-box {
+    height: 48px;
+    margin-top: 6px;
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    border: 2px solid #00a7b7;
+    border-radius: 8px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.gender-box label {
+    font-size: 14px;
+    color: #3d3a1f;
+}
+
+/*  エラーメッセージ  */
+.error-message {
+    display: block;
+    margin-top: 6px;
+
+    color: red;
+    font-size: 11px;
+    text-align: center;
+}
+
+/*  ボタンエリア  */
+.button-area {
+    margin-top: 42px;
+
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+
+.button-area input[type="submit"],
+.button-area input[type="reset"] {
+    width: 180px;
+    height: 70px;
+
+    border: none;
+    cursor: pointer;
+
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button-area input[type="submit"] {
+    background-image: url("../img/login-button.png");
+}
+
+.button-area input[type="reset"] {
+    background-image: url("../img/reset-button.png");
+}
+
+.button-area input[type="submit"]:hover,
+.button-area input[type="reset"]:hover {
+    opacity: 0.8;
+}
+
+/*  フッター  */
+footer {
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 8px;
+}

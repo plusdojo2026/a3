@@ -144,10 +144,9 @@ public class SelectMTServlet extends HttpServlet {
 			// ③ 動的ターゲット生成
 			// =========================
 
-			double baseMaxScore = 100.0;
+			double maxScore = n * 10.0;
 
-			// 平均時間に基づき期待スコアを生成（非線形）
-			double target = baseMaxScore * (1 - Math.exp(-avgTime / 3000));
+			double target = maxScore * (1 - Math.exp(-avgTime / 3000));
 
 			// 最低基準ライン
 			double min = target * 0.5;
@@ -204,7 +203,7 @@ public class SelectMTServlet extends HttpServlet {
 			}
 
 			// 距離と分散による非線形圧縮
-			double distanceFactor = 1 / (1 + Math.log(1 + dist) + Math.log(1 + variance));
+			double distanceFactor = 1 / (1 + Math.log(1 + dist) + 0.5 * Math.log(1 + variance));
 
 			// =========================
 			// ⑥ 最終スコア計算
@@ -218,7 +217,13 @@ public class SelectMTServlet extends HttpServlet {
 			finalScore *= distanceFactor;
 
 			finalScore += totalScore * (detailFactor - 1);
+			// 100点制に変換
 
+			finalScore = (finalScore / maxScore) * 100;
+			if (finalScore < 0)
+				finalScore = 0;
+			if (finalScore > 100)
+				finalScore = 100;
 			// =========================
 			// ⑦ 状態判定（教師用監視）
 			// =========================
@@ -239,13 +244,24 @@ public class SelectMTServlet extends HttpServlet {
 			// ⑧ メモ生成（分析記録）
 			// =========================
 
-			String memo = "";
+			String analysis = "";
 
-			memo += "最終スコア: " + String.format("%.2f", finalScore) + "\n";
-			memo += "分散: " + String.format("%.2f", variance) + "\n";
-			memo += "時間分散: " + String.format("%.2f", timeVariance) + "\n";
-			memo += "平均時間: " + String.format("%.2f", avgTime) + "\n";
-			memo += "距離: " + String.format("%.2f", dist) + "\n";
+			if (finalScore > 75) {
+				analysis = "社交性・安定性ともに高い優良な傾向が見られます。";
+			} else if (finalScore > 60) {
+				analysis = "全体的にバランスは良いが、やや変動が見られます。";
+			} else if (finalScore > 40) {
+				analysis = "回答にばらつきがあり、注意が必要です。";
+			} else {
+				analysis = "精神状態に大きな不安定要素が検出されました。";
+			}
+			String memo = "";
+			memo += "【分析】: " + analysis + "\n\n";
+			memo += "【最終スコア】: " + String.format("%.2f", finalScore) + "\n";
+			memo += "【分散】: " + String.format("%.2f", variance) + "\n";
+			memo += "【時間分散】: " + String.format("%.2f", timeVariance) + "\n";
+			memo += "【平均時間】: " + String.format("%.2f", avgTime) + "\n";
+			memo += "【距離】: " + String.format("%.2f", dist) + "\n";
 
 			if (status.equals("ALERT")) {
 				memo += "[警告] 異常な回答傾向が検出されました。重点的監視が必要です。\n";
