@@ -43,7 +43,7 @@ public class ForwardServlet extends HttpServlet {
 		// もしセッションスコープの中にuser情報がないと
 		if (session.getAttribute("user") == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 
@@ -68,7 +68,7 @@ public class ForwardServlet extends HttpServlet {
 			// セッションのものを削除
 			session.invalidate();
 			// ホームページに戻る
-			response.sendRedirect("LoginServlet");
+			response.sendRedirect(request.getContextPath() + "LoginServlet");
 			return;
 		}
 		request.getRequestDispatcher("/WEB-INF/jsp/" + page + ".jsp").forward(request, response);
