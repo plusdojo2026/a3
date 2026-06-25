@@ -64,7 +64,7 @@
       <h2>山田 太郎</h2>
     </div>
     <!-- 個人情報 -->
-    <form>
+    <form action="">
       <div class="contents1">
         <ul>
           <li>

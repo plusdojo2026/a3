@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.UsersDao;
 import dto.Users;
+
 /**
  * Servlet implementation class UpdateScheduleServlet
  */
@@ -44,13 +45,12 @@ public class DeleteProfileServlet extends HttpServlet {
 		}
 
 		UsersDao usersDao = new UsersDao();
-		//保存しているユーザーIDを取り出す
-		int user_id =((Users) session.getAttribute("user")).getUser_id();
+		// 保存しているユーザーIDを取り出す
+		int user_id = ((Users) session.getAttribute("user")).getUser_id();
 
 		// DBから取得
 		Users user = usersDao.findById(user_id);
 
-		
 		// 所有者チェック
 		if (user == null || user.getUser_id() != user_id) {
 			response.sendRedirect(request.getContextPath() + "/error.jsp");
@@ -68,7 +68,7 @@ public class DeleteProfileServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect(request.getContextPath() + "/TestMenuServlet");
+		response.sendRedirect(request.getContextPath() + "/SelectClassesServlet");
 
 	}
 
