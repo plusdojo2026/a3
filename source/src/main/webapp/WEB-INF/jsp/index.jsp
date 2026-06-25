@@ -92,6 +92,7 @@
     </style>
     
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 </head>
 
 <body>
@@ -137,10 +138,10 @@
   <nav>
     <ul>
       <li>
-        <a href="InsertClassesServlet">生徒</a>
+        <a href="a3/SelectClassesServlet">生徒</a>
         <ul>
           <li><a href="/a3/SelectClassesServlet"> 生徒管理</a></li>
-          <li><a href="/a3/SelectClassesServlet"> 点数管理</a></li>
+          <li><a href="/a3/SelectSubjectServlet"> 点数管理</a></li>
           <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}"> 日記</a></li>
         </ul>
       </li>

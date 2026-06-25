@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.ChatDao;
+import dao.UsersDao;
 import dto.Users;
 
 @WebServlet("/SoServlet")
@@ -19,6 +20,26 @@ public class SoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// loginしているか検査
+		HttpSession session = request.getSession();
+		// ウェブサイトの格式をutf-8を設定
+		request.setCharacterEncoding("UTF-8");
+		// もしセッションスコープの中にuser情報がないと
+		if (session.getAttribute("user") == null) {
+			// ログインページに戻る
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
+		String listenerId = request.getParameter("user_id_listener");
+		request.setAttribute("listenerId", listenerId);
+		UsersDao usersDao = new UsersDao();
+		Users listenerUser = usersDao.findById(Integer.parseInt(listenerId));
+
+		request.setAttribute("listenerId", listenerId);
+		request.setAttribute("listenerUser", listenerUser);
+		request.setAttribute("speakerId", ((Users) session.getAttribute("user")).getUser_id());
+
 		// JSPにフォワードするで
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/chat.jsp");
 		dispatcher.forward(request, response);
