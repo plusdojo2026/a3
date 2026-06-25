@@ -44,7 +44,7 @@ public class UpdateUsersServlet extends HttpServlet {
 		Users users = (Users) session.getAttribute("user");
 		if (users == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 
@@ -58,6 +58,8 @@ public class UpdateUsersServlet extends HttpServlet {
 			myUsers = usersDao.findById(searchStuId);
 		}
 		session.setAttribute("myUsers", myUsers);
+
+		request.getRequestDispatcher("/WEB-INF/jsp/profile.jsp").forward(request, response);
 
 	}
 

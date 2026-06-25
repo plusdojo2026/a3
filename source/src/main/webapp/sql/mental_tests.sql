@@ -4,7 +4,7 @@
 USE a3;
 
 -- メンタルテストテーブル
-CREATE TABLE mental_tests(
+CREATE TABLE mental_testss(
     `mt_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `mt_img_url` VARCHAR(100) NOT NULL,
     `question` VARCHAR(200) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE mental_tests(
 );
 
 -- サンプルデータ
-/*	INSERT INTO `mental_tests` (`mt_img_url`, `question`, `choiceA`, `choiceB`, `choiceC`, `choiceD`, 
+/*	INSERT INTO `mental_testss` (`mt_img_url`, `question`, `choiceA`, `choiceB`, `choiceC`, `choiceD`, 
 		`choiceA_descript`, `choiceB_descript`, `choiceC_descript`, `choiceD_descript`, 
 		`choiceA_score`, `choiceB_score`, `choiceC_score`, `choiceD_score`, 
 		`mt_test_date`, `user_id`)
@@ -63,7 +63,7 @@ CREATE TABLE mental_tests(
 			
 			
 			
-			INSERT INTO mental_test (
+			INSERT INTO mental_tests (
     mt_img_url, question,
     choiceA, choiceB, choiceC, choiceD,
     choiceA_descript, choiceB_descript, choiceC_descript, choiceD_descript,
@@ -246,7 +246,7 @@ CREATE TABLE mental_tests(
 10,6,3,1,'2024-12-04',1);
 
 
-INSERT INTO mental_test (
+INSERT INTO mental_tests (
     mt_img_url, question,
     choiceA, choiceB, choiceC, choiceD,
     choiceA_descript, choiceB_descript, choiceC_descript, choiceD_descript,
@@ -427,7 +427,7 @@ INSERT INTO mental_test (
 'とても弱い','少し弱い','普通','強い',
 '神経質が高い','やや高い','安定している','非常に安定している',
 10,6,3,1,'2024-12-08',1);
-INSERT INTO mental_test (
+INSERT INTO mental_tests (
     mt_img_url, question,
     choiceA, choiceB, choiceC, choiceD,
     choiceA_descript, choiceB_descript, choiceC_descript, choiceD_descript,
@@ -609,7 +609,7 @@ INSERT INTO mental_test (
 '神経質が高い','やや高い','安定している','非常に安定している',
 10,6,3,1,'2024-12-13',1);
 
-INSERT INTO mental_test (
+INSERT INTO mental_tests (
     mt_img_url, question,
     choiceA, choiceB, choiceC, choiceD,
     choiceA_descript, choiceB_descript, choiceC_descript, choiceD_descript,

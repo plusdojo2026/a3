@@ -104,7 +104,7 @@
 <!-- 個人情報 -->
 <div>
     <span>profile</span>
-    <a href="SelectMypageServlet?user_id=${myUsers.user_id}">個人情報</a>
+    <a href="UpdateUsersServlet?user_id=${myUsers.user_id}">個人情報</a>
 </div>
 
 <!-- 日記 -->
