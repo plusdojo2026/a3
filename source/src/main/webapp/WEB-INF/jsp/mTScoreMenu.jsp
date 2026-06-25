@@ -13,7 +13,7 @@
 <body>
 
 	<!-- ヘッダーエリア、bodyの下に置いてください -->
-<header>
+	<header>
 		<!-- ここからテンプレート -->
 		<div>
 			<!-- ロゴ写真 -->
@@ -56,26 +56,35 @@
 
 	<!-- 左側サイドナビ -->
 	<aside>
+		  
 		<nav>
 			<ul>
-				<li><a href="InsertClassesServlet">生徒</a>
+
+				<li><a href="">生徒</a>
 					<ul>
-						<li><a href="/a3/SelectClassesServlet"> 生徒管理</a></li>
-						<li><a href="/a3/SelectClassesServlet"> 点数管理</a></li>
-						<li><a href="SelectDiaryServlet?dialog_id=${user.user_id}">
-								日記</a></li>
+						<li><a href="SelectMypageServlet">生徒管理</a></li>
+						<li><a href="SelectMypageServlet">点数管理</a></li>
+						<li><a
+							href="SelectDiaryServlet?dialog_id=${sessionScope.user.user_id}">
+								日記 </a></li>
 					</ul></li>
-				<li><a href="/a3/AddTestsServlet">成績</a>
+
+				<li><a href="">成績</a>
 					<ul>
-						<li><a href="/a3/AddTestsServlet">得点</a></li>
+						<li><a
+							href="SelectScoresServlet?score_id=${sessionScope.user.user_id}">
+								得点 </a></li>
 						<li><a href="MTResultServlet">心理テスト</a></li>
 					</ul></li>
+
 				<li><a href="">報告</a>
 					<ul>
 						<li><a href="InsertTroubleServlet">事案</a></li>
 						<li><a href="SelectMTServlet">心理テスト</a></li>
 					</ul></li>
+
 				<li><a href="jsp/Support.jsp">海外支援</a></li>
+
 			</ul>
 
 		</nav>
@@ -117,12 +126,10 @@
 								<c:if
 									test="${sc.score.status=='ALERT' or sc.score.status=='WARNING'}">
 									<img src="#">いじめ警戒！
-					</c:if>
+</c:if>
 								<nav>
 									<a href="SoServlet?user_id_listener=${sc.user.user_id}">
-									<button>
-									チャット
-									</button>
+										<button>チャット</button>
 									</a>
 
 								</nav>
