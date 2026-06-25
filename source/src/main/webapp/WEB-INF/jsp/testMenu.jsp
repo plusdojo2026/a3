@@ -62,31 +62,39 @@
       <small>新規作成で件数が増えるため、日付選択は下部へ配置</small>
     </p>
 
-    <form method ="GET" action ="${pageContext.request.contextPath}/SelectTestsServlet">
-      <!-- 科目の選択 -->
-      <input type="checkbox" name="" id="">
-      <button>数学</button>
-
-      <input type="checkbox" name="" id="">
-      <button>国語</button>
-
-      <input type="checkbox" name="" id="">
-      <button>英語</button>
-      <!-- 作成・削除のボタン -->
-      <a href="">新規作成</a>
-      <a href="">削除</a>
-    </form>
-    <!-- 日付の一覧 -->
-    <div>
-      <h3>日付選択</h3>
-
-      <li>
-        <ui><a href="">2021年1回目</a></ui>
-        <ui><a href="">2021年2回目</a></ui>
-        <ui><a href="">2021年3目</a></ui>
-        <ui><a href="">2021年4回目</a></ui>
-      </li>
+   
+<form method="GET" action="${pageContext.request.contextPath}/SelectTestsServlet">
+    <!-- 科目の選択部分（動的ループ） -->
+    <c:forEach var="subject" items="${subjectList}">
+        <label style="display: block; margin-bottom: 5px;">
+            <input type="checkbox" name="selectedSubject" value="${subject.subjectName}">
+            ${subject.subjectName}
+        </label>
+    </c:forEach>
+    
+    <!-- 作成・削除のボタン -->
+    <div style="margin-top: 15px;">
+        <a href="InsertTestServlet">新規作成</a>
+        <a href="DeleteTestServlet">削除</a>
     </div>
+</form>
+
+</div> 
+<div>
+    <h3>日付選択</h3>
+    <ul>
+        <!-- 日付・回数の一覧部分 -->
+        <c:forEach var="test" items="${testList}">
+            <li>
+                <!-- テスト一覧から選択したときに、test_id を次のサーブレットに渡せるよう -->
+                <a href="SelectTestsServlet?test_id=${test.test_id}">
+                    ${test.test_date} (${test.test_id}回目)
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+   
   </main>
 
 

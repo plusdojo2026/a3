@@ -69,19 +69,20 @@
         <ul>
           <li>
             学生番号（変更不可）<br>
-            <input type="text" value="0001" disabled>
+           <input type="text" value="${myUsers.user_id}" disabled>
+          <input type="hidden" name="user_id" value="${myUsers.user_id}">
           </li>
           <li>
             年齢<br>
-            <input type="text">
+            <input type="number" name="age" value="${myUsers.age}" required>
           </li>
           <li>
             郵便番号<br>
-            <input type="text">
+            <input type="text" name="post_code" value="${myUsers.post_code}">
           </li>
           <li>
             生年月日<br>
-            <input type="text">
+            <input type="date" name="birthday" value="${myUsers.birthday}" required>
           </li>
         </ul>
       </div>
@@ -91,19 +92,19 @@
         <ul>
           <li>
             性別<br>
-            <input type="text">
+            <input type="text" name="gender" value="${myUsers.gender}">
           </li>
           <li>
             メールアドレス<br>
-            <input type="text">
+            <input type="email" name="mail" value="${myUsers.mail}" required>
           </li>
           <li>
             住所<br>
-            <input type="text">
+            <input type="text" name="address" value="${myUsers.address}">
           </li>
           <li>
             電話番号<br>
-            <input type="text">
+            <input type="tel" name="tel" value="${myUsers.tel}">
           </li>
         </ul>
       </div>

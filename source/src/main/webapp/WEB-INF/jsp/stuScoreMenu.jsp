@@ -15,14 +15,35 @@
     <span><img></span>
 
   </div>
-  <nav>
-    <button type="button">ログイン</button>
-    <button type="button">サインイン</button>
-  </nav>
-  <nav style="display: none;">
-    <button type="button">ようこそxxxさん</button>
-    <button type="button">ログアウト</button>
-  </nav>
+  <header>
+  <c:if test="${empty sessionScope.user}">
+            <nav>
+                <form action="${pageContext.request.contextPath}/LoginServlet">
+                    <button type="submit">ログイン</button>
+                </form>
+            </nav>
+        </c:if>
+
+        <c:if test="${not empty sessionScope.user}">
+            <nav>
+                <button type="button">ようこそ${sessionScope.user.name}さん</button>
+
+                <form action="${pageContext.request.contextPath}/SigninServlet">
+                    <button type="submit">サインイン（新規作成）</button>
+                </form>
+
+                <!--
+                    本来ログアウト専用Servletがあるなら
+                    LoginServlet ではなく LogoutServlet の方が自然です
+                    例：
+                    ${pageContext.request.contextPath}/LogoutServlet
+                -->
+                <form action="${pageContext.request.contextPath}/LoginServlet">
+                    <button type="submit">ログアウト</button>
+                </form>
+            </nav>
+        </c:if>
+  
   </header>
 
 
@@ -52,23 +73,29 @@
       <h2>YAMADA TAROU/点数</h2>
       <div>
         <span>img</span>
-        <h3>山田太郎</h3>
+        <span id="username">${user.name}</span>さん
       </div>
     </div>
 
     <!-- 科目欄 -->
     <div>
     <form method ="GET" action="${pageContext.request.contextPath}/SelectScoresServlet">
-      <button type="button">数学</button>
-      <button type="button">国語</button>
-      <button type="button">英語</button>
+     <c:forEach var="subject" items="${subjectList}">
+        <button type="submit" name="subject_id" value="${subject.subject_id}">
+            ${subject.subject_name}
+        </button>
+    </c:forEach>
       </form>>
     </div>
     <!--回数-->
     <div>
-      <li><input type="text" placeholder="2021年 1回目"></li>
-      <li><input type="text" placeholder="2021年 2回目"></li>
-      <li><input type="text" placeholder="2021年 3回目"></li>
+      <c:forEach var="test" items="${testlist}">
+        <li>
+            
+            <span>${test_date}年 ${test.test_id}回目: </span>
+            <input type="text" value="${test.score}点" readonly>
+        </li>
+    </c:forEach>
     </div>
 
 

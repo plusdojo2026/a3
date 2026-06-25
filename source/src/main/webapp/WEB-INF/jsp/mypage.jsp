@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ page import="dto.Tests" %>   
 <!DOCTYPE html>
 <html lang="ja">
@@ -23,25 +23,33 @@
       <span><img></span>
 
     </div>
-    <c:if test="${empty sessionScope.user}">
-    <nav>
-    	<form action = "${pageContext.request.contextPath}/LoginServlet">
-      		<button type="submit">ログイン</button>
-      	</form>
-    </nav>
-    </c:if>
-   <c:if test="${not empty sessionScope.user}">
-   	<nav>
-      <button type="button">ようこそ${sessionScope.user.name}さん</button>
-      
-      <form action = "${pageContext.request.contextPath}/SigninServlet">
-      	<button type = "submit">サインイン（新規作成）</button>
-      </form>
-      <form action = "${pageContext.request.contextPath}/LoginServlet">
-      	<button type="submit">ログアウト</button>
-      </form>
-    </nav>
-    </c:if>
+   <c:if test="${empty sessionScope.user}">
+            <nav>
+                <form action="${pageContext.request.contextPath}/LoginServlet">
+                    <button type="submit">ログイン</button>
+                </form>
+            </nav>
+        </c:if>
+
+        <c:if test="${not empty sessionScope.user}">
+            <nav>
+                <button type="button">ようこそ${sessionScope.user.name}さん</button>
+
+                <form action="${pageContext.request.contextPath}/SigninServlet">
+                    <button type="submit">サインイン（新規作成）</button>
+                </form>
+
+                <!--
+                    本来ログアウト専用Servletがあるなら
+                    LoginServlet ではなく LogoutServlet の方が自然です
+                    例：
+                    ${pageContext.request.contextPath}/LogoutServlet
+                -->
+                <form action="${pageContext.request.contextPath}/LoginServlet">
+                    <button type="submit">ログアウト</button>
+                </form>
+            </nav>
+        </c:if>
     <!-- テンプレート終了 -->
   </header>
 
@@ -53,16 +61,16 @@
   <nav>
     <ul>
       <li>
-        <a href="InsertClassesServlet">生徒</a>
+        <a href="">生徒</a>
         <ul>
           <li><a href="SelectMypageServlet"> 生徒管理</a></li>
           <li><a href="SelectMypageServlet"> 点数管理</a></li>
           <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}"> 日記</a></li>
         </ul>
       </li>
-      <li><a href="UpdateStuScoreServlet">成績</a></li>
+      <li><a href="">成績</a></li>
       <ul>
-        <li><a href="SelectStuScoreServlet?score_id=${user.user_id}">得点</a></li>
+        <li><a href="SelectScoreServlet?score_id=${user.user_id}">得点</a></li>
         <li><a href="MTResultServlet">心理テスト</a></li>
       </ul>
       <li><a href="">報告</a></li>
@@ -87,20 +95,24 @@
   </div>
 
   <!-- 点数 -->
-  <div>
+ <!--点数 -->
+<div>
     <span>score</span>
-    <button type="button"><a href="SelectStuScoreServlet">点数</a></button>
-  </div>
-  <!-- 個人情報 -->
-  <div>
+    <a href="StuScoreMenuServlet?user_id=${myUsers.user_id}">点数</a>
+</div>
+
+<!-- 個人情報 -->
+<div>
     <span>profile</span>
-    <button type="button"><a href="SelectMypageServlet">個人情報</a></button>
-  </div>
-  <!-- 日記 -->
-  <div>
+    <a href="SelectMypageServlet?user_id=${myUsers.user_id}">個人情報</a>
+</div>
+
+<!-- 日記 -->
+<div>
     <span>dialog</span>
-    <button type="button"><a href="SelectDialogsServlet">日記</a></button>
-  </div>
+    <a href="SelectDialogsServlet?user_id=${myUsers.user_id}">日記</a>
+</div>
+ 
 </main>
 <!-- 一番最後に置いてください -->
 <footer>

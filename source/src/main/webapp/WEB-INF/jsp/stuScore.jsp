@@ -10,20 +10,39 @@
 </head>
 
 <body>
-
+<header>
   <div>
     <!-- ロゴ写真 -->
     <span><img></span>
 
   </div>
-  <nav>
-    <button type="button">ログイン</button>
-    <button type="button">サインイン</button>
-  </nav>
-  <nav style="display: none;">
-    <button type="button">ようこそxxxさん</button>
-    <button type="button">ログアウト</button>
-  </nav>
+ <c:if test="${empty sessionScope.user}">
+            <nav>
+                <form action="${pageContext.request.contextPath}/LoginServlet">
+                    <button type="submit">ログイン</button>
+                </form>
+            </nav>
+        </c:if>
+
+        <c:if test="${not empty sessionScope.user}">
+            <nav>
+                <button type="button">ようこそ${sessionScope.user.name}さん</button>
+
+                <form action="${pageContext.request.contextPath}/SigninServlet">
+                    <button type="submit">サインイン（新規作成）</button>
+                </form>
+
+                <!--
+                    本来ログアウト専用Servletがあるなら
+                    LoginServlet ではなく LogoutServlet の方が自然です
+                    例：
+                    ${pageContext.request.contextPath}/LogoutServlet
+                -->
+                <form action="${pageContext.request.contextPath}/LoginServlet">
+                    <button type="submit">ログアウト</button>
+                </form>
+            </nav>
+        </c:if>
   </header>
 
 
@@ -57,13 +76,13 @@
   <!-- 右側メイン表示 -->
   <main>
     <div>
-      <h2>数学 2021年1回目 / 成績総合</h2>
+      <h2>${score.subject_id} ${score.test_date}年 ${score.test_id}回目 / 成績総合</h2>
     </div>
 
     <div>
-      <p>山田太郎</p>
-      <p>1年1組</p>
-      <p>100</p>
+      <p>氏名：${score.name}</p>
+      <p>学年クラス：${score.grade_class}</p>
+      <p>点数：${score.score}点</p>
     </div>
   </main>
 </body>
