@@ -60,13 +60,12 @@ public class SelectScoresServlet extends HttpServlet {
 
 		// 科目を取る
 		List<Subjects> subjectlist = subjectsDao.search();
-
 		// 科目idを設定
 		int subject_id = -1;
 		// ループすることでサーチ
 		for (Subjects subjects : subjectlist) {
 			// もしこの科目名がデータベースに存在であれば
-			if (selectedSubject.equals(subjects.getSubjectName())) {
+			if (selectedSubject != null && selectedSubject.equals(subjects.getSubjectName())) {
 				// 科目idを記録
 				subject_id = subjects.getSubjectId();
 
@@ -107,7 +106,7 @@ public class SelectScoresServlet extends HttpServlet {
 
 		request.setAttribute("resultList", resultList);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreMenu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "scoreMenu.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -137,6 +136,13 @@ public class SelectScoresServlet extends HttpServlet {
 			if (!result) {
 				allResult = false;
 			}
+
+			if (allResult) {
+				request.setAttribute("message", "全ての点数を更新しました");
+			} else {
+				request.setAttribute("message", "一部の更新に失敗しました");
+			}
+
 		}
 
 		doGet(request, response);

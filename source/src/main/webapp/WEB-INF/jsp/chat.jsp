@@ -45,16 +45,24 @@
             <li><a href="#"> 日記</a></li>
           </ul>
         </li>
-        <li><a href="#">成績</a></li>
+         
+         
+        <li>
+        <a href="#">成績</a>
+        
         <ul>
           <li><a href="#">得点</a></li>
           <li><a href="#">心理テスト</a></li>
         </ul>
-        <li><a href="">報告</a></li>
+        </li>
+        <li>
+        <a href="">報告</a>
+        
         <ul>
           <li><a href="#">事案</a></li>
           <li><a href="#">心理テスト</a></li>
         </ul>
+        </li>
         <li><a href="#">海外支援</a></li>
       </ul>
     </nav>
