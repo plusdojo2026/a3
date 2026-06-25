@@ -70,7 +70,7 @@
       </li>
       <li><a href="">成績</a></li>
       <ul>
-        <li><a href="SelectScoreServlet?score_id=${user.user_id}">得点</a></li>
+        <li><a href="SelectScoresServlet?score_id=${user.user_id}">得点</a></li>
         <li><a href="MTResultServlet">心理テスト</a></li>
       </ul>
       <li><a href="">報告</a></li>

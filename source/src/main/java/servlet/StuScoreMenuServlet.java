@@ -49,7 +49,10 @@ public class StuScoreMenuServlet extends HttpServlet {
 			// ログインページに戻る
 			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
+			
 		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/stuScoreMenu.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

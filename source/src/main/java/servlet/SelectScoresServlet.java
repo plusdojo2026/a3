@@ -142,9 +142,9 @@ public class SelectScoresServlet extends HttpServlet {
 			} else {
 				request.setAttribute("message", "一部の更新に失敗しました");
 			}
-
+			response.sendRedirect(request.getContextPath() + "/SelectScoresServlet");
 		}
-
+		
 		doGet(request, response);
 	}
 
