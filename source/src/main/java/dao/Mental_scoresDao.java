@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import dto.Mental_scores;
+import dto.Users;
 
 /**
  * ============================Mental_scoresDao================================
@@ -115,16 +116,28 @@ public class Mental_scoresDao {
 	 *
 	 * @param date テストの日付
 	 * @return 取得した全ての ページ用 のリスト
+	 * 
+	 *         ├── user（Users DTO）
+	 * 
+	 *         ├── score（Mental_scoresDTO）
+	 * 
+	 *         ├── className
+	 * 
+	 *         └── testDate
+	 * 
+	 * 
+	 * 
 	 */
 	public List<Map<String, Object>> search(Date date) {
 		// JOINを利用して複数の表の中からデータを取る
 
-		String sql = "SELECT\r\n" + " u.`name` AS user_name,\r\n" + " c.`class_name` AS class_name,\r\n"
-				+ " s.`score` AS score,\r\n" + " t.`mt_test_date` AS test_date\r\n" + " FROM `mental_scores` s\r\n"
-				+ " JOIN `mental_tests` t\r\n" + "   ON s.`mt_id` = t.`mt_id`\r\n" + " JOIN `users` u\r\n"
-				+ "   ON s.`user_id` = u.`user_id`\r\n" + " LEFT JOIN `classes` c\r\n"
-				+ "   ON s.`user_id` = c.`user_id`\r\n" + " WHERE t.`mt_test_date` = ?\r\n"
-				+ " ORDER BY c.`class_name`, u.`name`";
+		String sql = "SELECT\r\n" + "  u.user_id,\r\n" + "  u.state,\r\n" + "  u.name AS user_name,\r\n"
+				+ "  u.image_url,\r\n" + "\r\n" + "  c.class_name,\r\n" + "\r\n" + "  s.mt_scores_id,\r\n"
+				+ "  s.score,\r\n" + "  s.status,\r\n" + "  s.mt_scores_memo,\r\n" + "  s.mt_id,\r\n"
+				+ "  s.user_id AS s_user_id,\r\n" + "\r\n" + "  t.mt_test_date AS test_date\r\n" + "\r\n"
+				+ "FROM mental_scores s\r\n" + "JOIN mental_tests t ON s.mt_id = t.mt_id\r\n"
+				+ "JOIN users u ON s.user_id = u.user_id\r\n" + "LEFT JOIN classes c ON s.user_id = c.user_id\r\n"
+				+ "\r\n" + "WHERE t.mt_test_date = ?\r\n" + "ORDER BY c.class_name, u.name;";
 
 		// リストを用意
 		List<Map<String, Object>> mentalscores = new ArrayList<>();
@@ -135,15 +148,38 @@ public class Mental_scoresDao {
 			// 検索
 			try (ResultSet rs = ps.executeQuery()) {
 				// 結果があれば
+
 				while (rs.next()) {
-					// Mapで保存する
+
+					// ✅ usersDTO
+					Users user = new Users();
+					user.setUser_id(rs.getInt("user_id"));
+					user.setState(rs.getInt("state"));
+					user.setName(rs.getString("user_name"));
+					user.setImage_url(rs.getString("image_url"));
+					// mental_scoresDTO
+					Mental_scores score = new Mental_scores();
+					score.setMtId(rs.getInt("mt_id"));
+					score.setScore(rs.getString("score"));
+					score.setStatus(rs.getString("status"));
+					score.setMtScoresMemo((rs.getString("mt_scores_memo")));
+					score.setMtScoresId(rs.getInt("mt_scores_id"));
+					score.setUserId(rs.getInt("s_user_id"));
+
+					// クラス・日付
+					String className = rs.getString("class_name");
+					java.sql.Date testDate = rs.getDate("test_date");
+
+					// Map
 					Map<String, Object> row = new HashMap<>();
-					row.put("userName", rs.getString("user_name"));
-					row.put("className", rs.getString("class_name"));
-					row.put("score", rs.getInt("score"));
-					row.put("testDate", rs.getDate("test_date"));
+					row.put("user", user);
+					row.put("score", score);
+					row.put("className", className);
+					row.put("testDate", testDate);
+
 					mentalscores.add(row);
 				}
+
 			}
 
 		} catch (Exception e) {

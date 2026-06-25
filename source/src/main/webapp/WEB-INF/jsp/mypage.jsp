@@ -16,22 +16,34 @@
   <span><img></span>
 
 </div>
-<!-- ログイン、サインイン -->
-<div class="loginStatus">
-			<c:if test="${empty user or loginStatu == false}">
-				<div class="notLogin" id="notLogin">
-					<a href="AddUserServlet">サインイン</a> <a href="LoginServlet">ログイン</a>
-				</div>
-			</c:if>
-			<c:if test="${!empty user and loginStatu==true}">
-				<div class="isLogin" id="isLogin">
-					<p>
-						ようこそ <span id="username">${user.name}</span> さん
-					</p>
-					<a href="/classcare/Forward?page=logout" id="logoutBtn">ログアウト</a>
-				</div>
-			</c:if>
-		</div>
+<header>
+    <!-- ここからテンプレート -->
+    <div>
+      <!-- ロゴ写真 -->
+      <span><img></span>
+
+    </div>
+    <c:if test="${empty sessionScope.user}">
+    <nav>
+    	<form action = "${pageContext.request.contextPath}/LoginServlet">
+      		<button type="submit">ログイン</button>
+      	</form>
+    </nav>
+    </c:if>
+   <c:if test="${not empty sessionScope.user}">
+   	<nav>
+      <button type="button">ようこそ${sessionScope.user.name}さん</button>
+      
+      <form action = "${pageContext.request.contextPath}/SigninServlet">
+      	<button type = "submit">サインイン（新規作成）</button>
+      </form>
+      <form action = "${pageContext.request.contextPath}/LoginServlet">
+      	<button type="submit">ログアウト</button>
+      </form>
+    </nav>
+    </c:if>
+    <!-- テンプレート終了 -->
+  </header>
 
 
 
@@ -69,25 +81,25 @@
     <span>img</span>
   </div>
   <div>
-    <span>YAMADA TAROU</span>
-    <h2>山田太郎</h2>
+    
+    <span id="username">${user.name}</span>さん
 
   </div>
 
   <!-- 点数 -->
   <div>
     <span>score</span>
-    <button type="button"><a href="">点数</a></button>
+    <button type="button"><a href="SelectStuScoreServlet">点数</a></button>
   </div>
   <!-- 個人情報 -->
   <div>
     <span>profile</span>
-    <button type="button"><a href="">個人情報</a></button>
+    <button type="button"><a href="SelectMypageServlet">個人情報</a></button>
   </div>
   <!-- 日記 -->
   <div>
     <span>dialog</span>
-    <button type="button"><a href="">日記</a></button>
+    <button type="button"><a href="SelectDialogsServlet">日記</a></button>
   </div>
 </main>
 <!-- 一番最後に置いてください -->

@@ -63,7 +63,9 @@
 		</div>
 
 		<div class="area-box">
-			<form action="${pageContext.request.contextPath}/UpdateTestsServlet" method="POST">
+			<form action="${pageContext.request.contextPath}/AddTestsServlet" method="POST">
+				<label>組名</label>
+				<input type="text" name="class_name" placeholder="1年1組"> 
 				<label>日付</label>
 				<input type="text" name="test_date" placeholder="1月1日"> 
 				<label>科目名</label>
