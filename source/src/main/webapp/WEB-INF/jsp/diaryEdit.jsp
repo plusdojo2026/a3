@@ -1,29 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="jp">
+<html>
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>日記作成｜Classcare</title>
+  <link rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
+  <link rel="stylesheet"href="${pageContext.request.contextPath}/css/diaryEdit.css">
 </head>
 
 <body>
   <!--ヘッダー-->
   <header>
+    <!-- ここからテンプレート -->
     <div>
+      <!-- ロゴ写真 -->
       <span><img></span>
 
     </div>
-    <nav>
-      <button type="button">ログイン</button>
-      <button type="button">サインイン</button>
+    <!--
+     <nav>
+    	<form action = "${pageContext.request.contextPath}/LoginServlet">
+      		<button type="submit">ログイン</button>
+      	</form>
+    </nav>　
+     -->
+   <c:if test="${not empty sessionScope.user}">
+   	<nav>
+      <button type="button">ようこそ${sessionScope.user.name}さん</button>
+      
+      <form action = "${pageContext.request.contextPath}/LoginServlet">
+      	<button type="submit">ログアウト</button>
+      </form>
     </nav>
-    <nav style="display: none;">
-      <button type="button">ようこそxxxさん</button>
-      <button type="button">ログアウト</button>
-    </nav>
+    </c:if>
+    <!-- テンプレート終了 -->
   </header>
 
 
@@ -56,25 +69,38 @@
 
   <!--コンテンツ-->
   <main>
-    <div>
-      <h2>YAMADA TAROU / 日記作成​</h2>
+   
+   <!--テーマ-->
+	<div>
+      <h2>/ 日記作成​</h2>
     </div>
-    <!--生徒の情報欄 -->
-    <div>
-      <img src="" alt="">
-      <div>生徒氏名</div>
-    </div>
+    
+	<!--生徒の情報欄 -->
+	<section>
+	   <img src="${pageContext.request.contextPath}/img/画像1.png" alt="生徒画像" width="100" height="125">
+	   <h2>${user.name}</h2>
+	   <p>生徒ID：${user.user_id}</p>
+	</section>
+	    
     <!--日記の内容-->
-    <form>
-      <div>
+    <form action ="${pageContext.request.contextPath}/InsertDialogsServlet" method="post">
+  
         <p>日記</p>
-        <input type="submit" value="">保存</input>
-        <textarea name="" id="">
+        
+        <!-- 日記作成のエリア -->
+        
+		<input type="date" class="w120" value="<fmt:formatDate value="${mealCancel.mealCancelDate}" pattern="yyyy-MM-dd" />">
+		<br>
+        <textarea name="dialogs_area" id="" rows="15" cols="80">
 ここに日記を入力します。​
-      </textarea>
-      </div>
+      	</textarea>
+      	
+        <a href="${pageContext.request.contextPath}/SelectDialogsServlet">
+        	<input type="submit" name ="dialog_id" value="${dialog.dialogId}">保存
+        </a>
     </form>
   </main>
+  
   <!-- 一番最後に置いてください -->
   <footer>
     <p>虎視眈々(株)</p>

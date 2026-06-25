@@ -107,7 +107,7 @@ public class DialogsDao {
 
 	public List<Dialogs> search(int user_id) {
 		// SQL文を用意
-		String sql = "SELECT * FROM dialogs　WHERE user_id = ?";
+		String sql = "SELECT * FROM dialogs WHERE user_id = ?";
 		// リストを準備
 		List<Dialogs> dialogs = new ArrayList<Dialogs>();
 		// データベースと連携、SQL文を入れておく
