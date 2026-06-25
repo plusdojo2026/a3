@@ -41,7 +41,7 @@ public class DeleteClaseesServlet extends HttpServlet {
 		// もしセッションスコープの中にuser情報がないなら
 		if (session.getAttribute("user") == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
 		}
 	}

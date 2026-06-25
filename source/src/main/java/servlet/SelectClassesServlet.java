@@ -44,7 +44,7 @@ public class SelectClassesServlet extends HttpServlet {
 		// もしセッションスコープの中にuser情報がないと
 		if (session.getAttribute("user") == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
 		}
 

@@ -44,7 +44,7 @@ public class InsertClassesServlet extends HttpServlet {
 		// もしセッションスコープの中にuser情報がないなら
 		if (session.getAttribute("user") == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
 		}
 		// ウェブサイトの入力を読み取る
