@@ -114,9 +114,11 @@ public class MTResultServlet extends HttpServlet {
 			// 日付フォーマットを転換
 			java.util.Date utilDate = sdf.parse(dateStr);
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			// 結果をリストに保存 userName class_name score test_date
+			// 結果をリストに保存 user（Users DTO） score（Mental_scoresDTO） className testDate
+
 			List<Map<String, Object>> scores = mtScoreDao.search(sqlDate);
 			request.setAttribute("scores", scores);
+			request.setAttribute("date", dateStr);
 			// ページに行く
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mTScoreMenu.jsp");
 			dispatcher.forward(request, response);
