@@ -68,7 +68,7 @@ public class ForwardServlet extends HttpServlet {
 			// セッションのものを削除
 			session.invalidate();
 			// ホームページに戻る
-			response.sendRedirect(request.getContextPath() + "LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 		request.getRequestDispatcher("/WEB-INF/jsp/" + page + ".jsp").forward(request, response);
