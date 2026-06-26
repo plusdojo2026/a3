@@ -52,7 +52,7 @@ public class InsertClassesServlet extends HttpServlet {
 
 		if (addClass == null || addClass.isEmpty()) {
 			session.setAttribute("message", "クラス名を入力してください。");
-			response.sendRedirect("SelectClassesServlet");
+			response.sendRedirect(request.getContextPath() + "SelectClassesServlet");
 			return;
 		}
 
@@ -68,8 +68,13 @@ public class InsertClassesServlet extends HttpServlet {
 
 		}
 		
-        	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/classes.jsp");
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectClassesServlet");
         	dispatcher.forward(request, response);
         	return;
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 }
