@@ -65,7 +65,7 @@ public class DeleteDialogsServlet extends HttpServlet {
 			request.setAttribute("message", "日記を削除できませんでした。");
 
 		}
-		request.getRequestDispatcher("/SelectDialogsServlet").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/SelectDialogsServlet");
 
 	}
 

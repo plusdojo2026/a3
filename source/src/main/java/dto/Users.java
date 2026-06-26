@@ -19,7 +19,7 @@ public class Users implements Serializable {
 	private String password; /* パスワード */
 	private String preparation; /* 備用 */
 	private String image_url; /* 写真 */
-
+	
 	/**
 	 * @param state
 	 * @param name

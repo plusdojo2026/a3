@@ -126,7 +126,7 @@ public class UpdateUsersServlet extends HttpServlet {
 		// パスワード
 		String password = request.getParameter("password");
 		// メモ
-		String preparation = request.getParameter("preparation");
+		String preparation = "123";
 		// 個人写真
 		String image_url = request.getParameter("image_url");
 

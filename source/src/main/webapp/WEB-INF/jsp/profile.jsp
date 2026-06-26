@@ -266,10 +266,19 @@
             <label>生年月日</label>
             <input type="date" name="birthday" value="${myUsers.birthday}" required>
           </div>
+          <div class="form-group">
+            <label>親のメール</label>
+            <input type="date" name="parents_mail" value="${myUsers.parents_mail}" required>
+          </div>
         </div>
 
         <!-- 右側項目群 -->
+        
         <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div class="form-group">
+            <label>名前</label>
+            <input type="text" name="name" value="${myUsers.name}">
+          </div>
           <div class="form-group">
             <label>性別</label>
             <input type="text" name="gender" value="${myUsers.gender}">
@@ -286,6 +295,7 @@
             <label>電話番号</label>
             <input type="tel" name="tel" value="${myUsers.tel}">
           </div>
+          
         </div>
 
       </div>

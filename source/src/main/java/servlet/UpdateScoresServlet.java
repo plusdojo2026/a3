@@ -69,7 +69,7 @@ public class UpdateScoresServlet extends HttpServlet {
 
 		// 結果ページにフォワードする
 		// RequestDispatcher dispatcher =
-		// request.getRequestDispatcher("/WEB-INF/jsp/Scores.jsp");
+		// request.getRequestDispatcher("/WEB-INF/jsp/scoreEdit.jsp");
 		// dispatcher.forward(request, response);
 	}
 }
