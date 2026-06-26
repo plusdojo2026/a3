@@ -7,9 +7,9 @@
 
 <head>
 <meta charset="UTF-8">
-<title>海外支援</title>
+<title>心理テスト一覧</title>
 </head>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <body>
 
 	<!-- ヘッダーエリア、bodyの下に置いてください -->

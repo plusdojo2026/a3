@@ -1,68 +1,239 @@
+/* =====================================
+   ★ 基本リセット（必須・安全版）
+   ※ チーム影響を最小限に抑える軽量リセット
+===================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, h5, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+}
+
+
+/* =====================================
+   ★ 全体設定
+===================================== */
 body {
-    margin: 0;
-    background-color: #f5f7f7;
-    font-family: "Yu Gothic", sans-serif;
+  font-family: sans-serif; /* ※ フォント変更OK */
+  background-color: #f5f7f7; /* ※ 背景色変更OK */
+  color: #333;
 }
 
-/* ヘッダー */
-header {
-    height: 80px;
-    background-color: #f8fbfb;
-    border-bottom: 2px solid #d8ecec;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* =====================================
+   ★ レイアウト（header / aside / main）
+===================================== */
 
-    padding: 0 30px;
+/* 中央寄せ */
+header, main, footer {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* サイドメニュー */
+/* 左ナビ */
 aside {
-	
-    width: 180px;
-    min-height: calc(100vh - 130px);
-
-    float: left;
-
-    background-color: #eef9f8;
-
-    padding: 20px;
-    box-sizing: border-box;
+  float: left;
+  width: 200px; /* ※ 横幅変更OK */
+  background: #e6f2f2; /* ※ 左色変更 */
+  padding: 20px 10px;
+  min-height: 100vh;
 }
 
-aside ul {
-    list-style: none;
-    padding: 0;
-}
-
-aside li {
-    margin-bottom: 15px;
-}
-
-aside a {
-    text-decoration: none;
-    color: #2e8b95;
-}
-
-/* メインエリア */
+/* メイン */
 main {
-    margin-left: 200px;
-    padding: 30px;
-    min-height: calc(100vh - 130px);
+  margin-left: 220px; /* sidebar分 */
+  padding: 20px 30px;
+}
+
+/* フッター調整 */
+footer {
+  clear: both;
 }
 
 
+/* =====================================
+   ★ header
+===================================== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
 
-/* フッター */
+/* ロゴ */
+header img {
+  height: 40px; /* ※ サイズ変更OK */
+}
+
+/* 右上エリア */
+header nav {
+  display: flex;
+  gap: 15px;
+}
+
+/* ログイン系ボタン */
+header button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid #2aa198;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+
+/* =====================================
+   ★ サイドバー
+===================================== */
+
+/* 第1階層 */
+aside > nav > ul > li {
+  margin-bottom: 20px;
+}
+
+/* タイトル */
+aside > nav > ul > li > a {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2aa198;
+  margin-bottom: 8px;
+}
+
+/* 第2階層 */
+aside ul ul li a {
+  display: block;
+  padding: 6px 10px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  color: #333;
+  border: 1px solid #2aa198;
+}
+
+/* hover */
+aside ul ul li a:hover {
+  background: #2aa198;
+  color: #fff;
+}
+
+
+/* =====================================
+   ★ main タイトル
+===================================== */
+main h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+
+/* =====================================
+   ★ カード（超重要）
+   ※ main直下のdivをカード化
+===================================== */
+main > div {
+  background: #f7f1f3; /* ※ カード色 */
+  border: 1px solid #e8ccd5;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* ❗カードにしたくない場合 */
+main > .no-card {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+
+/* =====================================
+   ★ 一覧（行レイアウト）
+===================================== */
+main > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+
+/* =====================================
+   ★ 入力欄
+===================================== */
+input[type="text"] {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #2aa198;
+  width: 250px; /* ※ 幅変更OK */
+}
+
+
+/* =====================================
+   ★ ボタン（統一）
+===================================== */
+button {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* 送信ボタン（緑） */
+button[type="submit"] {
+  background-color: #44c2a8;
+  color: #fff;
+}
+
+/* 通常ボタン（詳細など） */
+button[type="button"] {
+  background-color: #44c2a8;
+  color: #fff;
+}
+
+
+/* ❗削除ボタン（※ここだけclass必要） */
+.btn-delete {
+  background-color: #e9a6b5;
+  color: #fff;
+}
+
+
+/* =====================================
+   ★ テキスト調整
+===================================== */
+main p {
+  margin: 6px 0;
+}
+
+
+/* =====================================
+   ★ フッター
+===================================== */
 footer {
-    clear: both;
-
-    height: 50px;
-
-    background-color: #f8fbfb;
-    border-top: 2px solid #d8ecec;
-
-    text-align: center;
-    line-height: 50px;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  color: #999;
 }
