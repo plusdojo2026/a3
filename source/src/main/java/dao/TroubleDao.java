@@ -92,7 +92,7 @@ public class TroubleDao {
 
 	public Trouble findById(int troubleId) {
 
-		String sql = "SELECT * FROM trouble";
+		String sql = "SELECT * FROM trouble WHERE trouble_id = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 

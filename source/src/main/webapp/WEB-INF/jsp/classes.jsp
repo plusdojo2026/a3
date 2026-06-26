@@ -7,48 +7,29 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/classes.css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+  <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/classes.css">-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Care - 生徒管理</title>
 </head>
 
 <body>
+<!-- ===== header ===== -->
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<!-- ===== layout ===== -->
+<div class="layout">
 
-  <header>
-    <!-- ここからテンプレート -->
-    <div>
-      <!-- ロゴ写真 -->
-      <span><img></span>
+    <!-- ===== sidebar ===== -->
 
-    </div>
-    <c:if test="${empty sessionScope.user}">
-    <nav>
-    	<form action = "${pageContext.request.contextPath}/LoginServlet">
-      		<button type="submit">ログイン</button>
-      	</form>
-    </nav>
-    </c:if>
-   <c:if test="${not empty sessionScope.user}">
-   	<nav>
-      <button type="button">ようこそ${sessionScope.user.name}さん</button>
-      
-      <form action = "${pageContext.request.contextPath}/SigninServlet">
-      	<button type = "submit">サインイン（新規作成）</button>
-      </form>
-      <form action = "${pageContext.request.contextPath}/LoginServlet">
-      	<button type="submit">ログアウト</button>
-      </form>
-    </nav>
-    </c:if>
-    <!-- テンプレート終了 -->
-  </header>
+<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
+
+
 
 
 
 
   <!-- 左側サイドナビ -->
-<aside>
+<!--  <aside>
   <nav>
     <ul>
       <li>
@@ -72,68 +53,33 @@
       <li><a href="jsp/Support.jsp">海外支援</a></li>
     </ul>
   </nav>
-</aside>
+</aside>-->
 
 
   <!-- メインコンテンツエリア -->
 
-  <main>
-    <!-- 検索バー -->
-     <!--  <div>
-      <form action = "${pageContext.request.contextPath}/SelectClassesServlet" method="get">
-        <input type="search" name="keyword" placeholder="検索（学籍番号・名前）" value="${keyword}">
-    <input type="hidden" name="className" value="${className}">
-    <button type="submit">検索</button>
-      </form>
-    </div>-->
-     <%-- <h2>👥 1年1組</h2>
-
-    <!-- 生徒リスト -->
-    <ul>
-      <!-- 生徒1 -->
-      <li>
-        <span>0001</span>
-        <span>山田太郎</span>
-        <span>1年1組</span>
-        <button type="button">詳細</button>
-        <button type="button">削除</button>
-      </li>
-      <!-- 生徒2 -->
-      <li>
-        <span>0005</span>
-        <span>竈門炭治郎</span>
-        <span>1年1組</span>
-        <button type="button">詳細</button>
-        <button type="button">削除</button>
-      </li>
-      <!-- 生徒3 -->
-      <li>
-        <span>0002</span>
-        <span>山田二郎</span>
-        <span>1年1組</span>
-        <button type="button">詳細</button>
-        <button type="button">削除</button>
-      </li>
-      <!-- 生徒4 -->
-      <li>
-        <span>0099</span>
-        <span>山田九十九郎</span>
-        <span>1年1組</span>
-        <button type="button">詳細</button>
-        <button type="button">削除</button>
-      </li>
-    </ul>
-    --%>
+  <!-- ===== main ===== -->
+   <main class="main">
     <div>
     <!-- クラス新規作成ボタン -->
-    <a href = "${pageContext.request.contextPath}/InsertClassesServlet">新規</a>
+    <form action = "${pageContext.request.contextPath}/InsertClassesServlet" method = "post">
+    	<label>新規クラス</label>
+			<input type="text" name="addClassInput">
+			<input type = "submit" value = "新規クラス作成">
+	</form>
     </div>
+    
+    <div>
+    <c:forEach var = "row" items = "${classesList }">
+  		<button type = "button" onclick = "showClass('${row.class_name}')">${row.class_name}</button>
+  	</c:forEach>
+  	</div>
+  		
   	<div>
+  	
   		<c:forEach var = "row" items = "${classesList}">
   		
-  		<div>
-  		<button type = "button" onclick = "showClass('${row.class_name}')">${row.class_name}</button>
-  		</div>
+  		
   		<div>
   			<!-- 学生情報 -->
   			<div>${row.user_id}</div>
@@ -150,15 +96,22 @@
   				<button type = "submit">削除</button>
   			</form>
   			
-  			<!-- 新規ユーザー登録 -->
-  			<a href = "${pageContext.request.contextPath}/AddUserServlet">新規</a>
+  			
   		</div>
   		</c:forEach>
+  		<div>
+  		<!-- 新規ユーザー登録 -->
+  			<a href = "${pageContext.request.contextPath}/AddUserServlet">新規</a>
+  		</div>
   	</div>
   	
   </main>
 
-  <!-- フッター -->
+ </div>
+<!-- ===== footer ===== -->
+<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
+
+
   <footer>
     <p>虎視眈々(株)</p>
   </footer>

@@ -8,89 +8,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Class Care - 心理テスト</title>
+  <title>Class Care - 事案一覧</title>
+  <link rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/common.css">
   <link rel="stylesheet"
       href="${pageContext.request.contextPath}/css/mT.css">
 </head>
 <body id="index-top">
-<header>
-		<!-- ここからテンプレート -->
-		<div>
-			<!-- ロゴ写真 -->
-			<span><img alt=""></span>
-		</div>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<div class="layout">
+<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
 
-		<c:if test="${empty sessionScope.user}">
-			<nav>
-				<form action="${pageContext.request.contextPath}/LoginServlet">
-					<button type="submit">ログイン</button>
-				</form>
-			</nav>
-		</c:if>
 
-		<c:if test="${not empty sessionScope.user}">
-			<nav>
-				<button type="button">ようこそ${sessionScope.user.name}さん</button>
-
-				<form action="${pageContext.request.contextPath}/SigninServlet">
-					<button type="submit">サインイン（新規作成）</button>
-				</form>
-
-				<!--
-                    本来ログアウト専用Servletがあるなら
-                    LoginServlet ではなく LogoutServlet の方が自然です
-                    例：
-                    ${pageContext.request.contextPath}/LogoutServlet
-                -->
-
-				<form action="${pageContext.request.contextPath}/Forward"
-					method="post">
-					<input type="hidden" name="page" value="logout">
-					<button type="submit">ログアウト</button>
-				</form>
-
-			</nav>
-		</c:if>
-		<!-- テンプレート終了 -->
-	</header>
-
-<aside>
-		  
-		<nav>
-			<ul>
-
-				<li><a href="">生徒</a>
-					<ul>
-						<li><a href="SelectMypageServlet">生徒管理</a></li>
-						<li><a href="SelectMypageServlet">点数管理</a></li>
-						<li><a
-							href="SelectDiaryServlet?dialog_id=${sessionScope.user.user_id}">
-								日記 </a></li>
-					</ul></li>
-
-				<li><a href="">成績</a>
-					<ul>
-						<li><a
-							href="SelectScoresServlet?score_id=${sessionScope.user.user_id}">
-								得点 </a></li>
-						<li><a href="MTResultServlet">心理テスト</a></li>
-					</ul></li>
-
-				<li><a href="">報告</a>
-					<ul>
-						<li><a href="InsertTroubleServlet">事案</a></li>
-						<li><a href="SelectMTServlet">心理テスト</a></li>
-					</ul></li>
-
-				<li><a href="jsp/Support.jsp">海外支援</a></li>
-
-			</ul>
-
-		</nav>
-	</aside>
 
   <!--コンテンツ-->
-  <main>
+  <main class="main">
+  
     <p>事案一覧</p>
     <!--事案内容-->
     <c:forEach var="trouble" items="${trouble}">
@@ -103,19 +36,19 @@
 
             <button type="submit">
                 <p>${trouble.tr_date}</p>
-                <p>${trouble.title}</p>
-                <p>${trouble.user_id}</p>
+                <p>件名：${trouble.title}</p>
+                <p>関係者：${trouble.user_id}</p>
                 <p>${trouble.situation}</p>
             </button>
 
         </form>
+        
     </div>
 </c:forEach>
 
   </main>
-  <footer>
-    <p>虎視眈々(株)</p>
-  </footer>
+  </div>
+<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 </body>
 
 </html>
