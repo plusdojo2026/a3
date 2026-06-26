@@ -33,9 +33,17 @@
                     <li>
                         <a class="menu__link" href="/a3/AddTestsServlet">得点</a>
                     </li>
+                    
                     <li>
-                        <a class="menu__link active" href="MTResultServlet">心理テスト</a>
-                    </li>
+					    <c:if test="${sessionScope.user.state == 0}">
+					        <a class="menu__link" href="">心理テスト一覧</a>
+					    </c:if>
+					
+					    <c:if test="${sessionScope.user.state == 1}">
+					        <a class="menu__link" href="MTResultServlet">心理テスト結果</a>
+					    </c:if>
+						</li>
+                    <li>
                 </ul>
             </li>
 
@@ -44,8 +52,14 @@
 
                 <ul>
                     <li>
-                        <a class="menu__link" href="InsertTroubleServlet">事案</a>
-                    </li>
+					    <c:if test="${sessionScope.user.state == 0}">
+					        <a class="menu__link" href="SelectIncidentMenuServlet">事案一覧</a>
+					    </c:if>
+					
+					    <c:if test="${sessionScope.user.state == 1}">
+					        <a class="menu__link" href="InsertTroubleServlet">事案報告</a>
+					    </c:if>
+						</li>
                     <li>
                         <a class="menu__link" href="SelectMTServlet">心理テスト</a>
                     </li>
