@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -7,67 +7,215 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Care - 生徒管理</title>
+  
+  <style>
+  /* =====================================
+     ★ 基本リセット（必須・安全版）
+  ===================================== */
+  *, *::before, *::after { box-sizing: border-box; }
+  body, h1, h2, h3, h4, h5, p, ul, li { margin: 0; padding: 0; }
+  ul { list-style: none; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+  button { font: inherit; }
+
+  /* =====================================
+     ★ 全体設定
+  ===================================== */
+  body {
+    font-family: sans-serif;
+    background-color: #f5f7f7;
+    color: #333;
+  }
+
+  /* =====================================
+     ★ レイアウト（header / aside / main）
+  ===================================== */
+  header, main, footer {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  aside {
+    float: left;
+    width: 200px;
+    background: #e6f2f2;
+    padding: 20px 10px;
+    min-height: 100vh;
+  }
+  main {
+    margin-left: 220px;
+    padding: 20px 30px;
+  }
+  footer {
+    clear: both;
+  }
+
+  /* =====================================
+     ★ header
+  ===================================== */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+  header img { height: 40px; }
+  header nav { display: flex; gap: 15px; }
+  header button {
+    background: none;
+    border: none;
+    border-bottom: 2px solid #2aa198;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  /* =====================================
+     ★ サイドバー
+  ===================================== */
+  aside > nav > ul > li { margin-bottom: 20px; }
+  aside > nav > ul > li > a {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2aa198;
+    margin-bottom: 8px;
+  }
+  aside ul ul li a {
+    display: block;
+    padding: 6px 10px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    color: #333;
+    border: 1px solid #2aa198;
+  }
+  aside ul ul li a:hover {
+    background: #2aa198;
+    color: #fff;
+  }
+
+  /* =====================================
+     ★ main タイトル
+  ===================================== */
+  main h2 { font-size: 22px; margin-bottom: 15px; }
+
+  /* =====================================
+     ★ カード（超重要）
+  ===================================== */
+  main > div {
+    background: #f7f1f3;
+    border: 1px solid #e8ccd5;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  main > .no-card {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  /* =====================================
+     ★ 一覧（行レイアウト）
+  ===================================== */
+  main > div > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+
+  /* =====================================
+     ★ 入力欄 / ボタン
+  ===================================== */
+  input[type="text"] {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #2aa198;
+    width: 250px;
+  }
+  button {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  button[type="submit"], button[type="button"] {
+    background-color: #44c2a8;
+    color: #fff;
+  }
+  .btn-delete {
+    background-color: #e9a6b5;
+    color: #fff;
+  }
+  main p { margin: 6px 0; }
+
+  /* =====================================
+     ★ フッター
+  ===================================== */
+  footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    color: #999;
+  }
+  </style>
 </head>
 
 <body>
-<header>
-  <div>
-    <!-- ロゴ写真 -->
-    <span><img></span>
 
-  </div>
- <c:if test="${empty sessionScope.user}">
-            <nav>
-                <form action="${pageContext.request.contextPath}/LoginServlet">
-                    <button type="submit">ログイン</button>
-                </form>
-            </nav>
-        </c:if>
+  <!-- ヘッダーエリア -->
+  <header>
+    <div>
+      <img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo">
+    </div>
+    
+    <c:if test="${empty sessionScope.user}">
+      <nav>
+        <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
+          <button type="submit">ログイン</button>
+        </form>
+      </nav>
+    </c:if>
 
-        <c:if test="${not empty sessionScope.user}">
-            <nav>
-                <button type="button">ようこそ${sessionScope.user.name}さん</button>
-
-                <form action="${pageContext.request.contextPath}/SigninServlet">
-                    <button type="submit">サインイン（新規作成）</button>
-                </form>
-
-                <!--
-                    本来ログアウト専用Servletがあるなら
-                    LoginServlet ではなく LogoutServlet の方が自然です
-                    例：
-                    ${pageContext.request.contextPath}/LogoutServlet
-                -->
-                <form action="${pageContext.request.contextPath}/LoginServlet">
-                    <button type="submit">ログアウト</button>
-                </form>
-            </nav>
-        </c:if>
+    <c:if test="${not empty sessionScope.user}">
+      <nav>
+        <button type="button">ようこそ ${sessionScope.user.name} さん</button>
+        <form action="${pageContext.request.contextPath}/SigninServlet" method="post">
+          <button type="submit">サインイン（新規作成）</button>
+        </form>
+        <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
+          <button type="submit">ログアウト</button>
+        </form>
+      </nav>
+    </c:if>
   </header>
 
-
-  <!-- 左側サイ  ドナビ -->
+  <!-- 左側サイドナビ -->
   <aside>
     <nav>
       <ul>
         <li>
           <a href="#">生徒</a>
           <ul>
-            <li><a href="SelectMypageServlet"> 生徒管理</a></li>
-            <li><a href="SelectMypageServlet"> 点数管理</a></li>
-            <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}"> 日記</a></li>
+            <li><a href="SelectMypageServlet">生徒管理</a></li>
+            <li><a href="SelectMypageServlet">点数管理</a></li>
+            <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}">日記</a></li>
           </ul>
         </li>
-        <li><a href="">成績</a></li>
-        <ul>
-          <li><a href="SelectScoresServlet?score_id=${user.user_id}">得点</a></li>
-          <li><a href="SelectMTServlet">心理テスト</a></li>
-        </ul>
-        <li><a href="">報告</a></li>
-        <ul>
-          <li><a href="InsertTroubleServlet">事案</a></li>
-          <li><a href="SelectMTServlet">心理テスト</a></li>
-        </ul>
+        <li>
+          <a href="">成績</a>
+          <ul>
+            <li><a href="SelectScoresServlet?score_id=${user.user_id}">得点</a></li>
+            <li><a href="SelectMTServlet">心理テスト</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="">報告</a>
+          <ul>
+            <li><a href="InsertTroubleServlet">事案</a></li>
+            <li><a href="SelectMTServlet">心理テスト</a></li>
+          </ul>
+        </li>
         <li><a href="#">海外支援</a></li>
       </ul>
     </nav>
@@ -75,22 +223,38 @@
 
   <!-- 右側メイン表示 -->
   <main>
+    <!-- 科目リンク選択カード -->
     <div>
-      <h2>${score.subject_id} ${score.test_date}年 ${score.test_id}回目 / 成績総合</h2>
+      <p style="font-weight: bold; color: #2aa198; margin-bottom: 10px;">科目切り替え</p>
+      <div style="display: flex; gap: 15px;">
+        <a href="SelectScoresServlet?score_id=${user.user_id}&subject_id=1" style="color: #2aa198; text-decoration: underline;">数学</a>
+        <a href="SelectScoresServlet?score_id=${user.user_id}&subject_id=2" style="color: #2aa198; text-decoration: underline;">国語</a>
+        <a href="SelectScoresServlet?score_id=${user.user_id}&subject_id=3" style="color: #2aa198; text-decoration: underline;">英語</a> <!-- ※重複を英語に変更してみました -->
+      </div>
     </div>
 
+    <!-- 成績詳細カード -->
     <div>
-      <p>氏名：${score.name}</p>
-      <p>学年クラス：${score.grade_class}</p>
-      <p>点数：${score.score}点</p>
+      <h2>得点情報</h2>
+      <p><strong>氏名：</strong>${score.name}</p>
+      <p><strong>学年クラス：</strong>${score.grade_class}</p>
+      <p><strong>点数：</strong><span style="font-size: 18px; color: #e9a6b5; font-weight: bold;">${score.score} 点</span></p>
+    </div>
+
+    <!-- 棒グラフカード -->
+    <div>
+      <h2>得点推移</h2>
+      <div style="padding: 20px 0; border: 1px dashed #ccc; text-align: center; background: #fff; border-radius: 8px;">
+        <!-- ここにのちにグラフの画像やライブラリのタグが入ります -->
+        <span>棒グラフ表示エリア</span>
+      </div>
     </div>
   </main>
+
+  <!-- フッター -->
+  <footer>
+    <p>虎視眈々(株)</p>
+  </footer>
+
 </body>
-
-<!-- 棒グラフ -->
-<div>棒グラフ用</div>
-
-<!-- 一番最後に置いてください -->
-<footer>
-  <p>虎視眈々(株)</p>
-</footer>
+</html>

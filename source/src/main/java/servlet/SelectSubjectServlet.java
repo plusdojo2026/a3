@@ -85,8 +85,13 @@ public class SelectSubjectServlet extends HttpServlet {
 		request.setAttribute("testList", testList);
 		request.setAttribute("subjectList", subjectList);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/subjectsMenu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/testMenu.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

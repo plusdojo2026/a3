@@ -10,17 +10,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Care - 心理テスト</title>
   <link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/common.css">
-  <link rel="stylesheet"
       href="${pageContext.request.contextPath}/css/mT.css">
 </head>
+
 <body id="index-top">
+<!-- ===== header ===== -->
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
-
+<!-- ===== layout ===== -->
 <div class="layout">
-<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>	  
-
-<main class="main">
+  
+    <!-- ===== sidebar ===== -->
+ 
+<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
+<main>
 
 <h2>心理テスト</h2>
 
@@ -92,9 +94,13 @@
 </form>
 
 </main>
+
 </div>
+
+<!-- ===== footer ===== -->
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 
 </body>
+
 
 </html>
