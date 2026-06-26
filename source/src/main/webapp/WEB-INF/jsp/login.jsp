@@ -5,29 +5,17 @@
     <head>
         <meta charset="UTF-8">
         <title>ログイン｜Classcare</title>
-        
+         <link rel="stylesheet" href="css/common.css">
         <link rel="stylesheet" href="css/login.css">
     </head>
     <body>
      <!--ここのアクションまだ入れてません-->
-    <header>
-        <div>
-        <!-- ロゴ写真 -->
-        <span><img></span>
+    
+    
+    <!-- ===== header ===== -->
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 
-        </div>
-            <nav>
-                <button type="button">ログイン</button>
-              
-            </nav>
-            <nav style="display: none;">
-            
-            <!-- c:ifでアカウント判断 -->
-            
-                <button type="button">ようこそxxxさん</button>
-                <button type="button">ログアウト</button>
-            </nav>
-    </header>
+<main class="main">
     <!-- メインコンテンツ -->
     <h2 class="login-title">ログイン</h2>
     
@@ -52,8 +40,10 @@
         </form>
         <!-- ログインボックス終了 -->
         <!-- 一番最後に置いてください -->
-        <footer>
-            <p>虎視眈々(株)</p>
-        </footer> 
-    </body>
+           </main>
+</div>
+      <!-- ===== footer ===== -->
+<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
+
+</body>
 </html>

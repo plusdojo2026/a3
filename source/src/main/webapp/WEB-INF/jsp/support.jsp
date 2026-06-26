@@ -38,7 +38,8 @@
       <!-- -------------------- -->
       <!-- URL登録 -->
       <!-- -------------------- -->
-      <div class="card">
+      <!--<div class="card">
+       
         <h3>URL登録</h3>
 
         <form method="GET" action="${pageContext.request.contextPath}/GlobalServlet">
@@ -50,7 +51,7 @@
           <button type="submit" class="btn-green">保存</button>
         </form>
       </div>
-
+ -->
 
       <div class="card">
         <h3>登録済みURL</h3>

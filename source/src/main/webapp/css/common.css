@@ -1,6 +1,5 @@
 /* =====================================
-   ★ 基本リセット（必須・安全版）
-   ※ チーム影響を最小限に抑える軽量リセット
+   ★ 基本リセット
 ===================================== */
 *,
 *::before,
@@ -8,7 +7,22 @@
   box-sizing: border-box;
 }
 
-body, h1, h2, h3, h4, h5, p, ul, li {
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+ul,
+li,
+form {
   margin: 0;
   padding: 0;
 }
@@ -27,7 +41,8 @@ img {
   display: block;
 }
 
-button {
+button,
+input {
   font: inherit;
 }
 
@@ -35,132 +50,392 @@ button {
 /* =====================================
    ★ 全体設定
 ===================================== */
+:root {
+  --header-height: 85px;
+  --sidebar-width: 270px;
+
+  --page-bg: #f5f7f7;
+  --side-bg: #e6f2f2;
+
+  --green: #2aa198;
+  --green-light: #44c2a8;
+  --pink: #e9a6b5;
+
+  --card-bg: #fbf3f6;
+  --card-border: #e8ccd5;
+
+  --content-padding-x: 39px;
+}
+
 body {
-  font-family: sans-serif; /* ※ フォント変更OK */
-  background-color: #f5f7f7; /* ※ 背景色変更OK */
-  color: #333;
-}
-
-
-/* =====================================
-   ★ レイアウト（header / aside / main）
-===================================== */
-
-/* 中央寄せ */
-header, main, footer {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* 左ナビ */
-aside {
-  float: left;
-  width: 200px; /* ※ 横幅変更OK */
-  background: #e6f2f2; /* ※ 左色変更 */
-  padding: 20px 10px;
-  min-height: 100vh;
-}
-
-/* メイン */
-main {
-  margin-left: 220px; /* sidebar分 */
-  padding: 20px 30px;
-}
-
-/* フッター調整 */
-footer {
-  clear: both;
+  font-family: sans-serif;
+  background-color: var(--page-bg);
+  color: #222;
+  min-width: 1000px;
 }
 
 
 /* =====================================
    ★ header
+   ※ Logo は左上、認証ボタンは右上
 ===================================== */
-header {
+header.header {
+  width: 100%;
+  height: var(--header-height);
+
+  padding: 0 48px 0 28px;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  justify-content: space-between;
+
+  background-color: var(--page-bg);
 }
 
-/* ロゴ */
-header img {
-  height: 40px; /* ※ サイズ変更OK */
+/* ロゴエリア */
+.header__logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* ロゴ画像 */
+.header__logo img {
+  height: 90px;
+  width: auto;
+  display: block;
 }
 
 /* 右上エリア */
-header nav {
+.header__auth {
   display: flex;
-  gap: 15px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  height: 100%;
 }
 
-/* ログイン系ボタン */
-header button {
-  background: none;
-  border: none;
-  border-bottom: 2px solid #2aa198;
-  padding: 5px 10px;
-  cursor: pointer;
+/* form のズレ防止 */
+.header__auth form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ようこそ文字 */
+.header__welcome {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+
+  font-size: 15px;
+  line-height: 1;
+  color: #111;
 }
 
 
 /* =====================================
-   ★ サイドバー
+   ★ aside / サイドバー
+   hover 展開版
 ===================================== */
+aside {
+  position: fixed;
+  left: 0;
+  top: var(--header-height);
+
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--header-height));
+
+  background: var(--side-bg);
+  padding: 28px 12px 24px;
+
+  overflow-y: auto;
+}
 
 /* 第1階層 */
-aside > nav > ul > li {
-  margin-bottom: 20px;
+aside > nav > ul > li,
+.menu__item {
+  margin-bottom: 24px;
 }
 
-/* タイトル */
-aside > nav > ul > li > a {
+/* 第1階層タイトル */
+aside > nav > ul > li > a,
+.menu__title {
   display: block;
-  font-size: 18px;
+
+  margin-bottom: 10px;
+  padding: 0;
+
+  color: var(--green);
+  background: none;
+  border: none;
+
+  font-size: 28px;
   font-weight: bold;
-  color: #2aa198;
-  margin-bottom: 8px;
+  line-height: 1.2;
 }
 
-/* 第2階層 */
-aside ul ul li a {
+/* 生徒 Student の横並び */
+.menu__jp,
+.menu__en {
+  display: inline;
+}
+
+/* 第2階層は通常非表示 */
+aside ul ul,
+.menu__sub {
+  display: none;
+  margin-top: 10px;
+}
+
+/* 第1階層にマウスを乗せたら第2階層を表示 */
+aside > nav > ul > li:hover > ul,
+.menu__item:hover .menu__sub {
   display: block;
-  padding: 6px 10px;
-  margin-bottom: 5px;
-  border-radius: 6px;
-  color: #333;
-  border: 1px solid #2aa198;
 }
 
-/* hover */
-aside ul ul li a:hover {
-  background: #2aa198;
+
+/* 第2階層リンク */
+aside ul ul li a,
+.menu__link {
+  display: block;
+
+  padding: 9px 14px;
+  margin-bottom: 8px;
+
+  border-radius: 6px;
+  border: 1px solid var(--green);
+
+  color: #222;
+  background-color: rgba(255, 255, 255, 0.25);
+
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* 第2階層 hover */
+aside ul ul li a:hover,
+.menu__link:hover {
+  background: var(--green);
   color: #fff;
 }
 
+/* =====================================
+   ★ aside / サイドバー
+   hover 右側展開版
+===================================== */
+aside {
+  position: fixed;
+  left: 0;
+  top: var(--header-height);
+
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--header-height));
+
+  background: var(--side-bg);
+  padding: 28px 10px 24px;
+
+  overflow: visible;
+}
+
+/* nav */
+.sidebar__nav {
+  position: relative;
+}
+
+/* 第1階層 */
+aside > nav > ul > li,
+.menu__item {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+/* 第1階層タイトル */
+aside > nav > ul > li > a,
+.menu__title {
+  display: block;
+
+  padding: 0;
+  margin: 0;
+
+  background: none;
+  border: none;
+  color: var(--green);
+
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.05;
+  text-align: left;
+}
+
+/* 日本語 */
+.menu__jp {
+  display: block;
+
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.05;
+}
+
+/* 英語 */
+.menu__en {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 8px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* 第2階層は通常非表示 */
+aside ul ul,
+.menu__sub {
+  display: none;
+
+  position: absolute;
+  left: 62px;
+  top: 0;
+
+  width: 96px;
+  z-index: 50;
+}
+
+/* hover したら右側に表示 */
+aside > nav > ul > li:hover > ul,
+.menu__item:hover .menu__sub {
+  display: block;
+}
+
+/* 第2階層リンク */
+aside ul ul li a,
+.menu__link {
+  display: block;
+
+  width: 140px;
+  height: 40px;
+
+  padding: 0 8px;
+  margin-bottom: 8px;
+
+  border-radius: 4px;
+  border: 1px solid var(--green);
+
+  color: #111;
+  background-color: #fff;
+
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 28px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 第2階層 hover */
+aside ul ul li a:hover,
+.menu__link:hover {
+  background: var(--green);
+  color: #fff;
+}
+
+/* 第2階層 active */
+aside ul ul li a.active,
+aside ul ul li a.is-active,
+.menu__link.active,
+.menu__link.is-active {
+  background: var(--green-light);
+  color: #fff;
+  border-color: var(--green-light);
+}
+
+/* 左上の ☰ ボタン */
+.sidebar__toggle {
+  width: 56px;
+  height: 56px;
+  min-height: 56px;
+
+  padding: 0;
+  margin: 0 0 18px 0;
+
+  border-radius: 50%;
+  background: var(--green-light);
+  color: #fff;
+
+  font-size: 26px;
+}
+
+/* 海外支援 */
+.menu__support {
+  width: auto;
+  min-height: auto;
+
+  padding: 0;
+  margin: 0;
+
+  display: block;
+
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: var(--green);
+
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.05;
+  text-align: left;
+}
+
+/* 海外支援の英語 */
+.menu__support .menu__en {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 8px;
+  font-weight: bold;
+  line-height: 1;
+}
 
 /* =====================================
-   ★ main タイトル
+   ★ main
 ===================================== */
+main {
+  margin-left: var(--sidebar-width);
+
+  width: calc(100% - var(--sidebar-width));
+  max-width: none;
+
+  padding: 36px var(--content-padding-x) 50px;
+}
+
+/* main タイトル */
+main h1,
 main h2 {
-  font-size: 22px;
-  margin-bottom: 15px;
+  font-size: 30px;
+  margin-bottom: 24px;
+  color: #111;
+}
+
+main h3 {
+  font-size: 24px;
+  margin-bottom: 18px;
 }
 
 
 /* =====================================
-   ★ カード（超重要）
-   ※ main直下のdivをカード化
+   ★ カード
 ===================================== */
 main > div {
-  background: #f7f1f3; /* ※ カード色 */
-  border: 1px solid #e8ccd5;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+
+  padding: 34px;
+  margin-bottom: 32px;
 }
 
-/* ❗カードにしたくない場合 */
+/* カードにしたくない場合 */
 main > .no-card {
   background: none;
   border: none;
@@ -169,54 +444,195 @@ main > .no-card {
 
 
 /* =====================================
-   ★ 一覧（行レイアウト）
+   ★ 一覧 / 行レイアウト
 ===================================== */
 main > div > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  gap: 16px;
+
+  padding: 14px 0;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 14px 0;
+}
+
+.list-row__left,
+.list-row__center,
+.list-row__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.list-row__right {
+  margin-left: auto;
 }
 
 
 /* =====================================
    ★ 入力欄
 ===================================== */
-input[type="text"] {
-  padding: 8px 12px;
-  border-radius: 20px;
-  border: 1px solid #2aa198;
-  width: 250px; /* ※ 幅変更OK */
+input[type="text"],
+input[type="url"],
+input[type="password"],
+input[type="email"] {
+  height: 48px;
+
+  padding: 8px 18px;
+
+  border-radius: 999px;
+  border: 1px solid var(--green);
+
+  background-color: #fff;
+  outline: none;
+
+  font-size: 18px;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 2px rgba(68, 194, 168, 0.15);
 }
 
 
 /* =====================================
-   ★ ボタン（統一）
+   ★ ボタン共通
 ===================================== */
-button {
-  padding: 6px 14px;
-  border-radius: 20px;
+button,
+.btn {
+  min-height: 46px;
+
+  padding: 0 24px;
+
+  border-radius: 999px;
   border: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
+  white-space: nowrap;
+  line-height: 1;
+
+  font-size: 18px;
+  font-weight: bold;
 }
 
-/* 送信ボタン（緑） */
-button[type="submit"] {
-  background-color: #44c2a8;
+/* 緑ボタン */
+button[type="submit"],
+button[type="button"],
+.btn-green,
+.btn-outline {
+  background-color: var(--green-light);
   color: #fff;
 }
 
-/* 通常ボタン（詳細など） */
-button[type="button"] {
-  background-color: #44c2a8;
+/* header用ボタン */
+.header__auth button {
+  min-height: 60px;
+  padding: 0 36px;
+
+  background-color: var(--green-light);
+  color: #fff;
+
+  border-radius: 999px;
+  border: none;
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* 削除ボタン */
+.btn-delete,
+.btn-red {
+  background-color: var(--pink);
   color: #fff;
 }
 
+/* 薄いボタン */
+.btn-light {
+  background-color: #eef5f3;
+  color: #111;
+}
 
-/* ❗削除ボタン（※ここだけclass必要） */
-.btn-delete {
-  background-color: #e9a6b5;
-  color: #fff;
+/* hover */
+button:hover,
+.btn:hover {
+  opacity: 0.88;
+}
+/* sidebar 内の海外支援ボタンだけは通常ボタン扱いしない */
+aside .menu__support {
+  width: auto;
+  min-height: auto;
+
+  padding: 0;
+  margin: 0;
+
+  display: block;
+  justify-content: flex-start;
+
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: var(--green);
+
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.05;
+  text-align: left;
+}
+
+aside .menu__support:hover {
+  opacity: 0.88;
+  background: none;
+  color: var(--green);
+}
+
+/* =====================================
+   ★ フォーム
+===================================== */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.form-row label {
+  font-weight: bold;
+}
+
+.form-row input[type="text"],
+.form-row input[type="url"] {
+  width: 310px;
+}
+
+
+/* =====================================
+   ★ 検索フォーム
+===================================== */
+.search-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 8px 0 30px;
+}
+
+.search-area input[type="text"] {
+  width: 270px;
 }
 
 
@@ -225,15 +641,81 @@ button[type="button"] {
 ===================================== */
 main p {
   margin: 6px 0;
+  line-height: 1.7;
+  font-size: 20px;
 }
 
 
 /* =====================================
-   ★ フッター
+   ★ footer
 ===================================== */
 footer {
+  margin-left: var(--sidebar-width);
+
+  width: calc(100% - var(--sidebar-width));
+  max-width: none;
+
   text-align: center;
-  padding: 10px;
+  padding: 12px var(--content-padding-x);
+
   font-size: 12px;
   color: #999;
+}
+
+
+/* =====================================
+   ★ 小さい画面対策
+===================================== */
+@media screen and (max-width: 900px) {
+  body {
+    min-width: auto;
+  }
+
+  header.header {
+    height: auto;
+    min-height: var(--header-height);
+
+    padding: 14px 16px;
+
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .header__auth {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .header__welcome {
+    font-size: 16px;
+  }
+
+  .header__auth button {
+    min-height: 42px;
+    padding: 0 18px;
+    font-size: 16px;
+  }
+
+  aside {
+    position: static;
+
+    width: 100%;
+    height: auto;
+
+    padding: 20px 16px;
+  }
+
+  main,
+  footer {
+    margin-left: 0;
+    width: 100%;
+
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .form-row input[type="text"],
+  .form-row input[type="url"] {
+    width: 100%;
+  }
 }
