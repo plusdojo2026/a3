@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -97,68 +98,94 @@
 
 <body>
     <header>
-        <!-- ここからテンプレート -->
-        <div>
-            <!-- ロゴ写真 -->
-            <span><img alt=""></span>
-        </div>
+		<!-- ここからテンプレート -->
+		<div>
+			<!-- ロゴ写真 -->
+			<span><img alt=""></span>
+		</div>
 
-        <c:if test="${empty sessionScope.user}">
-            <nav>
-                <form action="${pageContext.request.contextPath}/LoginServlet">
-                    <button type="submit">ログイン</button>
-                </form>
-            </nav>
-        </c:if>
+		<c:if test="${empty sessionScope.user}">
+			<nav>
+				<form action="${pageContext.request.contextPath}/LoginServlet">
+					<button type="submit">ログイン</button>
+				</form>
+			</nav>
+		</c:if>
 
-        <c:if test="${not empty sessionScope.user}">
-            <nav>
-                <button type="button">ようこそ${sessionScope.user.name}さん</button>
+		<c:if test="${not empty sessionScope.user}">
+			<nav>
+				<button type="button">ようこそ${sessionScope.user.name}さん</button>
 
-                <form action="${pageContext.request.contextPath}/SigninServlet">
-                    <button type="submit">サインイン（新規作成）</button>
-                </form>
+				<form action="${pageContext.request.contextPath}/SigninServlet">
+					<button type="submit">サインイン（新規作成）</button>
+				</form>
 
-                <!--
+				<!--
                     本来ログアウト専用Servletがあるなら
                     LoginServlet ではなく LogoutServlet の方が自然です
                     例：
                     ${pageContext.request.contextPath}/LogoutServlet
                 -->
-                <form action="${pageContext.request.contextPath}/LoginServlet">
-                    <button type="submit">ログアウト</button>
-                </form>
-            </nav>
-        </c:if>
-        <!-- テンプレート終了 -->
-    </header>
 
-    <!-- 左側サイドナビ -->
-    <aside>
-  <nav>
-    <ul>
-      <li>
-        <a href="a3/SelectClassesServlet">生徒</a>
-        <ul>
-          <li><a href="/a3/SelectClassesServlet"> 生徒管理</a></li>
-          <li><a href="/a3/SelectSubjectServlet"> 点数管理</a></li>
-          <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}"> 日記</a></li>
-        </ul>
-      </li>
-      <li><a href="/a3/AddTestsServlet">成績</a></li>
-      <ul>
-        <li><a href="/a3/AddTestsServlet">得点</a></li>
-        <li><a href="MTResultServlet">心理テスト</a></li>
-      </ul>
-      <li><a href="">報告</a></li>
-      <ul>
-        <li><a href="InsertTroubleServlet">事案</a></li>
-        <li><a href="SelectMTServlet">心理テスト</a></li>
-      </ul>
-      <li><a href="jsp/Support.jsp">海外支援</a></li>
-    </ul>
-  </nav>
-</aside>
+				<form action="${pageContext.request.contextPath}/Forward"
+					method="post">
+					<input type="hidden" name="page" value="logout">
+					<button type="submit">ログアウト</button>
+				</form>
+
+			</nav>
+		</c:if>
+		<!-- テンプレート終了 -->
+	</header>
+
+<aside>
+		  
+		<nav>
+			<ul>
+
+				<li>
+					<c:if test = "${user.state == 0 }">
+						<li><a href="${pageContext.request.contextPath}/SelectClassesServlet">生徒</a></li>
+					</c:if>
+						<ul>
+							<c:if test = "${user.state == 0 }">
+								<li><a href="${pageContext.request.contextPath}/SelectClassesServlet">生徒管理</a></li>
+							</c:if>
+							<c:if test = "${user.state == 0 }">
+								<li><a href="${pageContext.request.contextPath}/SelectSubjectServlet">点数管理</a></li>
+							</c:if>
+							<c:if test = "${user.state == 0 }">
+								<li><a 
+									href="${pageContext.request.contextPath}/SelectDiaryServlet?dialog_id=${sessionScope.user.user_id}">
+									日記 </a></li>
+							</c:if>
+						</ul>
+				</li>
+
+				<li>
+					<c:if test = "${user.state == 0 }">
+				<a href="">成績</a>
+					<ul>
+						<li><a
+							href="SelectScoresServlet?score_id=${sessionScope.user.user_id}">
+								得点 </a></li>
+						<li><a href="MTResultServlet">心理テスト</a></li>
+					</ul>
+					</c:if>
+					</li>
+
+				<li><a href="">報告</a>
+					<ul>
+						<li><a href="InsertTroubleServlet">事案</a></li>
+						<li><a href="SelectMTServlet">心理テスト</a></li>
+					</ul></li>
+
+				<li><a href="jsp/Support.jsp">海外支援</a></li>
+
+			</ul>
+
+		</nav>
+	</aside>
 
     <main>
         <h2>ホーム / 週間スケジュール設定</h2>
@@ -511,5 +538,7 @@
             }
         });
     </script>
+   
 </body>
+
 </html>

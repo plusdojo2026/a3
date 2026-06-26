@@ -27,7 +27,7 @@ public class InsertSubjectsServlet extends HttpServlet {
 
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
 		}
@@ -52,5 +52,11 @@ public class InsertSubjectsServlet extends HttpServlet {
 		// 結果をページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectSubjectServlet");
 		dispatcher.forward(request, response);
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+		
 	}
 }

@@ -97,7 +97,7 @@
         <div>
             <!-- 新規作成 -->
             <button type="button"
-                onclick="location.href='${pageContext.request.contextPath}/NewScoreEditServlet'">
+                onclick="location.href='${pageContext.request.contextPath}/AddTestsServlet'">
                 新規作成
             </button>
 
