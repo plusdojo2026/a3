@@ -295,15 +295,15 @@ public class UsersDao {
 		// usersとclassesのDBを用いてクラスと名前を表示する
 
 		String sql = "SELECT c.`class_name` AS `class_name` , u.`name` AS `user_name`,u.`user_id` AS `user_id` "
-				+ "FROM `users` u " + "INNER JOIN `classes` c ON u.`user_id` = c.`user_id` "
-				+ "WHERE c.`class_name` = ? " + "ORDER BY c.`class_name`, u.`name`";
+				+ "FROM `users` u " + "INNER JOIN `classes` c ON u.`user_id` = c.`user_id`";
+				//+ "WHERE c.`class_name` = ? " + "ORDER BY c.`class_name`, u.`name`";
 
 		// リストを用意
 		List<Map<String, Object>> eachClasses = new ArrayList<>();
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			// クラス名を入れてSQL文を作成
-			ps.setString(1, className);
+			//ps.setString(1, className);
 			// 検索
 			try (ResultSet rs = ps.executeQuery()) {
 				// 結果があれば

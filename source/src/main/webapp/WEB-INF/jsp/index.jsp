@@ -92,53 +92,24 @@
         }
     </style>
     
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 </head>
 
 <body>
-    <header>
-		<!-- ここからテンプレート -->
-		<div>
-			<!-- ロゴ写真 -->
-			<span><img alt=""></span>
-		</div>
+<!-- ===== header ===== -->
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<!-- ===== layout ===== -->
+<div class="layout">
+    
+<!-- ===== sidebar ===== -->
 
-		<c:if test="${empty sessionScope.user}">
-			<nav>
-				<form action="${pageContext.request.contextPath}/LoginServlet">
-					<button type="submit">ログイン</button>
-				</form>
-			</nav>
-		</c:if>
+<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
+<header>
 
-		<c:if test="${not empty sessionScope.user}">
-			<nav>
-				<button type="button">ようこそ${sessionScope.user.name}さん</button>
+</header>
 
-				<form action="${pageContext.request.contextPath}/SigninServlet">
-					<button type="submit">サインイン（新規作成）</button>
-				</form>
-
-				<!--
-                    本来ログアウト専用Servletがあるなら
-                    LoginServlet ではなく LogoutServlet の方が自然です
-                    例：
-                    ${pageContext.request.contextPath}/LogoutServlet
-                -->
-
-				<form action="${pageContext.request.contextPath}/Forward"
-					method="post">
-					<input type="hidden" name="page" value="logout">
-					<button type="submit">ログアウト</button>
-				</form>
-
-			</nav>
-		</c:if>
-		<!-- テンプレート終了 -->
-	</header>
-
-<aside>
+<!--  <aside>
 		  
 		<nav>
 			<ul>
@@ -186,7 +157,7 @@
 
 		</nav>
 	</aside>
-
+-->
     <main>
         <h2>ホーム / 週間スケジュール設定</h2>
 
