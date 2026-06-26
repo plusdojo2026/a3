@@ -177,9 +177,9 @@ public class UsersDao {
 	 */
 
 	public boolean update(Users user, int userId) throws ClassNotFoundException {
-		String sql = "UPDATE users SET "
-				+ "(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" + "WHERE user_id = ?";
+		String sql = "UPDATE users SET " + "state = ?, name = ?, birthday = ?, age = ?, gender = ?, tel = ?, "
+				+ "mail = ?, parents_mail = ?, post_code = ?, address = ?, password = ?, "
+				+ "preparation = ?, image_url = ? " + "WHERE user_id = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, user.getState());
@@ -296,14 +296,14 @@ public class UsersDao {
 
 		String sql = "SELECT c.`class_name` AS `class_name` , u.`name` AS `user_name`,u.`user_id` AS `user_id` "
 				+ "FROM `users` u " + "INNER JOIN `classes` c ON u.`user_id` = c.`user_id`";
-				//+ "WHERE c.`class_name` = ? " + "ORDER BY c.`class_name`, u.`name`";
+		// + "WHERE c.`class_name` = ? " + "ORDER BY c.`class_name`, u.`name`";
 
 		// リストを用意
 		List<Map<String, Object>> eachClasses = new ArrayList<>();
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			// クラス名を入れてSQL文を作成
-			//ps.setString(1, className);
+			// ps.setString(1, className);
 			// 検索
 			try (ResultSet rs = ps.executeQuery()) {
 				// 結果があれば
