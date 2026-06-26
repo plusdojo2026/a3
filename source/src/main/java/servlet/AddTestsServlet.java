@@ -34,7 +34,7 @@ public class AddTestsServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
-			response.sendRedirect(request.getContextPath() +"/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 
@@ -54,8 +54,8 @@ public class AddTestsServlet extends HttpServlet {
 
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect(request.getContextPath() +"/LoginServlet");
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 		// dto
