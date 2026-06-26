@@ -74,7 +74,12 @@
 						<li><a href="InsertTroubleServlet">事案</a></li>
 						<li><a href="SelectMTServlet">心理テスト</a></li>
 					</ul></li>
-				<li><a href="jsp/Support.jsp">海外支援</a></li>
+				<li><form action="${pageContext.request.contextPath}/Forward"
+					method="post">
+					<input type="hidden" name="page" value="support">
+					<a><button type="submit">海外支援</button></a>
+				</form>
+				</li>
 			</ul>
 
 		</nav>

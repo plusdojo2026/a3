@@ -4,7 +4,7 @@
 USE a3;
 
 -- メンタルテストテーブル
-CREATE TABLE mental_testss(
+CREATE TABLE mental_tests(
     `mt_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `mt_img_url` VARCHAR(100) NOT NULL,
     `question` VARCHAR(200) NOT NULL,
