@@ -55,9 +55,9 @@
         <li>
           <a href="#">生徒</a>
           <ul>
-            <li><a href=""> 生徒管理</a></li>
-            <li><a href=""> 点数管理</a></li>
-            <li><a href=""> 日記</a></li>
+            <li><a href="SelectMypageServlet"> 生徒管理</a></li>
+            <li><a href="SelectMypageServlet"> 点数管理</a></li>
+            <li><a href="SelectDiaryServlet?dialog_id=${user.user_id}"> 日記</a></li>
           </ul>
         </li>
         <li><a href="">成績</a></li>
