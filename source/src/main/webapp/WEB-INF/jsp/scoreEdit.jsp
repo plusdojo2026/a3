@@ -6,12 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Class Care - 生徒管理</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/.css">
+<title>Class Care - 成績管理</title>
 </head>
 <!-- ヘッダーエリア、bodyの下に置いてください -->
 
 <body>
-
+	<!--ヘッダー-->
 	<header>
 		<div>
 			<span><img></span>
@@ -26,6 +30,8 @@
 			<button type="button">ログアウト</button>
 		</nav>
 	</header>
+
+
 
 
 
