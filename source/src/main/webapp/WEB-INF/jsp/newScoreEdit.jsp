@@ -15,55 +15,17 @@
 <!-- ヘッダーエリア、bodyの下に置いてください -->
 
 <body>
-	<!--ヘッダー-->
-	<header>
-		<div>
-			<span><img></span>
+	<!-- ===== header ===== -->
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<!-- ===== layout ===== -->
+<div class="layout">
 
-		</div>
-		<nav>
-			<button type="button">ログイン</button>
-			<button type="button">サインイン</button>
-		</nav>
-		<nav style="display: none;">
-			<button type="button">ようこそxxxさん</button>
-			<button type="button">ログアウト</button>
-		</nav>
-	</header>
+    <!-- ===== sidebar ===== -->
 
-
-
-
-
-	<!-- 左側サイドナビ -->
-	<aside>
-		<nav>
-			<ul>
-				<li><a href="#">生徒</a>
-					<ul>
-						<li><a href="#"> 生徒管理</a></li>
-						<li><a href="#"> 点数管理</a></li>
-						<li><a href="#"> 日記</a></li>
-					</ul></li>
-				<li><a href="#">成績</a></li>
-				<ul>
-					<li><a href="#">得点</a></li>
-					<li><a href="#">心理テスト</a></li>
-				</ul>
-				<li><a href="">報告</a></li>
-				<ul>
-					<li><a href="#">事案</a></li>
-					<li><a href="#">心理テスト</a></li>
-				</ul>
-				<li><a href="#">海外支援</a></li>
-			</ul>
-		</nav>
-	</aside>
-
+<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
 
 	<!--コンテンツ-->
-
-	<main>
+	<main class="main">
 		<div>
 			<h2>新規作成</h2>
 		</div>
@@ -83,10 +45,8 @@
 			</form>
 		</div>
 	</main>
-	<!-- 一番最後に置いてください -->
-	<footer>
-		<p>虎視眈々(株)</p>
-	</footer>
+	<!-- ===== footer ===== -->
+<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 </body>
 
 </html>
