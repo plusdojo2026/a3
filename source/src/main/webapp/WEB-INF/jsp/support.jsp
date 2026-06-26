@@ -1,89 +1,82 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8">
   <title>海外支援</title>
-  <link rel="stylesheet" href="css/support.css">
+  <link rel="stylesheet" href="css/common.css">
 </head>
 
 <body>
 
-  <!-- ヘッダーエリア、bodyの下に置いてください -->
-  <header>
-    <!-- ここからテンプレート -->
-    <div>
-      <!-- ロゴ写真 -->
-      <span><img></span>
+<!-- ===== header ===== -->
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<!-- ===== layout ===== -->
+<div class="layout">
 
-    </div>
-    <nav>
-      <button type="button">ログイン</button>
-      <button type="button">サインイン</button>
-    </nav>
-    <nav style="display: none;">
-      <button type="button">ようこそxxxさん</button>
-      <button type="button">ログアウト</button>
-    </nav>
-    <!-- テンプレート終了 -->
-  </header>
+    <!-- ===== sidebar ===== -->
 
-  <div class="layout">
-    <!-- 左側サイドナビ -->
-    <aside>
-      <nav>
-        <ul>
-          <li>
-            <a href="#">生徒</a>
-            <ul>
-              <li><a href="#"> 生徒管理</a></li>
-              <li><a href="#"> 点数管理</a></li>
-              <li><a href="#"> 日記</a></li>
-            </ul>
-          </li>
-          <li><a href="#">成績</a>
-            <ul>
-              <li><a href="#">得点</a></li>
-              <li><a href="#">心理テスト</a></li>
-            </ul>
-          </li>
-          <li><a href="">報告</a>
-            <ul>
-              <li><a href="#">事案</a></li>
-              <li><a href="#">心理テスト</a></li>
-            </ul>
-          </li>
-          <li><a href="#">海外支援</a></li>
-        </ul>
-      </nav>
-    </aside>
+<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
+  
 
-    <!--メインコンテンツ-->
-    <main>
-      <!--ページのタイトル-->
-      <div id="pageTitle">
-        <h2>外国人支援​</h2>
-        <!--ページの紹介文-->
-        <div id="pageIntro">
-          <p>外部の資料URLを登録して、必要な情報へすぐアクセスできます。​</p>
-        </div>
+<!-- ===== main ===== -->
+   <main class="main">
+      <!-- -------------------- -->
+      <!-- 页面标题 -->
+      <!-- -------------------- -->
+      <div class="card">
+        <h2>外国人支援</h2>
+        <p class="intro">
+          外部の参考資料やサポートサイトのURLを登録して、
+          すぐにアクセスできるようにします。
+        </p>
       </div>
-      <!--主体内容-->
-      <div id="pageContent">
+
+      <!-- -------------------- -->
+      <!-- URL登録 -->
+      <!-- -------------------- -->
+      <div class="card">
+        <h3>URL登録</h3>
+
         <form method="GET" action="${pageContext.request.contextPath}/GlobalServlet">
-          <label>URL</label><br>
+           <label>支援サイト</label>
+          <input type="text" name="supportURLName" id="supportURLName">
+          <label>URL</label>
           <input type="text" name="supportURL" id="supportURL">
-          <input type="submit" value="保存">
+
+          <button type="submit" class="btn-green">保存</button>
         </form>
       </div>
 
-  </div>
-  <!-- 一番最後に置いてください -->
-  <footer>
-    <p>虎視眈々(株)</p>
-  </footer>
-</body>
 
+      <div class="card">
+        <h3>登録済みURL</h3>
+
+        <div class="list-item">
+          <span>外国人支援ポータルサイト</span>
+          <div>
+            <button class="btn-green"><a href="https://www.moj.go.jp/isa/support/portal/index.html">開く</a></button>
+            <button class="btn-delete">削除</button>
+          </div>
+        </div>
+
+        <div class="list-item">
+          <span>入国管理局公式ページ</span>
+          <div>
+            <button class="btn-green"><a href="https://www.moj.go.jp/isa/">開く</a></button>
+            <button class="btn-delete">削除</button>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+</div>
+<!-- ===== footer ===== -->
+<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
+
+</body>
 </html>

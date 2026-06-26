@@ -7,92 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>チャット</title>
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 </head>
 
 <body onload="connect()">
-	<div id="chat-container">
-		<div id="messages" class="messages"></div>
-		<div class="input-area">
-			<input type="text" id="message" placeholder="メッセージを入力してください"
-				onkeydown="if(event.key === 'Enter') sendMessage()">
-			<button onclick="sendMessage()">送信</button>
-		</div>
-	</div>
+<!-- ===== header ===== -->
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<!-- ===== layout ===== -->
+<div class="layout">
 
-	<!-- ヘッダーエリア、bodyの下に置いてください -->
-	<header>
-		<!-- ここからテンプレート -->
-		<div>
-			<!-- ロゴ写真 -->
-			<span><img alt=""></span>
-		</div>
+    <!-- ===== sidebar ===== -->
 
-		<c:if test="${empty sessionScope.user}">
-			<nav>
-				<form action="${pageContext.request.contextPath}/LoginServlet">
-					<button type="submit">ログイン</button>
-				</form>
-			</nav>
-		</c:if>
-
-		<c:if test="${not empty sessionScope.user}">
-			<nav>
-				<button type="button">ようこそ${sessionScope.user.name}さん</button>
-
-				<form action="${pageContext.request.contextPath}/SigninServlet">
-					<button type="submit">サインイン（新規作成）</button>
-				</form>
-
-				<!--
-                    本来ログアウト専用Servletがあるなら
-                    LoginServlet ではなく LogoutServlet の方が自然です
-                    例：
-                    ${pageContext.request.contextPath}/LogoutServlet
-                -->
-
-				<form action="${pageContext.request.contextPath}/Forward"
-					method="post">
-					<input type="hidden" name="page" value="logout">
-					<button type="submit">ログアウト</button>
-				</form>
-
-			</nav>
-		</c:if>
-		<!-- テンプレート終了 -->
-	</header>
-
-	<!-- 左側サイドナビ -->
-	<aside>
-		<nav>
-			<ul>
-				<li><a href="InsertClassesServlet">生徒</a>
-					<ul>
-						<li><a href="/a3/SelectClassesServlet"> 生徒管理</a></li>
-						<li><a href="/a3/SelectClassesServlet"> 点数管理</a></li>
-						<li><a href="SelectDiaryServlet?dialog_id=${user.user_id}">
-								日記</a></li>
-					</ul></li>
-				<li><a href="/a3/AddTestsServlet">成績</a>
-					<ul>
-						<li><a href="/a3/AddTestsServlet">得点</a></li>
-						<li><a href="MTResultServlet">心理テスト</a></li>
-					</ul></li>
-				<li><a href="">報告</a>
-					<ul>
-						<li><a href="InsertTroubleServlet">事案</a></li>
-						<li><a href="SelectMTServlet">心理テスト</a></li>
-					</ul></li>
-				<li><form action="${pageContext.request.contextPath}/Forward"
-					method="post">
-					<input type="hidden" name="page" value="support">
-					<button type="submit">海外支援</button>
-				</form>
-				</li>
-			</ul>
-
-		</nav>
-	</aside>
-	<!--ページの説明部分-->
+<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
+<!-- ===== main ===== -->
+   <main class="main">
+   <!--ページの説明部分-->
 	<p>${listenerUser.name}/チャット</p>
 
 	<div>
@@ -111,6 +40,18 @@
 
 	<input type="hidden" id="speakerId" value="${speakerId}">
 	<input type="hidden" id="listenerId" value="${listenerId}">
+	
+	<div id="chat-container">
+		<div id="messages" class="messages"></div>
+		<div class="input-area">
+			<input type="text" id="message" placeholder="メッセージを入力してください"
+				onkeydown="if(event.key === 'Enter') sendMessage()">
+			<button onclick="sendMessage()">送信</button>
+		</div>
+	</div>
+
+	
+	
 	<!--チャット部分-->
 	<script>
     var socket;
@@ -200,10 +141,10 @@
     }
 
   </script>
-	<!-- 一番最後に置いてください -->
-	<footer>
-		<p>虎視眈々(株)</p>
-	</footer>
-</body>
+  </main>
+</div>
+<!-- ===== footer ===== -->
+<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 
+</body>
 </html>
