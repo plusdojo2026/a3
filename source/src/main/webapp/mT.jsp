@@ -98,7 +98,7 @@
         </div>
 
         <div>
-            <button type="button" onclick="history.back()">戻る</button>
+            <button type="button">戻る</button>
 
             <button type="submit" name="action" value="next">
                 次へ
