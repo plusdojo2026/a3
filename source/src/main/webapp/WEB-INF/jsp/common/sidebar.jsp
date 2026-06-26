@@ -55,7 +55,7 @@
                     </li>
                     <li>
                           <c:if test="${sessionScope.user.state == 0}">
-					        <a class="menu__link" href="">心理テスト一覧</a>
+					        <a class="menu__link" href="MTResultServlet">心理テスト一覧</a>
 					    </c:if>
 					
 					    <c:if test="${sessionScope.user.state == 1}">

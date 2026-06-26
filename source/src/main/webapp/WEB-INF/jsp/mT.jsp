@@ -10,6 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Care - 心理テスト</title>
   <link rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/common.css">
+  <link rel="stylesheet"
       href="${pageContext.request.contextPath}/css/mT.css">
 </head>
 
@@ -42,7 +44,7 @@
             <div>
                 <label>
                     <input type="radio"
-                           name="score"
+                           name="score${test.test_id}"
                            value="${test.choiceA_score}"
                            required>
                     A. ${test.choiceA_descript}
@@ -52,7 +54,7 @@
             <div>
                 <label>
                     <input type="radio"
-                           name="score"
+                           name="score${test.test_id}"
                            value="${test.choiceB_score}">
                     B. ${test.choiceB_descript}
                 </label>
@@ -61,7 +63,7 @@
             <div>
                 <label>
                     <input type="radio"
-                           name="score"
+                           name="score${test.test_id}"
                            value="${test.choiceC_score}">
                     C. ${test.choiceC_descript}
                 </label>
@@ -70,7 +72,7 @@
             <div>
                 <label>
                     <input type="radio"
-                           name="score"
+                           name="score${test.test_id}"
                            value="${test.choiceD_score}">
                     D. ${test.choiceD_descript}
                 </label>
