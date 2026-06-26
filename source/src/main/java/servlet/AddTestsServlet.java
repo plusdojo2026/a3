@@ -34,7 +34,7 @@ public class AddTestsServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
 		}
 
@@ -43,7 +43,7 @@ public class AddTestsServlet extends HttpServlet {
 
 		request.setAttribute("selectedSubject", selectedSubject);
 		// 結果をページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/newScoreEdit.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/newScoreEdit.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -55,7 +55,7 @@ public class AddTestsServlet extends HttpServlet {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() +"/LoginServlet");
 			return;
 		}
 		// dto

@@ -1,0 +1,25 @@
+.subjects-frame {
+   display: inline-block;
+  padding: 10px 30px;
+  background: linear-gradient(135deg, #ffd6e7, #ffeef5);
+  color: #ff4f8b;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(255, 79, 139, 0.15);
+}
+.subjects {
+  display: flex;   /* ←これで横並びになる */
+  gap: 10px;       /* ←間隔 */
+  list-style: none; /* ←黒丸消す */
+  padding: 0;
+  margin: 0;
+}
+.tests-date {
+   display: inline-block;
+  padding: 10px 30px;
+  background: linear-gradient(135deg, #ffd6e7, #ffeef5);
+  color: #FFFFFF;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(255, 79, 139, 0.15);
+}
