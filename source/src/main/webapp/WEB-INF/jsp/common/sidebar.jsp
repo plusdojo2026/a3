@@ -54,10 +54,14 @@
                         </a>
                     </li>
                     <li>
-                        <a class="menu__link" href="MTResultServlet">
-                          
-                            <span class="menu__text">心理テスト</span>
-                        </a>
+                          <c:if test="${sessionScope.user.state == 0}">
+					        <a class="menu__link" href="">心理テスト一覧</a>
+					    </c:if>
+					
+					    <c:if test="${sessionScope.user.state == 1}">
+					        <a class="menu__link" href="MTResultServlet">心理テスト結果</a>
+					    </c:if>
+                       
                     </li>
                 </ul>
             </li>
@@ -70,17 +74,21 @@
 
                 <ul class="menu__sub">
                     <li>
-                        <a class="menu__link" href="InsertTroubleServlet">
-                           
-                            <span class="menu__text">事案</span>
-                        </a>
-                    </li>
+      <c:if test="${sessionScope.user.state == 0}">
+					        <a class="menu__link" href="SelectIncidentMenuServlet">事案一覧</a>
+					    </c:if>
+					
+					    <c:if test="${sessionScope.user.state == 1}">
+					        <a class="menu__link" href="InsertTroubleServlet">事案報告</a>
+					    </c:if>
+</li>
+          
+                    
                     <li>
-                        <a class="menu__link" href="SelectMTServlet">
-                            
-                            <span class="menu__text">心理テスト</span>
-                        </a>
-                    </li>
+				    <c:if test="${sessionScope.user.state == 1}">
+				        <a class="menu__link" href="SelectMTServlet">心理テスト</a>
+				    </c:if>
+					</li>
                 </ul>
             </li>
 
