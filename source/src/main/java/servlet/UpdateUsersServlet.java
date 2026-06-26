@@ -78,7 +78,7 @@ public class UpdateUsersServlet extends HttpServlet {
 		Users users = (Users) session.getAttribute("user");
 		if (users == null) {
 			// ログインページに戻る
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 
@@ -126,7 +126,7 @@ public class UpdateUsersServlet extends HttpServlet {
 		// パスワード
 		String password = request.getParameter("password");
 		// メモ
-		String preparation = "123";
+		String preparation = request.getParameter("preparation");
 		// 個人写真
 		String image_url = request.getParameter("image_url");
 
