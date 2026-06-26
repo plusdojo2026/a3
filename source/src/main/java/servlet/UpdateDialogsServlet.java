@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -63,27 +62,54 @@ public class UpdateDialogsServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
+		 Users user = (Users) session.getAttribute("user");
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		// id
-		int dialog_id = ((Dialogs) session.getAttribute("dialog")).getDialog_id();
+		
 
-		Date date = Date.valueOf(request.getParameter("date"));
-		String contain = request.getParameter("contain");
+	    // 教師は更新できない
+	    if (user.getState() == 0) {
+	        response.sendRedirect(request.getContextPath() + "/SelectDialogsServlet");
+	        return;
+	    }
 
-		Users loginUser = (Users) session.getAttribute("user");
-		int user_id = loginUser.getUser_id();
+	    String dialogIdStr = request.getParameter("dialog_id");
+	    String contain = request.getParameter("contain");
 
-		Dialogs dialog = new Dialogs();
-		dialog.setDate(date);
-		dialog.setContain(contain);
-		dialog.setUserID(user_id);
+	    if (dialogIdStr == null || dialogIdStr.isEmpty()
+	            || contain == null || contain.trim().isEmpty()) {
+	        response.sendRedirect(request.getContextPath() + "/SelectDialogsServlet");
+	        return;
+	    }
 
-		// 記入行う
-		DialogsDao dialogsDao = new DialogsDao();
-		boolean result = dialogsDao.update(dialog, dialog_id);
+	    int dialog_id = Integer.parseInt(dialogIdStr);
+
+	    DialogsDao dialogsDao = new DialogsDao();
+
+	    // 更新対象の日記をDBから取得する
+	    Dialogs targetDialog = dialogsDao.findById(dialog_id);
+
+	    // 日記が存在しない場合
+	    if (targetDialog == null) {
+	        response.sendRedirect(request.getContextPath() + "/SelectDialogsServlet");
+	        return;
+	    }
+
+	    // 自分の日記以外は更新できない
+	    if (targetDialog.getUserID() != user.getUser_id()) {
+	        response.sendRedirect(request.getContextPath() + "/SelectDialogsServlet");
+	        return;
+	    }
+
+	    Dialogs updateDialog = new Dialogs();
+	    updateDialog.setDate(targetDialog.getDate());
+	    updateDialog.setContain(contain);
+	    updateDialog.setUserID(user.getUser_id());
+		
+	
+		boolean result = dialogsDao.update(updateDialog, dialog_id);
 
 		if (result) {
 			response.sendRedirect(request.getContextPath() + "/SelectDialogsServlet");

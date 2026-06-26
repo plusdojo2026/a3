@@ -32,7 +32,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="menu__link" href="SelectDiaryServlet?dialog_id=${user.user_id}">
+                        <a class="menu__link" href="SelectDialogsServlet?dialog_id=${user.user_id}">
                            
                             <span class="menu__text">日記</span>
                         </a>

@@ -57,16 +57,20 @@
 	      <br>
 	    </c:forEach>
 	
-	    <!-- 選択した日記を削除する -->
-	    <button type="submit">削除</button>
+	    <!-- 学生だけ削除ボタンを表示 -->
+	    <c:if test="${user.state == 1 }">
+	    	<button type="submit">削除</button>
+	    </c:if>
 	  </c:if>
 	
 	</form>
 				
-		<!-- 新規作成画面へ移動 -->
-	    <a href="${pageContext.request.contextPath}/AddDialogsServlet">
-	    	<button type="submit">新規作成</button>
-	    </a>
+		<!-- 学生だけ新規作成画面へ移動 -->
+		<c:if test="${user.state == 1 }">
+		    <a href="${pageContext.request.contextPath}/AddDialogsServlet">
+		    	<button type="submit">新規作成</button>
+		    </a>
+	    </c:if>
 
   </main>
   

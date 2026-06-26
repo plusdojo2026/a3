@@ -39,19 +39,30 @@
     <!--日記の内容-->
 
 	 <!-- 日付を表示 -->
-    <p>日付：${dialog.date}</p>
+   
 
-    <!-- 日記内容を表示 -->
-    <textarea rows="15" cols="80" readonly>${dialog.contain}</textarea>
-
-    <br>
-
-    <!-- 一覧画面へ戻る -->
-    <a href="${pageContext.request.contextPath}/SelectDialogsServlet">
-      <button type="button">戻る</button>
-    </a>
-    
-    </div>
+     <!-- 学生の場合：編集できる -->
+	  <c:if test="${user.state == 1}">
+	    <form action="${pageContext.request.contextPath}/UpdateDialogsServlet" method="post">
+	
+	      <input type="hidden" name="dialog_id" value="${dialog.dialog_id}">
+	      <input type="hidden" name="date" value="${dialog.date}">
+	
+	 	  <p>日付：${dialog.date}</p>
+	      <textarea name="contain" rows="15" cols="80" required>${dialog.contain}</textarea>
+	      <br>
+	      <button type="submit">保存</button>
+	    </form>
+	  </c:if>
+	
+	  <!-- 教師の場合：閲覧だけ -->
+	  <c:if test="${user.state == 0}">
+	    <textarea rows="15" cols="80" readonly>${dialog.contain}</textarea>
+	  </c:if>
+	
+	  <a href="${pageContext.request.contextPath}/SelectDialogsServlet">
+	    <button type="button">一覧へ戻る</button>
+	  </a>
   </main>
   
   <!-- 一番最後に置いてください -->
