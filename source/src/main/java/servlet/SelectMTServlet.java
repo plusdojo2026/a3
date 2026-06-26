@@ -96,7 +96,12 @@ public class SelectMTServlet extends HttpServlet {
 			// =========================
 			String[] scoreParams = request.getParameterValues("score");
 			String[] timeParams = request.getParameterValues("time");
-			int mt_id = Integer.parseInt(request.getParameter("mt_id"));
+			int mt_id;
+			
+			if (request.getParameter("mt_id") == null || request.getParameter("mt_id").equals("")) {
+				mt_id = 0;
+			}
+			mt_id = Integer.parseInt(request.getParameter("mt_id"));
 
 			if (scoreParams == null || timeParams == null) {
 				response.sendRedirect("error.jsp");
