@@ -91,7 +91,7 @@
   				<button type = "submit">詳細</button>
   			</form>
   			
-  			<form action = "${pageContext.request.contextPath}/DeleteClassesServlet" method = "post">
+  			<form action = "${pageContext.request.contextPath}/DeleteClaseesServlet" method = "post">
   				<input type = "hidden" name = "user_id" value = "${row.user_id}">
   				<button type = "submit">削除</button>
   			</form>
@@ -110,11 +110,6 @@
  </div>
 <!-- ===== footer ===== -->
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
-
-
-  <footer>
-    <p>虎視眈々(株)</p>
-  </footer>
 
 </body>
 

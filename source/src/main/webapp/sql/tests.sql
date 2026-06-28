@@ -1,4 +1,4 @@
-CREATE database a3;
+CREATE database if not exists a3;
 
 -- a3を使用
 USE a3;

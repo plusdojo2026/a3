@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>ログイン｜Classcare</title>
-         <link rel="stylesheet" href="css/common.css">
-        <link rel="stylesheet" href="css/login.css">
+         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
     </head>
     <body>
      <!--ここのアクションまだ入れてません-->
@@ -29,19 +31,19 @@
             </div>
             <div>
                 <label>パスワード / Password<br>
-                    <input type="text" name="password">
+                    <input type="password" name="password">
                 </label>
             </div>
           	<div>
                 <input type="submit" name="submit" value="ログイン">
                 <input type="reset" name="reset" value="リセット"> 
-                <span id="error_message"></span>
+                <span id="error_message">${message}</span>
 			</div>
         </form>
         <!-- ログインボックス終了 -->
         <!-- 一番最後に置いてください -->
            </main>
-</div>
+
       <!-- ===== footer ===== -->
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 

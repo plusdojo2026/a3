@@ -70,3 +70,6 @@ VALUES
 【距離】: 40.10
 [警告] 異常な回答傾向が検出されました。',
 4, 2);
+
+ALTER TABLE mental_scores ADD test_date DATE;
+UPDATE mental_scores SET test_date = CURDATE() WHERE test_date IS NULL;

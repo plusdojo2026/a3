@@ -105,9 +105,7 @@
 <!-- ===== sidebar ===== -->
 
 <jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
-<header>
 
-</header>
 
 <!--  <aside>
 		  
@@ -173,16 +171,15 @@
         <!-- スケジュール開始 -->
         <label>スケジュール</label><br>
 
-        <!-- デバッグ確認用。確認後は削除してもよい -->
-        <p>schedule件数: ${schedules.size()}</p>
+   
 
         <!-- カレンダー表示領域 -->
         <div id="calendar"></div>
     </main>
 
-    <footer>
-        <p>虎視眈々(株)</p>
-    </footer>
+    
+<!-- フッター -->
+<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 
     <!-- flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -361,12 +358,7 @@
                 //   /DeleteScheduleServlet?id=...
                 //   → D（削除）
                 // -------------------------------------------------
-                span.onclick = function(event) {
-                    event.stopPropagation();
-
-                    window.location.href =
-                        '${pageContext.request.contextPath}/ScheduleDetailServlet?id=' + scheduleId;
-                };
+                span.style.cursor="default";
 
                 cell.appendChild(span);
             })();
@@ -450,66 +442,12 @@
             //   → 作成（C）
             // -----------------------------------------------------
             onChange: function(selectedDates) {
-                const date = selectedDates[0];
-                if (!date) return;
-
-                const y = date.getFullYear();
-                const m = String(date.getMonth() + 1).padStart(2, '0');
-                const d = String(date.getDate()).padStart(2, '0');
-                const key = y + '-' + m + '-' + d;
-
-                if (scheduleDates.has(key)) {
-                    // =============================================
-                    // 【要修改】
-                    // 这是“有予定の日”点击后的 URL
-                    //
-                    // 何のURLか？
-                    //   → その日付の予定一覧・参照画面
-                    //
-                    // 何のServletか？
-                    //   → 予定一覧表示サーブレット
-                    //   → 日付別予定参照サーブレット
-                    //
-                    // CRUD:
-                    //   → R（参照）
-                    //
-                    // あなたの実際のServlet名に合わせて変更すること
-                    // 例：
-                    //   /SelectScheduleServlet
-                    //   /ScheduleListServlet
-                    //   /LoadScheduleServlet
-                    // =============================================
-                    window.location.href =
-                        '${pageContext.request.contextPath}/SelectScheduleServlet?date=' + key;
-
-                } else {
-                    // =============================================
-                    // 【要修改】
-                    // 这是“予定がない日”点击后的 URL
-                    //
-                    // 何のURLか？
-                    //   → 新しい予定を登録する画面
-                    //
-                    // 何のServletか？
-                    //   → 予定登録画面表示サーブレット
-                    //   → 新規予定追加サーブレット
-                    //
-                    // CRUD:
-                    //   → C（新規作成）
-                    //
-                    // あなたの実際のServlet名に合わせて変更すること
-                    // 例：
-                    //   /AddScheduleServlet
-                    //   /InsertScheduleServlet
-                    //   /ScheduleEntryServlet
-                    // =============================================
-                    window.location.href =
-                        '${pageContext.request.contextPath}/AddScheduleServlet?date=' + key;
-                }
+              
+                
             }
         });
     </script>
-   
+   </div>
 </body>
 
 </html>

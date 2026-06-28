@@ -15,15 +15,15 @@ insert into schedules ( date, subject, start_time, finish_time, type, memo, user
 values ( '2026-04-01', '数学', '09:00:00', '09:45:00', '', '','1');
 
 insert into schedules ( date, subject, start_time, finish_time, type, memo, user_id)
-values ( '2026-04-02', '英語', '13:00:00', '013:45:00', '', '','1');
+values ( '2026-04-02', '英語', '13:00:00', '13:45:00', '', '','1');
 
 insert into schedules ( date, subject, start_time, finish_time, type, memo, user_id)
-values ( '2026-04-03', '国語', '11:50:00', '012:35:00', '', '','1');
+values ( '2026-04-03', '国語', '11:50:00', '12:35:00', '', '','1');
 insert into schedules ( date, subject, start_time, finish_time, type, memo, user_id)
 values ( '2026-04-01', '数学', '09:00:00', '09:45:00', '', '','2');
 
 insert into schedules ( date, subject, start_time, finish_time, type, memo, user_id)
-values ( '2026-04-02', '英語', '13:00:00', '013:45:00', '', '','2');
+values ( '2026-04-02', '英語', '13:00:00', '13:45:00', '', '','2');
 
 insert into schedules ( date, subject, start_time, finish_time, type, memo, user_id)
-values ( '2026-04-03', '国語', '11:50:00', '012:35:00', '', '','2');
+values ( '2026-04-03', '国語', '11:50:00', '12:35:00', '', '','2');

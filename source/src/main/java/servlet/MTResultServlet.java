@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,112 +18,103 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.Mental_scoresDao;
-import dao.Mental_testsDao;
-import dto.Mental_tests;
+import dto.Mental_scores;
 import dto.Users;
 
 /**
- * Servlet implementation class MTResultServlet
+ * 心理テスト結果表示用サーブレット
  */
 @WebServlet("/MTResultServlet")
 public class MTResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public MTResultServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * 日付一覧を表示（GET）
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// loginしているか検査
-		HttpSession session = request.getSession();
-		// ウェブサイトの格式をutf-8を設定
+
 		request.setCharacterEncoding("UTF-8");
 
-		// もしセッションスコープの中にuser情報がないと
-		Users users = (Users) session.getAttribute("user");
-		if (users == null) {
-			// ログインページに戻る
+		HttpSession session = request.getSession();
+		Users user = (Users) session.getAttribute("user");
+
+		// ログインチェック
+		if (user == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 
-		// DAOを用意する
-		Mental_testsDao mtTestDao = new Mental_testsDao();
-		// テストのlist
-		List<Mental_tests> tests = new ArrayList<Mental_tests>();
-		// もしuserは先生の場合
-		if (users.getState() == 0) {
-			// searchを使って、全員のデータをサーチ
-			tests = mtTestDao.search();
+		// DAO準備
+		Mental_scoresDao dao = new Mental_scoresDao();
+
+		// 結果リスト取得
+		List<Mental_scores> scores;
+
+		// 先生：全員
+		if (user.getState() == 0) {
+			scores = dao.search();
 		} else {
-			// それ以外の場合、user番号でサーチ
-			tests = mtTestDao.search(users.getUser_id());
+			// 生徒：自分
+			scores = dao.search(user.getUser_id());
 		}
-		// 日付を保存する文字列セット、重複しない日付を保存する
+
+		// 重複しない日付セット
 		Set<String> dateSet = new LinkedHashSet<>();
-		// 日付フォーマットを設定
+
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-		// ループしてフォーマットを設定
-		for (Mental_tests t : tests) {
-			dateSet.add(df.format(t.getMt_test_date()));
+
+		// test_date から日付抽出
+		for (Mental_scores s : scores) {
+			if (s.getTestDate() != null) {
+				dateSet.add(df.format(s.getTestDate()));
+			}
 		}
 
-		// もしリストにデータがあれば
-		if (tests != null && !tests.isEmpty()) {
-			// リストをrequestに保存する
-			request.setAttribute("tests", tests);
-			request.setAttribute("dateSet", dateSet);
-		}
-		// ページに行く
+		// JSPへ渡す
+		request.setAttribute("dateSet", dateSet);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mTMenu.jsp");
-		dispatcher.forward(request, response);
 
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * 日付で結果検索（POST）
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Mental_scoresDao mtScoreDao = new Mental_scoresDao();
+		request.setCharacterEncoding("UTF-8");
 
-		// ページから日付を取り出す
+		Mental_scoresDao dao = new Mental_scoresDao();
+
+		// 日付取得
 		String dateStr = request.getParameter("date");
 
-		// 日付がないとエラー
 		if (dateStr == null || dateStr.isEmpty()) {
 			throw new ServletException("dateパラメータがありません");
 		}
 
-		// フォーマットを設定
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
 		try {
-			// 日付フォーマットを転換
+			// 日付変換
 			java.util.Date utilDate = sdf.parse(dateStr);
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			// 結果をリストに保存 user（Users DTO） score（Mental_scoresDTO） className testDate
 
-			List<Map<String, Object>> scores = mtScoreDao.search(sqlDate);
+			// DB検索（test_date基準）
+			List<Map<String, Object>> scores = dao.searchByDate(sqlDate);
+
 			request.setAttribute("scores", scores);
 			request.setAttribute("date", dateStr);
-			// ページに行く
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mTScoreMenu.jsp");
+
 			dispatcher.forward(request, response);
+
 		} catch (ParseException e) {
 			throw new ServletException("日付格式エラー", e);
 		}
 	}
-
 }

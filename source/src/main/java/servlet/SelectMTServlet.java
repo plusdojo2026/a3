@@ -1,8 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -83,7 +85,7 @@ public class SelectMTServlet extends HttpServlet {
 		Users user = (Users) session.getAttribute("user");
 
 		if (user == null) {
-			response.sendRedirect("/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 
@@ -94,17 +96,34 @@ public class SelectMTServlet extends HttpServlet {
 			// =========================
 			// ① パラメータ取得
 			// =========================
-			String[] scoreParams = request.getParameterValues("score");
-			String[] timeParams = request.getParameterValues("time");
-			int mt_id;
-			
-			if (request.getParameter("mt_id") == null || request.getParameter("mt_id").equals("")) {
-				mt_id = 0;
+
+			Map<String, String[]> paramMap = request.getParameterMap();
+
+			List<String> scoreList = new ArrayList<>();
+
+			for (String key : paramMap.keySet()) {
+				if (key.startsWith("score[")) {
+					scoreList.add(request.getParameter(key));
+				}
 			}
-			mt_id = Integer.parseInt(request.getParameter("mt_id"));
+
+			String[] scoreParams = scoreList.toArray(new String[0]);
+			String[] timeParams = request.getParameterValues("time");
+
+			String[] mtIds = request.getParameterValues("mt_id");
+
+			int mt_id = 0;
+
+			if (mtIds != null && mtIds.length > 0) {
+				try {
+					mt_id = Integer.parseInt(mtIds[0]);
+				} catch (NumberFormatException e) {
+					mt_id = 0;
+				}
+			}
 
 			if (scoreParams == null || timeParams == null) {
-				response.sendRedirect("error.jsp");
+				response.sendRedirect(request.getContextPath() + "/Forward?page=error");
 				return;
 			}
 
@@ -196,7 +215,11 @@ public class SelectMTServlet extends HttpServlet {
 					}
 				}
 			}
-
+			if (scores.length == 0) {
+				request.setAttribute("message", "回答データがありません");
+				request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+				return;
+			}
 			// 極端回答検出
 			int max = Arrays.stream(scores).max().getAsInt();
 			int minScore = Arrays.stream(scores).min().getAsInt();
@@ -279,6 +302,8 @@ public class SelectMTServlet extends HttpServlet {
 			}
 
 			Mental_scores mtScores = new Mental_scores(String.format("%.2f", finalScore), status, memo, mt_id, user_id);
+			java.sql.Date testDate = new java.sql.Date(System.currentTimeMillis());
+			mtScores.setTestDate(testDate);
 			request.setAttribute("mtScores", mtScores);
 
 			// =========================

@@ -106,7 +106,7 @@ public class SelectScoresServlet extends HttpServlet {
 
 		request.setAttribute("resultList", resultList);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath() + "scoreMenu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/scoreMenu.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -144,7 +144,7 @@ public class SelectScoresServlet extends HttpServlet {
 			}
 			response.sendRedirect(request.getContextPath() + "/SelectScoresServlet");
 		}
-		
+
 		doGet(request, response);
 	}
 

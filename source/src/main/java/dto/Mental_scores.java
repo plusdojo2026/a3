@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Date;
+
 public class Mental_scores {
 	private int mtScoresId;
 	private String score;
@@ -7,6 +9,58 @@ public class Mental_scores {
 	private String mtScoresMemo;
 	private int mtId;
 	private int userId;
+	private Date testDate;
+
+	/**
+	 * @param score
+	 * @param status
+	 * @param mtScoresMemo
+	 * @param mtId
+	 * @param userId
+	 * @param testDate
+	 */
+	public Mental_scores(String score, String status, String mtScoresMemo, int mtId, int userId, Date testDate) {
+		this.score = score;
+		this.status = status;
+		this.mtScoresMemo = mtScoresMemo;
+		this.mtId = mtId;
+		this.userId = userId;
+		this.testDate = testDate;
+	}
+
+	/**
+	 * @param mtScoresId
+	 * @param score
+	 * @param status
+	 * @param mtScoresMemo
+	 * @param mtId
+	 * @param userId
+	 * @param testDate
+	 */
+	public Mental_scores(int mtScoresId, String score, String status, String mtScoresMemo, int mtId, int userId,
+			Date testDate) {
+		this.mtScoresId = mtScoresId;
+		this.score = score;
+		this.status = status;
+		this.mtScoresMemo = mtScoresMemo;
+		this.mtId = mtId;
+		this.userId = userId;
+		this.testDate = testDate;
+	}
+
+	/**
+	 * @return testDate
+	 */
+	public Date getTestDate() {
+		return testDate;
+	}
+
+	/**
+	 * @param testDate セットする testDate
+	 */
+	public void setTestDate(Date testDate) {
+		this.testDate = testDate;
+	}
 
 	// ゲッタ、セッタ
 	public int getMtScoresId() {

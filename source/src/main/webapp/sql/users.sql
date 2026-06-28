@@ -1,4 +1,4 @@
-create database `a3`;
+create database if not exists `a3`;
 
 use `a3`;
 
@@ -48,12 +48,9 @@ VALUES
 INSERT INTO users
 (state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url)
 VALUES
-<<<<<<< Updated upstream
-(1, '太郎', '2013-05-15', 13, '男', '070-8888-8888', 'tarou@gmail', 'yamada@gmail', '11-0101', '東京都xxxxxxxxx1-1-1', '123321', '', '');
-=======
 (0, 'a3', '2026-06-26', 18, '男', '080-8888-8888', 'managaer@gmail', 'HIGUCHI@gmail', '11-0101', '東京都xxxxxxxxx1-1-1', 'XhZrfw3gUeTCVyeA', '', '');
 INSERT INTO users
 (state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url)
 VALUES
 (0, 'A3', '2026-06-26', 18, '男', '080-8888-8888', 'managaer@gmail', 'HIGUCHI@gmail', '11-0101', '東京都xxxxxxxxx1-1-1', 'XhZrfw3gUeTCVyeA', '', '');
->>>>>>> Stashed changes
+

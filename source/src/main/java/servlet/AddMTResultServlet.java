@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.Mental_scoresDao;
 import dto.Mental_scores;
+import dto.Users;
 
 /**
  * Servlet implementation class AddMTResultServlet
@@ -56,7 +57,14 @@ public class AddMTResultServlet extends HttpServlet {
 		// 成功の場合
 		if (mtDao.insert(mt)) {
 			// ホームページに戻る
-			response.sendRedirect(request.getContextPath() + "/Forward?page=index");
+			Users user = (Users) session.getAttribute("user");
+			if (user.getState() == 0) {
+				// メニューサーブレットにリダイレクト
+				response.sendRedirect(request.getContextPath() + "/IndexServlet");
+				// 生徒ならmypageへ
+			} else if (user.getState() == 1) {
+				response.sendRedirect(request.getContextPath() + "/SelectMypageServlet");
+			}
 		} else {
 			// テストページへ行く
 			request.setAttribute("message", "点数更新失敗。もう一回テストをしてください。");
