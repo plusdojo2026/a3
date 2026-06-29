@@ -37,7 +37,7 @@
       <!-- 点数行 -->
       <div>
         <span>score</span>
-        <a href="StuScoreMenuServlet?user_id=${myUsers.user_id}">
+        <a href="SelectSubjectServlet?user_id=${myUsers.user_id}">
           <button type="button">点数確認</button>
         </a>
       </div>
