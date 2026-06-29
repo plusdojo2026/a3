@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
+
 body {
-    margin: 0;
     background-color: #eefafa;
     color: #3d3a1f;
     font-family: "Yu Gothic", "Meiryo", sans-serif;
 }
 
-/*  ヘッダー */
-header {
+
+header:not(.header) {
     width: 94%;
     margin: 18px auto 0;
     padding: 20px 28px;
@@ -22,21 +22,20 @@ header {
     box-shadow: 0 2px 8px rgba(0, 140, 158, 0.15);
 }
 
-header h1 {
+header:not(.header) h1 {
     margin: 0;
     font-size: 40px;
     line-height: 1;
-    color: #3d3a1f;
 }
 
-header nav {
+header:not(.header) nav {
     display: flex;
     gap: 35px;
     border-bottom: 3px solid #00a7b7;
     padding-bottom: 8px;
 }
 
-header nav button {
+header:not(.header) nav button {
     width: 110px;
     height: 42px;
 
@@ -44,18 +43,19 @@ header nav button {
     border-radius: 7px;
 
     background-color: #e9fbfb;
-    color: #3d3a1f;
 
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
 
-header nav button:hover {
+header:not(.header) nav button:hover {
     opacity: 0.8;
 }
 
-/*  サインインフォーム */
+/* =============================
+   ✅ サインインフォーム
+============================= */
 .signin-form {
     position: relative;
 
@@ -70,8 +70,8 @@ header nav button:hover {
         linear-gradient(40deg, transparent 55%, rgba(250, 219, 234, 0.7) 55%);
 }
 
-/*  タイトル  */
-.signin-title {
+/* タイトル */
+.signin-form .signin-title {
     width: 330px;
     height: 100px;
 
@@ -91,35 +91,42 @@ header nav button:hover {
     background-size: contain;
 }
 
-/*  入力欄  */
-.form-grid {
+/* =============================
+   ✅ グリッド
+============================= */
+.signin-form .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1.35fr;
     column-gap: 36px;
     row-gap: 18px;
-
-    align-items: start;
 }
 
-.form-item {
+.signin-form .form-item {
     min-width: 0;
 }
 
-.form-item.wide {
+.signin-form .form-item.wide {
     grid-column: span 1;
 }
 
-/*  ラベル  */
-.form-item label {
+/* =============================
+   ✅ ラベル
+============================= */
+.signin-form .form-item label {
     color: #008c9e;
     font-size: 16px;
     font-weight: bold;
 }
 
-/*  入力欄  */
-.form-item input[type="text"],
-.form-item input[type="password"],
-.form-item input[type="date"] {
+/* =============================
+   ✅ 入力欄（覆盖 common.css）
+============================= */
+.signin-form .form-item input[type="text"],
+.signin-form .form-item input[type="password"],
+.signin-form .form-item input[type="date"],
+.signin-form .form-item input[type="email"],
+.signin-form .form-item input[type="number"],
+.signin-form .form-item input[type="tel"] {
     width: 100%;
     height: 48px;
 
@@ -135,12 +142,14 @@ header nav button:hover {
     box-sizing: border-box;
 }
 
-.form-item input::placeholder {
+.signin-form .form-item input::placeholder {
     color: #bdbdbd;
 }
 
-/*  性別  */
-.gender-box {
+/* =============================
+   ✅ 性別
+============================= */
+.signin-form .gender-box {
     height: 48px;
     margin-top: 6px;
     padding: 0 12px;
@@ -152,16 +161,16 @@ header nav button:hover {
     border: 2px solid #00a7b7;
     border-radius: 8px;
     background-color: white;
-    box-sizing: border-box;
 }
 
-.gender-box label {
+.signin-form .gender-box label {
     font-size: 14px;
-    color: #3d3a1f;
 }
 
-/*  エラーメッセージ  */
-.error-message {
+/* =============================
+   ✅ エラーメッセージ
+============================= */
+.signin-form .error-message {
     display: block;
     margin-top: 6px;
 
@@ -170,8 +179,10 @@ header nav button:hover {
     text-align: center;
 }
 
-/*  ボタンエリア  */
-.button-area {
+/* =============================
+   ✅ ボタン
+============================= */
+.signin-form .button-area {
     margin-top: 42px;
 
     display: flex;
@@ -179,8 +190,8 @@ header nav button:hover {
     gap: 60px;
 }
 
-.button-area input[type="submit"],
-.button-area input[type="reset"] {
+.signin-form .button-area input[type="submit"],
+.signin-form .button-area input[type="reset"] {
     width: 180px;
     height: 70px;
 
@@ -197,21 +208,21 @@ header nav button:hover {
     background-position: center;
 }
 
-.button-area input[type="submit"] {
+.signin-form .button-area input[type="submit"] {
     background-image: url("../img/login-button.png");
 }
 
-.button-area input[type="reset"] {
+.signin-form .button-area input[type="reset"] {
     background-image: url("../img/reset-button.png");
 }
 
-.button-area input[type="submit"]:hover,
-.button-area input[type="reset"]:hover {
+.signin-form .button-area input[type="submit"]:hover,
+.signin-form .button-area input[type="reset"]:hover {
     opacity: 0.8;
 }
 
-/*  フッター  */
-footer {
+
+.signin-form + footer {
     text-align: center;
     color: #aaa;
     font-size: 14px;

@@ -54,3 +54,4 @@ INSERT INTO users
 VALUES
 (0, 'A3', '2026-06-26', 18, '男', '080-8888-8888', 'managaer@gmail', 'HIGUCHI@gmail', '11-0101', '東京都xxxxxxxxx1-1-1', 'XhZrfw3gUeTCVyeA', '', '');
 
+ALTER TABLE users MODIFY image_url TEXT;

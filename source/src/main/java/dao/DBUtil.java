@@ -17,8 +17,8 @@ public class DBUtil {
 	private static final String URL = "jdbc:mysql://localhost:3306/a3" + "?useUnicode=true" + "&characterEncoding=UTF-8"
 			+ "&serverTimezone=Asia/Tokyo";
 
-	private static final String USER = "root";
-	private static final String PASSWORD = "password";
+	private static final String USER = "a3";
+	private static final String PASSWORD = "XhZrfw3gUeTCVyeA";
 
 	/**
 	 * DB接続を取得する

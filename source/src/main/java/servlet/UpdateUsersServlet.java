@@ -93,9 +93,10 @@ public class UpdateUsersServlet extends HttpServlet {
 			user_id = users.getUser_id();
 		}
 		request.setAttribute("user_id", user_id);
-		// 身分は学生
-		int state = 1;
-		// ウェブサイトの「名前」をゲット
+		// 身分
+		Users dbUser = usersDao.findById(user_id);
+		int state = dbUser.getState();
+
 		String name = request.getParameter("name");
 		// 生年月日
 		String birthdayStr = request.getParameter("birthday");

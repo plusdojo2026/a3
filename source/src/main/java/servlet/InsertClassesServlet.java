@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,44 +34,40 @@ public class InsertClassesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// loginしているか検査
+
 		HttpSession session = request.getSession();
-		// ウェブサイトの格式をutf-8
 		request.setCharacterEncoding("UTF-8");
 
-		// もしセッションスコープの中にuser情報がないなら
+		// ログインチェック
 		if (session.getAttribute("user") == null) {
-			// ログインページに戻る
-			response.sendRedirect(request.getContextPath() +"/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		// ウェブサイトの入力を読み取る
+
+		// パラメータ取得
 		String addClass = request.getParameter("addClassInput");
 
-		if (addClass == null || addClass.isEmpty()) {
+		if (addClass == null || addClass.trim().isEmpty()) {
 			session.setAttribute("message", "クラス名を入力してください。");
-			response.sendRedirect(request.getContextPath() + "SelectClassesServlet");
+			response.sendRedirect(request.getContextPath() + "/SelectClassesServlet");
 			return;
 		}
 
 		ClassesDao classesDao = new ClassesDao();
 		Classes classes = new Classes();
+
 		classes.setClass_name(addClass);
 		classes.setUser_id(((Users) session.getAttribute("user")).getUser_id());
+
 		if (classesDao.insert(classes)) {
 			session.setAttribute("message", "挿入成功！");
-
 		} else {
 			session.setAttribute("message", "挿入失敗！");
-
 		}
-		
-        	RequestDispatcher dispatcher = request.getRequestDispatcher("/SelectClassesServlet");
-        	dispatcher.forward(request, response);
-        	return;
+
+		response.sendRedirect(request.getContextPath() + "/SelectClassesServlet");
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);

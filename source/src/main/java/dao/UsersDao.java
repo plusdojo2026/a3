@@ -37,7 +37,6 @@ public class UsersDao {
 	 * @return 1ユーザー分の情報を格納したUserDto
 	 * @throws SQLException ResultSetの取得中にエラーが発生した場合
 	 */
-
 	private Users mapToUsers(ResultSet rs) throws SQLException {
 		Users user = new Users();
 
@@ -67,19 +66,14 @@ public class UsersDao {
 	 * @param なし
 	 * @return ユーザーデータのリスト。見つからない場合は空のリスト
 	 */
-
 	public List<Users> search() {
-		// SQL文を用意
 		String sql = "SELECT * FROM users";
-		// リストを準備
 		List<Users> users = new ArrayList<Users>();
-		// データベースと連携、SQL文を入れておく
+
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			// SQL文を実行、結果をResultSetに保存する
+
 			try (ResultSet rs = ps.executeQuery()) {
-				// 次の結果があれば
 				while (rs.next()) {
-					// 今の結果をusersオブジェクトに保存
 					users.add(mapToUsers(rs));
 				}
 			}
@@ -87,7 +81,7 @@ public class UsersDao {
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new RuntimeException("Search failed", e);
 		}
-		// リストを戻り値
+
 		return users;
 	}
 
@@ -99,24 +93,19 @@ public class UsersDao {
 	 * @param users
 	 * @return ユーザーデータのリスト。見つからない場合は空のリスト
 	 */
-
 	public Users search(Users users) {
-		// SQL文を用意
 		String sql = "SELECT * FROM users WHERE name= ? and password = ? and mail = ?";
 
-		// データベースと連携、SQL文を入れておく
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
 			ps.setString(1, users.getName());
 			ps.setString(2, users.getPassword());
 			ps.setString(3, users.getMail());
-			// SQL文を実行、結果をResultSetに保存する
+
 			try (ResultSet rs = ps.executeQuery()) {
-				// 次の結果があれば
 				if (rs.next()) {
-					// 今の結果をusersオブジェクトに保存
 					return mapToUsers(rs);
 				}
-
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -134,16 +123,15 @@ public class UsersDao {
 	 * @param user 挿入するクラス情報を保持しているオブジェクト
 	 * @return 挿入に成功した場合true、失敗した場合false
 	 */
+	public int insert(Users user) throws ClassNotFoundException {
 
-	public boolean insert(Users user) throws ClassNotFoundException {
 		String sql = "INSERT INTO users "
 				+ "(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address, password, preparation, image_url) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		try (
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 
-				Connection conn = DBUtil.getConnection();
-				PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, user.getState());
 			ps.setString(2, user.getName());
 			ps.setDate(3, user.getBirthday());
@@ -159,29 +147,31 @@ public class UsersDao {
 			ps.setString(13, user.getImage_url());
 
 			int result = ps.executeUpdate();
-			return result > 0;
 
-		} catch (ClassNotFoundException | SQLException e) {
-			throw new RuntimeException("insert failed", e);
+			if (result > 0) {
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()) {
+					insertClass(rs.getInt(1));
+					return rs.getInt(1);
+				}
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
+
+		return -1;
 	}
 
 	// ---------------------IDで更新するメソッド---------------------------------
 
-	/**
-	 * userIdをもとにユーザー情報を更新する。
-	 *
-	 * @param userId 更新対象のクラスID
-	 * @param user   更新情報を保持しているオブジェクト
-	 * @return 更新に成功した場合true、対象データが存在しない場合false
-	 */
-
 	public boolean update(Users user, int userId) throws ClassNotFoundException {
 		String sql = "UPDATE users SET " + "state = ?, name = ?, birthday = ?, age = ?, gender = ?, tel = ?, "
 				+ "mail = ?, parents_mail = ?, post_code = ?, address = ?, password = ?, "
-				+ "preparation = ?, image_url = ? " + "WHERE user_id = ?";
+				+ "preparation = ?, image_url = ? WHERE user_id = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
 			ps.setInt(1, user.getState());
 			ps.setString(2, user.getName());
 			ps.setDate(3, user.getBirthday());
@@ -205,19 +195,30 @@ public class UsersDao {
 		}
 	}
 
-	// ---------------------IDで削除するメソッド---------------------------------
+	// classを与える
+	public void insertClass(int userId) throws ClassNotFoundException {
 
-	/**
-	 * userIdをもとにクラス情報を削除する。
-	 *
-	 * @param userId 削除対象のクラスID
-	 * @return 削除成功した場合true、失敗した場合false
-	 */
+		String sql = "INSERT INTO classes (user_id, class_name) VALUES (?, ?)";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, userId);
+			ps.setString(2, "未配分");
+
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	// ---------------------IDで削除するメソッド---------------------------------
 
 	public boolean delete(int userId) throws ClassNotFoundException {
 		String sql = "DELETE FROM users WHERE user_id = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
 			ps.setInt(1, userId);
 
 			int result = ps.executeUpdate();
@@ -226,20 +227,15 @@ public class UsersDao {
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new RuntimeException("delete failed", e);
 		}
-
 	}
 
 	// ---------------------ログインするメソッド---------------------------------
-	/**
-	 * ユーザーデータからうuses_idとpasswordを読み取りログインする。
-	 *
-	 * @param なし
-	 * @return データのリスト。見つからない場合は空のリスト
-	 */
+
 	public Users findByLoginNameAndPassword(String username, String password) {
 		String sql = "SELECT * FROM users WHERE name = ? AND password = ?";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
 			ps.setString(1, username);
 			ps.setString(2, password);
 
@@ -254,16 +250,10 @@ public class UsersDao {
 		}
 
 		return null;
-
 	}
 
 	// ---------------------IDでサーチするメソッド---------------------------------
-	/**
-	 * userIdをもとにクラス情報を検索する。
-	 *
-	 * @param userId 検索対象のクラスID
-	 * @return 該当するUsers（見つからない場合はnull）
-	 */
+
 	public Users findById(int userId) {
 
 		String sql = "SELECT * FROM users WHERE user_id = ?";
@@ -292,34 +282,58 @@ public class UsersDao {
 	 * @return 取得した全ての ページ用 のリスト
 	 */
 	public List<Map<String, Object>> search(String className) {
-		// usersとclassesのDBを用いてクラスと名前を表示する
 
-		String sql = "SELECT c.`class_name` AS `class_name` , u.`name` AS `user_name`,u.`user_id` AS `user_id` "
-				+ "FROM `users` u " + "INNER JOIN `classes` c ON u.`user_id` = c.`user_id`";
-		// + "WHERE c.`class_name` = ? " + "ORDER BY c.`class_name`, u.`name`";
+		String sql;
+		List<Map<String, Object>> list = new ArrayList<>();
 
-		// リストを用意
-		List<Map<String, Object>> eachClasses = new ArrayList<>();
+		// ✅ 判斷是否查全部
+		if (className == null || className.trim().isEmpty()) {
 
-		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			// クラス名を入れてSQL文を作成
-			// ps.setString(1, className);
-			// 検索
-			try (ResultSet rs = ps.executeQuery()) {
-				// 結果があれば
+			sql = "SELECT c.class_name AS class_name, u.name AS user_name, u.user_id AS user_id "
+					+ "FROM users u LEFT JOIN classes c ON u.user_id = c.user_id " + "ORDER BY c.class_name";
+
+			try (Connection conn = DBUtil.getConnection();
+					PreparedStatement ps = conn.prepareStatement(sql);
+					ResultSet rs = ps.executeQuery()) {
+
 				while (rs.next()) {
-					// Mapで保存する
 					Map<String, Object> row = new HashMap<>();
 					row.put("class_name", rs.getString("class_name"));
 					row.put("user_name", rs.getString("user_name"));
 					row.put("user_id", rs.getInt("user_id"));
-					eachClasses.add(row);
+					list.add(row);
 				}
+
+			} catch (Exception e) {
+				throw new RuntimeException(e);
 			}
-		} catch (Exception e) {
-			throw new RuntimeException("Find failed", e);
+
+		} else {
+
+			sql = "SELECT c.class_name AS class_name, u.name AS user_name, u.user_id AS user_id "
+					+ "FROM users u LEFT JOIN classes c ON u.user_id = c.user_id " + "WHERE c.class_name = ? "
+					+ "ORDER BY c.class_name";
+
+			try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+				ps.setString(1, className);
+
+				try (ResultSet rs = ps.executeQuery()) {
+					while (rs.next()) {
+						Map<String, Object> row = new HashMap<>();
+						row.put("class_name", rs.getString("class_name"));
+						row.put("user_name", rs.getString("user_name"));
+						row.put("user_id", rs.getInt("user_id"));
+						list.add(row);
+					}
+				}
+
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		}
 
-		return eachClasses;
+		return list;
 	}
+
 }

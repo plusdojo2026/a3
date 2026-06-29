@@ -146,6 +146,23 @@ public class ClassesDao {
 		return classes;
 	}
 
+	// 学生のクラスを変更する
+	public boolean updateStudentClass(int userId, String className) {
+
+		String sql = "UPDATE classes SET class_name = ? WHERE user_id = ?";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, className);
+			ps.setInt(2, userId);
+
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	// ---------------------IDでサーチするメソッド---------------------------------
 	/**
 	 * classIdをもとにクラス情報を検索する。
@@ -231,6 +248,22 @@ public class ClassesDao {
 		}
 	}
 
+	public boolean updateClassName(String oldName, String newName) {
+
+		String sql = "UPDATE classes SET class_name = ? WHERE TRIM(class_name) = TRIM(?)";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, newName.trim());
+			ps.setString(2, oldName.trim());
+
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 //---------------------IDで削除するメソッド---------------------------------
 	/**
 	 * classIdをもとにクラス情報を削除する。
@@ -251,6 +284,22 @@ public class ClassesDao {
 
 		} catch (Exception e) {
 			throw new RuntimeException("Delete failed", e);
+		}
+	}
+
+	// クラス削除（全員を未配分にする）
+	public boolean clearClass(String className) {
+
+		String sql = "UPDATE classes SET class_name = '未配分' WHERE class_name = ?";
+
+		try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, className);
+
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			throw new RuntimeException("clear class failed", e);
 		}
 	}
 }

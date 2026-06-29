@@ -21,96 +21,77 @@ import dto.Users;
 public class SigninServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public SigninServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ログインページにフォワードする
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/signin.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		// リクエストするパラメータ一覧
+
 		try {
-			// 格式設定
-			request.setCharacterEncoding("UTF-8");
-			// 教師なので0番を設定
 			int state = 0;
-			// ウェブサイトの「名前」をゲット
+
 			String name = request.getParameter("name");
-			// 生年月日
-			String birthdayStr = request.getParameter("birthday");
+			String gender = request.getParameter("gender");
+			String tel = request.getParameter("tel");
+			String mail = request.getParameter("mail");
+			String parents_mail = request.getParameter("parents_mail");
+			String post_code = request.getParameter("post_code");
+			String address = request.getParameter("address");
+			String password = request.getParameter("password");
+			String preparation = request.getParameter("preparation");
+			String image_url = request.getParameter("image_url");
+
+			// ---------- birthday ----------
 			Date birthday = null;
+			String birthdayStr = request.getParameter("birthday");
 			if (birthdayStr != null && !birthdayStr.isEmpty()) {
 				birthday = Date.valueOf(birthdayStr);
 			}
 
-			// 年齢
+			// ---------- age ----------
 			int age = 0;
 			try {
 				age = Integer.parseInt(request.getParameter("age"));
-			} catch (NumberFormatException e) {
+			} catch (Exception e) {
 				age = 0;
 			}
-			// 性別
-			String gender = request.getParameter("gender");
-			// 電話番号
-			String tel = request.getParameter("tel");
-			// メールアドレス
-			String mail = request.getParameter("mail");
-			// 親のメール
-			// String parents_mail = request.getParameter("parents_mail");
-			// 郵便番号
-			String post_code = request.getParameter("post_code");
-			// 住所
-			String address = request.getParameter("address");
-			// パスワード
-			String password = request.getParameter("password");
-			// メモ
-			String preparation = request.getParameter("preparation");
-			// 個人写真
-			String image_url = request.getParameter("image_url");
 
-			// 登録処理
-			UsersDao uDao = new UsersDao();
-			Users user = new Users(state, name, birthday, age, gender, tel, mail, "aaa@aaa.com", post_code, address,
+			// ---------- Users ----------
+			Users user = new Users(state, name, birthday, age, gender, tel, mail, parents_mail, post_code, address,
 					password, preparation, image_url);
-			if (uDao.insert(user)) {
-				// 登録成功
-				user = uDao.search(user);
-				// user情報をもう一回読み取り、sessionに保存
+
+			// ---------- DAO ----------
+			UsersDao dao = new UsersDao();
+
+			int userId = dao.insert(user);
+
+			if (userId > 0) {
+
+				user.setUser_id(userId);
+
 				session.setAttribute("user", user);
-				// エラーメッセージを表示する
-				request.setAttribute("message", "登録成功");
-			} else { // 登録失敗
-				// エラーメッセージを表示する
-				request.setAttribute("message", "登録失敗");
+				request.setAttribute("message", "登録成功！");
+			} else {
+				request.setAttribute("message", "登録失敗！");
 			}
-		} catch (ClassNotFoundException e) {
-			throw new ServletException(e);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("message", "エラー発生！");
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		dispatcher.forward(request, response);
-
 	}
-
 }
