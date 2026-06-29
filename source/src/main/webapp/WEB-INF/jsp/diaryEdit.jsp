@@ -7,8 +7,8 @@
 <head>
   <meta charset="UTF-8">
   <title>日記作成｜Classcare</title>
-  <link rel="stylesheet"href="${pageContext.request.contextPath}/css/common.css">
-  <link rel="stylesheet"href="${pageContext.request.contextPath}/css/diaryEdit.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary.css">
 </head>
 
 <body>
@@ -28,15 +28,13 @@
   <!-- 左側サイドナビ -->
  	<jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"/>
   <!--コンテンツ-->
-  <main>
+  <main class="main">
    
    <!--テーマ-->
-	<div>
       <h2>日記作成​</h2>
-    </div>
-    
+
 	<!--生徒の情報欄 -->
-	<section>
+	<section class="diary-profile">
 	   <img src="${pageContext.request.contextPath}/img/画像1.png" alt="生徒画像" width="100" height="125">
 	   <h2>${user.name}</h2>
 	</section>

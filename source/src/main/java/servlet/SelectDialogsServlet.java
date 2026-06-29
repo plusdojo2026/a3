@@ -57,7 +57,7 @@ public class SelectDialogsServlet extends HttpServlet {
 		DialogsDao dialogsDao = new DialogsDao();
 		// 空リストを用意
 		List<Dialogs> dialogList;
-		if (user.getState() == 0) {
+		if (user.getState() ==0) {
 			// 教師の場合：全員の日記を表示する
 			dialogList = dialogsDao.search();
 		} else {
