@@ -37,10 +37,11 @@
 				<label>日付</label>
 				<input type="text" name="test_date" placeholder="1月1日"> 
 				<label>科目名</label>
-				<input type="text" name="selectedSubject" placeholder="数学">
+				<input type="text" name="selectedSubject" placeholder="数学"><br>
 				<!--保存ボタンエリア-->
-				<div>
-					<img src="" alt=""> <input type="submit" value="保存">
+				<h2></h2>
+					<div style="display:flex;gap:10px">
+      	<button type="submit">保存</button>
 				</div>
 			</form>
 		</div>
