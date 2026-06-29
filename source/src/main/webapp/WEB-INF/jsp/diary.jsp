@@ -29,11 +29,12 @@
       <h2>日記​</h2>
     
 	<!--生徒の情報欄 -->
-	<section class="diary-profile">
-	   <img src="${pageContext.request.contextPath}/img/画像1.png" alt="生徒画像" width="100" height="125">
-	   <h2>${user.name}</h2>
-	</section>
-	
+	 <c:if test="${user.state == 1}">
+		<section class="diary-profile">
+		   <img src="${pageContext.request.contextPath}/img/画像1.png" alt="生徒画像" width="100" height="125">
+		   <h2>${user.name}</h2>
+		</section>
+	 </c:if>
     <!--日記の内容-->
 
 	 <!-- 日付を表示 -->
@@ -53,6 +54,11 @@
 	    </form>
 	  </c:if>
 	
+		<section class="student-info">
+		  <h2>${student.name}</h2>
+		  <p>生徒ID：${student.user_id}</p>
+		</section>
+		
 	  <!-- 教師の場合：閲覧だけ -->
 	  <c:if test="${user.state == 0}">
 	    <textarea rows="15" cols="80" readonly>${dialog.contain}</textarea>

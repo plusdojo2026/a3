@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.DialogsDao;
+import dao.UsersDao;
 import dto.Dialogs;
+import dto.Users;
 
 /**
  * Servlet implementation class SelectDiaryServlet
@@ -55,8 +57,11 @@ public class SelectDiaryServlet extends HttpServlet {
 
 		Dialogs dialog = dialogsDao.findById(dialog_id);
 
+		UsersDao usersDao = new UsersDao();
+		Users student = usersDao.findById(dialog.getUserID());
 		// jspに入れる値
 		request.setAttribute("dialog", dialog);
+		request.setAttribute("student", student);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/diary.jsp");
 		dispatcher.forward(request, response);
