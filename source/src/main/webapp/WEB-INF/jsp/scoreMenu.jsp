@@ -32,10 +32,11 @@
 				<h2>点数一覧</h2>
 			</div>
 
-			<div class="area-box">
-
-				<input type="button" value="戻る"
-					onclick="location.href='${pageContext.request.contextPath}/SelectSubjectServlet'">
+			<div class="area-box" style="display:flex;gap:10px">
+    <button type="button"
+            onclick="location.href='${pageContext.request.contextPath}/SelectSubjectServlet'"
+            class="btn-link btn-link-submit">戻る
+    </button>
 				<c:forEach var="s" items="${resultList}">
 					<div class="list-row">
 						<p>名前:${s.username}</p>

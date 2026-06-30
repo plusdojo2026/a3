@@ -31,9 +31,9 @@
 
   <!-- メインコンテンツエリア -->
   <main>
-    <h2>テスト一覧 / 新規作成・削除</h2>
+    <h2>テスト一覧 </h2>
     <p style="margin-bottom: 20px;">
-      <small style="color: #666;">新規作成で件数が増えるため、日付選択は下部へ配置</small>
+      <small style="color: #666;"></small>
     </p>
 
     <!-- 科目選択＆操作カード -->
@@ -61,7 +61,14 @@
       
       <div style="display:flex;gap:10px">
       	<button type="submit">点数一覧を表示</button>
-      	<a href="${pageContext.request.contextPath}/AddTestsServlet" class="btn-link btn-link-submit">新規作成</a>
+    <c:if test="${user.state == 0}">
+    <button type="button"
+            onclick="location.href='${pageContext.request.contextPath}/AddTestsServlet'"
+            class="btn-link btn-link-submit">新規作成
+    </button>
+</c:if>
+
+
       </div>
       </form>
       </div>

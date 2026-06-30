@@ -56,3 +56,164 @@
   background-color: #ffffff;
   resize: none;
 }
+
+/* 写真・名前 */
+main.main .diary-profile {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  margin: 0 0 28px;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+}
+
+main.main .diary-profile img {
+  width: 100px;
+  height: 125px;
+  object-fit: cover;
+}
+
+main.main .diary-profile h2 {
+  margin: 0;
+  color: #111;
+}
+
+
+/* formを他ページと同じピンク枠にする */
+main.main > form {
+  width: 100%;
+  max-width: none;
+
+  margin: 0 0 32px;
+  padding: 34px;
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+}
+
+
+/* 日記一覧：2列表示 */
+main.main > form[action*="DeleteDialogsServlet"] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 22px 36px;
+}
+
+/* 写真・名前は1行全部使う */
+main.main > form[action*="DeleteDialogsServlet"] .diary-profile {
+  grid-column: 1 / -1;
+}
+
+/* 日記がない時のメッセージ */
+main.main > form[action*="DeleteDialogsServlet"] > p {
+  grid-column: 1 / -1;
+}
+
+/* 日記一覧の1件分 */
+main.main > form[action*="DeleteDialogsServlet"] > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0;
+}
+
+/* 不要な改行を消す */
+main.main > form br {
+  display: none;
+}
+
+/* ラジオボタン */
+main.main input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green-light);
+}
+
+/* 削除ボタンは下で1行全部使う */
+main.main > form[action*="DeleteDialogsServlet"] > button[type="submit"] {
+  grid-column: 1 / -1;
+  width: fit-content;
+
+  background-color: var(--pink);
+}
+
+
+/* 日付入力 */
+main.main input[type="date"],
+main.main input.w120 {
+  width: 260px;
+  height: 38px;
+
+  display: block;
+
+  padding: 6px 12px;
+  margin-bottom: 14px;
+
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  background: #fff;
+
+  font-size: 16px;
+}
+
+
+/* textareaはcommon.cssにないので日記側で指定 */
+main.main textarea {
+  width: 100%;
+  min-height: 220px;
+
+  display: block;
+
+  padding: 16px 20px;
+  margin-bottom: 14px;
+
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: #fff;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  resize: vertical;
+  outline: none;
+}
+
+main.main textarea:focus {
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 2px rgba(68, 194, 168, 0.15);
+}
+
+
+/* 日付表示 */
+main.main form p {
+  margin-bottom: 14px;
+
+  color: var(--green);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+/* 教師閲覧だけの場合のtextarea */
+main.main > textarea {
+  width: 100%;
+  max-width: none;
+
+  margin: 0 0 22px;
+}
+
+
+/* 一覧へ戻るボタンの位置 */
+main.main > a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+main.main > a button {
+  margin-top: 6px;
+}
