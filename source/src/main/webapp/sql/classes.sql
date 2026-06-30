@@ -13,7 +13,7 @@ USE `a3`;
 -- ├─ user_id         : ユーザーID(外部キー,users)
 -- └─ class_name              : クラス名
 -- ======================================
-CREATE TABLE `a3`.`classes` (
+CREATE TABLE if not exists `a3`.`classes` (
   `class_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `class_name` VARCHAR(200) NOT NULL,

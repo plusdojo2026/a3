@@ -1,4 +1,4 @@
-CREATE TABLE `schedules`(
+CREATE TABLE if not exists `schedules`(
   `schedule_id` INT PRIMARY KEY AUTO_INCREMENT,
   `date` DATE,
   `subject` VARCHAR(10),

@@ -1,3 +1,5 @@
+
+drop database if exists `a3`;
 create database if not exists `a3`;
 
 use `a3`;

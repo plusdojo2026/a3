@@ -4,7 +4,7 @@ CREATE database if not exists a3;
 USE a3;
 
 -- testsテーブル
-CREATE TABLE `a3`.`tests` (
+CREATE TABLE  if not exists `a3`.`tests` (
   `test_id` INT AUTO_INCREMENT,
   `scores_id` INT,
   `test_date` DATE,
